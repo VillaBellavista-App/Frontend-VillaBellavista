@@ -84,13 +84,16 @@ section{
   text-decoration: none;
   color: var(--second-color);
 }
+.text-three .su:hover{
+  color: var(--extra-color);
+}
 span{
   color: var(--second-color);
 }
 .input-box{
   width: 35%;
   height: 40px;
-  margin: 30px 0;
+  margin: 25px 0;
   position: relative;
 }
 .input-box input{
@@ -102,7 +105,7 @@ span{
   border-radius: 15px;
   color: var(--text-color);
   font-size: var(--p-font);
-  padding: 5px 40px 5px 15px;
+  padding: 12px 40px 0px 15px;
 }
 
 input[type="text"].username:focus {
@@ -142,4 +145,29 @@ input[type="password"].password:focus {
 .btn:hover{
   background: var(--extra-color);
   box-shadow:var(--extra-color);
+}
+
+.input-box label{
+  position: absolute;
+  left: 1rem;
+  bottom: 0;
+  height: 100%;
+  width: 100%;
+  pointer-events: none;
+}
+.text-input{
+  position: absolute;
+  bottom: 5px;
+  left: 0;
+  transition: all 0.3s ease;
+  color: var(--extra-color);
+}
+.input-box input:focus + .lbl-input .text-input,
+.input-box input:valid + .lbl-input .text-input{
+  transform: translateY(-65%);
+  font-size: 11px;
+  color: var(--second-color);
+}
+.input-box input:not(:focus) + .lbl-input .text-input{
+  color: var(--extra-color);
 }
