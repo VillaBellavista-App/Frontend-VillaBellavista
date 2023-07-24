@@ -8,6 +8,8 @@ import {CommonModule} from "@angular/common";
 import {ReactiveFormsModule} from "@angular/forms";
 import {MatProgressBarModule} from "@angular/material/progress-bar";
 import {LoginComponent} from "./login.component";
+import {MatToolbarModule} from "@angular/material/toolbar";
+import {MatIconModule} from "@angular/material/icon";
 
 const loginRoutes: Route[] = [
   {
@@ -20,16 +22,18 @@ const loginRoutes: Route[] = [
   declarations: [
     LoginComponent,
   ],
-  imports: [
-    RouterModule.forChild(loginRoutes),
-    MatCardModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-    CommonModule,
-    ReactiveFormsModule,
-    MatProgressBarModule,
-  ]
+    imports: [
+        RouterModule.forChild(loginRoutes),
+        MatCardModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatButtonModule,
+        CommonModule,
+        ReactiveFormsModule,
+        MatProgressBarModule,
+        MatToolbarModule,
+        MatIconModule,
+    ]
 })
 
 export class LoginModule

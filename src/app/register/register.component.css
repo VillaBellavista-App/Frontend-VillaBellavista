@@ -1,0 +1,175 @@
+::ng-deep :root{
+  --main-color: #282A37;
+  --text-color: #fff;
+  --other-color: #575965;
+  --extra-color: #959494;
+  --second-color: #228CE8;
+  --bg-color: #3f414e;
+
+  --big-font: 3.3rem;
+  --h2-font: 1.2rem;
+  --p-font: 1rem;
+  --p2-font: 0.8rem;
+}
+body{
+  background: linear-gradient(45deg, #282A37 28.50%, rgba(40, 42, 55, 0.97) 61.31%, rgba(40, 42, 55, 0.69) 100%),url("./c3.jpg"), lightgray 50% / cover no-repeat;
+  color: var(--text-color);
+  height: auto;
+}
+/* Header section */
+header{
+  position: static;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  background: transparent;
+  padding: 25px 7%;
+}
+.logo{
+  display: flex;
+  align-items: center;
+  color: var(--text-color);
+  font-size: 19px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.2rem;
+  margin: 0 40px;
+}
+.logo i{
+  vertical-align: middle;
+  margin-right: 8px;
+  color: var(--second-color);
+
+}
+.nav-list{
+  display: flex;
+}
+.nav-list li{
+  list-style: none;
+}
+.nav-list a{
+  text-decoration: none;
+  color: var(--extra-color);
+  font-size: var(--h2-font);
+  font-weight: 500;
+  margin: 0 45px;
+}
+.nav-list a:hover{
+  color: var(--second-color);
+}
+/* Propio del register section */
+section{
+  padding: 70px 12% 60px;
+}
+.text-one{
+  font-size: var(--h2-font);
+  font-weight: 400;
+  text-transform: uppercase;
+  margin-top: 2rem;
+  margin-bottom: 1.8rem;
+  letter-spacing: 0.1rem;
+}
+.text-two{
+  font-size: var(--big-font);
+  font-weight: 700;
+  letter-spacing: 0.1rem;
+  margin-bottom: 1.5rem;
+}
+.text-three{
+  font-size: var(--h2-font);
+  font-weight: 400;
+  margin-bottom: 3rem;
+  letter-spacing: 0.1rem;
+}
+.text-three a{
+  text-decoration: none;
+  color: var(--second-color);
+}
+span{
+  color: var(--second-color);
+}
+
+.input-box2{
+  width: 15%;
+  height: 40px;
+  margin: 30px 0;
+  position: relative;
+}
+.input-box2 input{
+  width: 100%;
+  height: 100%;
+  background: var(--bg-color);
+  border: none;
+  outline: none;
+  border-radius: 15px;
+  color: var(--text-color);
+  font-size: var(--p-font);
+  padding: 5px 40px 5px 15px;
+}
+.input-box2 i{
+  position: absolute;
+  right: 20px;
+  top:40%;
+  transform: translateY(-50%);
+  transform: translateX(+300%);
+  font-size: 20px;
+}
+.input-box{
+  width: 35%;
+  height: 40px;
+  margin: 30px 0;
+  position: relative;
+}
+.input-box input{
+  width: 100%;
+  height: 100%;
+  background: var(--bg-color);
+  border: none;
+  outline: none;
+  border-radius: 15px;
+  color: var(--text-color);
+  font-size: var(--p-font);
+  padding: 5px 40px 5px 15px;
+}
+input[type="text"].name:focus {
+  border: 2px solid var(--second-color);
+}
+input[type="text"].username:focus {
+  border: 2px solid var(--second-color);
+}
+input[type="password"].password:focus {
+  border: 2px solid var(--second-color);
+}
+
+.input-box i{
+  position: absolute;
+  right: 20px;
+  top:40%;
+  transform: translateY(-50%);
+  transform: translateX(+300%);
+  font-size: 20px;
+}
+.btn-box{
+  margin-top: 3.5rem;
+  text-align: start;
+  width: 50%;
+}
+.btn{
+  text-align: center;
+  min-width: 11rem;
+  margin-right: 20px;
+  text-decoration: none;
+  display: inline-block;
+  padding: 13px 25px;
+  background: var(--second-color);
+  color: var(--text-color);
+  font-size: var(--p-font);
+  font-weight: 400;
+  letter-spacing: 1px;
+  border-radius: 3rem;
+}
+.btn:hover{
+  background: var(--extra-color);
+  box-shadow:var(--extra-color);
+}
+

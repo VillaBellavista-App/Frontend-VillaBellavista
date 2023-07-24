@@ -1,1 +1,49 @@
-<p>register works!</p>
+<head>
+  <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <!--Google Fonts-->
+</head>
+<body>
+<header>
+  <a class="logo"><i class='bx bxs-circle'></i>Bellavista</a>
+  <ul class="nav-list">
+    <li><a [routerLink]="'/login'">Home</a></li>
+    <li><a [routerLink]="'/register'">Join</a></li>
+  </ul>
+</header>
+<section class="home" id="home">
+  <div class="home-text">
+    <div class="text-one">Start for free</div>
+    <div class="text-two"><br> Create new account<span>.</span></div>
+    <div class="text-three"><br> Already a member? <span><a [routerLink]="'/login'">Login</a></span><br></div>
+    <!-- voy a intentar hacer esta parte de los input con el angular material, pero ta cagado :u -->
+    <div class="together">
+    <div class="input-box2">
+      <input class="name" type="text" placeholder="First Name" required>
+      <i class='bx bxs-user'></i>
+    </div>
+    <div class="input-box2">
+      <input class="name" type="text" placeholder="Last Name" required>
+      <i class='bx bxs-user'></i>
+    </div>
+    </div>
+    <div class="input-box">
+      <input class="username" type="text" placeholder="Email" required>
+      <i class='bx bxs-envelope'></i>
+    </div>
+    <div class="input-box">
+      <input class="password" type="password" placeholder="Password" required>
+      <i class='bx bxs-lock-alt'></i>
+    </div>
+    <div class="btn-box">
+      <a  [routerLink]="''" class="btn">Change method</a>
+      <a  [routerLink]="''" class="btn">Login account</a>
+    </div>
+  </div>
+</section>
+
+</body>
+
+<!-- PD: aparte de las posdatas del anterior componente, bueno aqui falta agregar el
+ lastname y ponerlos en un solo div para que esten alado, mas tarde lo hago ;) -->
+<!-- PD2:  VAMOOOOOS KRUUUUUUUUUUUUUUUUU-->
