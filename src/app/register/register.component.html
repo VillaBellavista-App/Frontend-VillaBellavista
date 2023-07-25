@@ -16,24 +16,36 @@
     <div class="text-one">Start for free</div>
     <div class="text-two"><br> Create new account<span>.</span></div>
     <div class="text-three"><br> Already a member? <span><a [routerLink]="'/login'">Login</a></span><br></div>
-    <!-- voy a intentar hacer esta parte de los input con el angular material, pero ta cagado :u -->
+
     <div class="together">
     <div class="input-box2">
-      <input class="name" type="text" placeholder="First Name" required>
+      <input class="name" type="text" required>
+      <label class="lbl-input">
+        <span class="text-input">First Name</span>
+      </label>
       <i class='bx bxs-user'></i>
     </div>
     <div class="input-box2">
-      <input class="name" type="text" placeholder="Last Name" required>
+      <input class="name" type="text" required>
+      <label class="lbl-input">
+        <span class="text-input">Last Name</span>
+      </label>
       <i class='bx bxs-user'></i>
     </div>
     </div>
     <div class="input-box">
-      <input class="username" type="text" placeholder="Email" required>
+      <input class="username" type="text" required>
+      <label class="lbl-input">
+        <span class="text-input">Email</span>
+      </label>
       <i class='bx bxs-envelope'></i>
     </div>
     <div class="input-box">
-      <input class="password" type="password" placeholder="Password" required>
-      <i class='bx bxs-lock-alt'></i>
+      <input class="password" id="password" type="password" required>
+      <label class="lbl-input">
+        <span class="text-input">Password</span>
+      </label>
+      <i class='bx bxs-lock-alt' id="lock" (click)="togglePasswordVisibility()"></i>
     </div>
     <div class="btn-box">
       <a  [routerLink]="''" class="btn">Change method</a>

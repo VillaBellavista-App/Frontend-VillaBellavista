@@ -15,6 +15,7 @@ body{
   background: linear-gradient(45deg, #282A37 28.50%, rgba(40, 42, 55, 0.97) 61.31%, rgba(40, 42, 55, 0.69) 100%),url("./c3.jpg"), lightgray 50% / cover no-repeat;
   color: var(--text-color);
   height: auto;
+  min-height: 100%;
 }
 /* Header section */
 header{
@@ -89,22 +90,16 @@ span{
   color: var(--second-color);
 }
 
-.input-box2{
-  width: 15%;
-  height: 40px;
-  margin: 30px 0;
-  position: relative;
+.together{
+  width: 35%;
+  display: flex;
+  justify-content: space-between;
 }
-.input-box2 input{
-  width: 100%;
-  height: 100%;
-  background: var(--bg-color);
-  border: none;
-  outline: none;
-  border-radius: 15px;
-  color: var(--text-color);
-  font-size: var(--p-font);
-  padding: 5px 40px 5px 15px;
+
+.input-box2{
+  width: 40%;
+  height: 40px;
+  position: relative;
 }
 .input-box2 i{
   position: absolute;
@@ -120,7 +115,7 @@ span{
   margin: 30px 0;
   position: relative;
 }
-.input-box input{
+input{
   width: 100%;
   height: 100%;
   background: var(--bg-color);
@@ -129,7 +124,7 @@ span{
   border-radius: 15px;
   color: var(--text-color);
   font-size: var(--p-font);
-  padding: 5px 40px 5px 15px;
+  padding: 12px 40px 0px 15px;
 }
 input[type="text"].name:focus {
   border: 2px solid var(--second-color);
@@ -138,6 +133,9 @@ input[type="text"].username:focus {
   border: 2px solid var(--second-color);
 }
 input[type="password"].password:focus {
+  border: 2px solid var(--second-color);
+}
+input[type="text"].password:focus {
   border: 2px solid var(--second-color);
 }
 
@@ -172,4 +170,45 @@ input[type="password"].password:focus {
   background: var(--extra-color);
   box-shadow:var(--extra-color);
 }
+.input-box label{
+  position: absolute;
+  left: 1rem;
+  bottom: 0;
+  height: 100%;
+  width: 100%;
+  pointer-events: none;
+}
+.input-box2 label{
+  position: absolute;
+  left: 1rem;
+  bottom: 0;
+  height: 100%;
+  width: 100%;
+  pointer-events: none;
+}
+.text-input{
+  position: absolute;
+  bottom: 5px;
+  left: 0;
+  transition: all 0.3s ease;
+  color: var(--extra-color);
+}
+.input-box input:focus + .lbl-input .text-input,
+.input-box input:valid + .lbl-input .text-input{
+  transform: translateY(-65%);
+  font-size: 11px;
+  color: var(--second-color);
+}
+.input-box input:not(:focus) + .lbl-input .text-input{
+  color: var(--extra-color);
+}
 
+.input-box2 input:focus + .lbl-input .text-input,
+.input-box2 input:valid + .lbl-input .text-input{
+  transform: translateY(-65%);
+  font-size: 11px;
+  color: var(--second-color);
+}
+.input-box2 input:not(:focus) + .lbl-input .text-input{
+  color: var(--extra-color);
+}
