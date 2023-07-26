@@ -49,7 +49,9 @@ export class UserService {
         catchError(this.handleError));
   }
 
-  create(user: ɵTypedOrUntyped<{ password: FormControl<string | null>; username: FormControl<string | null> }, ɵFormGroupValue<{ password: FormControl<string | null>; username: FormControl<string | null> }>, any>): Observable<User> {
+  create(user: ɵTypedOrUntyped<{user_nombre: FormControl<string | null>; user_apellidos: FormControl<string | null>; user_email: FormControl<string | null>; user_password: FormControl<string | null> }, 
+    ɵFormGroupValue<{user_nombre: FormControl<string | null>; user_apellidos: FormControl<string | null>; user_email: FormControl<string | null>; user_password: FormControl<string | null>  }>, any>): 
+    Observable<User> {
     return this.http.post<User>(`${this.basePath}/create`, JSON.stringify(user), this.httpOptions)
       .pipe(
         retry(2),

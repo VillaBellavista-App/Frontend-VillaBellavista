@@ -46,7 +46,7 @@ export class LoginComponent implements AfterViewInit {
         (response) => {
           // local storage
           localStorage.setItem('id', String(response.id));
-          localStorage.setItem('name', response.name);
+          //localStorage.setItem('name', response.name);
 
           console.log('LOGIN SUCCESSFUL');
 
