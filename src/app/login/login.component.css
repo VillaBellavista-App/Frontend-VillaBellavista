@@ -11,6 +11,12 @@
   --p-font: 1rem;
   --p2-font: 0.8rem;
 }
+body, html {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden; /* Evita el desplazamiento vertical */
+}
 body{
   background: linear-gradient(45deg, #282A37 28.50%, rgba(40, 42, 55, 0.97) 60%, rgba(40, 42, 55, 0.69) 95%),url("./c3.jpg"), lightgray 50% / cover no-repeat;
   color: var(--text-color);
@@ -18,13 +24,19 @@ body{
 }
 /* Header section */
 header{
-  position: static;
+  position: fixed;
   display: flex;
   align-items: center;
   justify-content: flex-start;
   background: transparent;
-  padding: 25px 7%;
+  padding: 25px 7% 0px;
 }
+.home {
+  display: flex;
+  align-items: center;
+  height: 100%; /* Ajusta el alto para ocupar el 100% del contenedor directo */
+}
+
 .logo{
   display: flex;
   align-items: center;
@@ -59,13 +71,12 @@ header{
 }
 /* Propio del login section */
 section{
-  padding: 70px 12% 60px;
+  padding: 0px 12% 60px;
 }
 .text-one{
   font-size: var(--h2-font);
   font-weight: 400;
   text-transform: uppercase;
-  margin-top: 2rem;
   margin-bottom: 1.8rem;
   letter-spacing: 0.1rem;
 }
@@ -91,7 +102,7 @@ span{
   color: var(--second-color);
 }
 .input-box{
-  width: 35%;
+  width: 70%;
   height: 40px;
   margin: 25px 0;
   position: relative;
@@ -128,8 +139,9 @@ input[type="text"].password:focus {
 }
 .btn-box{
   margin-top: 3rem;
+  margin-bottom: 2rem;
   text-align: center;
-  width: 42%;
+  width: 75%;
 }
 .btn{
   text-align: center;
@@ -174,3 +186,160 @@ input[type="text"].password:focus {
 .input-box input:not(:focus) + .lbl-input .text-input{
   color: var(--extra-color);
 }
+
+@media (max-width: 1350px) {
+  header {
+    padding: 22px 4%;
+  }
+
+  section {
+    padding: 50px 10% 40px;
+  }
+}
+/* Media queries
+--big-font: 3.3rem;
+  --h2-font: 1.2rem;
+  --p-font: 1rem;
+  --p2-font: 0.8rem;
+*/
+
+@media (max-width: 1060px) {
+  ::ng-deep:root {
+    --big-font: 3rem;
+    --h2-font: 1rem;
+  }
+  .text-one{
+    margin-bottom: 1rem;
+  }
+  .text-two {
+    margin-bottom: 1rem;
+  }
+  .text-three {
+    margin-bottom: 2rem;
+  }
+  .input-box {
+    width: 65%;
+  }
+  .btn-box{
+    margin-top: 2rem;
+    width: 75%;
+  }
+}
+@media (max-width: 860px) {
+  ::ng-deep:root {
+    --big-font: 2.7rem;
+    --h2-font: 0.9rem;
+  }
+  .text-one{
+    margin-bottom: 0.8rem;
+  }
+  .text-two {
+    margin-bottom: 0.8rem;
+  }
+  .text-three {
+    margin-bottom: 1.5rem;
+  }
+  .input-box {
+    width: 80%;
+  }
+  .btn-box{
+    width: 90%;
+    margin-bottom: 5rem;
+  }
+}
+
+@media (max-width: 625px) {
+  ::ng-deep:root {
+    --big-font: 2.5rem;
+    --h2-font: 0.8rem;
+    --p-font: 0.8rem;
+  }
+  .input-box {
+    width: 90%;
+  }
+  .btn-box{
+    width: 100%;
+    margin-bottom: 5rem;
+  }
+}
+@media (max-width: 575px) {
+  header{
+    padding: 25px 4% 0px;
+    width: 100%;
+  }
+  .logo{
+    margin: 0 5%;
+    font-size: 0.85rem;
+    letter-spacing: 0.08rem;
+  }
+  .nav-list a{
+    font-size: 0.9rem;
+    margin-left: 8%;
+  }
+  .input-box {
+    width: 85%;
+  }
+  .btn-box{
+    width: 100%;
+    margin-bottom: 5rem;
+  }
+  .text-one{
+    margin-bottom: 0px;
+  }
+  .text-two a{
+    line-height: 1;
+    font-size: 2.3rem;
+  }
+
+}
+
+/*
+@media (max-width: 1045px){
+  ::ng-deep:root{
+    --big-font: 2.8rem;
+    --h2-font: 1.2rem;
+  }
+  .home{
+    height: 65vh;
+  }
+  section {
+    padding: 50px 10% 40px;
+  }
+}
+@media (max-width: 860px){
+  ::ng-deep:root{
+    --big-font: 3rem;
+    --h2-font: 1.5rem;
+    --p-font: 1.3rem;
+  }
+  .text-one{
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+  .text-two{
+    margin-bottom: 1rem;
+  }
+  .text-three{
+    margin-bottom: 2.5rem;
+  }
+  .input-box{
+    width: 60%;
+  }
+  .btn-box{
+    margin-top: 2rem;
+    width: 70%;
+  }
+  .home{
+    height: auto;
+    padding-top: 10rem;
+  }
+  section {
+    padding: 50px 10% 40px;
+  }
+}
+@media (max-width: 690px){
+
+}
+
+ */
+/*padding: 70px 12% 60px;*/
