@@ -11,17 +11,20 @@
   --p-font: 1rem;
   --p2-font: 0.8rem;
 }
+
 body, html {
   height: 100%;
   margin: 0;
   padding: 0;
   overflow: hidden; /* Evita el desplazamiento vertical */
 }
+
 body{
   background: linear-gradient(45deg, #282A37 28.50%, rgba(40, 42, 55, 0.97) 60%, rgba(40, 42, 55, 0.69) 95%),url("./c3.jpg"), lightgray 50% / cover no-repeat;
   color: var(--text-color);
   font-family: 'Poppins', sans-serif;
 }
+
 /* Header section */
 header{
   position: fixed;
@@ -36,6 +39,7 @@ header{
   display: flex;
   align-items: center;
   height: 100%; /* Ajusta el alto para ocupar el 100% del contenedor directo */
+  padding-top: 20px;
 }
 
 .logo{
