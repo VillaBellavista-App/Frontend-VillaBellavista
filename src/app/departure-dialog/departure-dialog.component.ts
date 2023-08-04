@@ -1,22 +1,23 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Departure } from '../departures/departures.component';
+import { Ticket } from '../models/ticket';
 
 @Component({
   selector: 'app-departure-dialog',
   templateUrl: './departure-dialog.component.html',
   styleUrls: ['./departure-dialog.component.css']
 })
+
 export class DepartureDialogComponent implements OnInit {
-  editedDeparture: Departure;
+  editedDeparture: Ticket;
   isEditMode: boolean;
 
   constructor(
     public dialogRef: MatDialogRef<DepartureDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: Departure
+    @Inject(MAT_DIALOG_DATA) public data: Ticket
   ) {
     this.isEditMode = !!data; // Si data tiene valor, estamos en modo edición
-    this.editedDeparture = this.isEditMode ? { ...data } : {} as Departure;
+    this.editedDeparture = this.isEditMode ? { ...data } : {} as Ticket;
   }
 
   ngOnInit(): void {}

@@ -38,8 +38,8 @@ export class TicketService {
     return throwError(() => new Error('Something happened with request, please try again later'));
   }
 
-  getAll(): Observable<Ticket> {
-    return this.http.get<Ticket>(`${this.basePath}/list`, this.httpOptions)
+  getAll(): Observable<Ticket[]> {
+    return this.http.get<Ticket[]>(`${this.basePath}/list`, this.httpOptions);
   }
 
   create(user: ɵTypedOrUntyped<{user_nombre: FormControl<string | null>; user_apellidos: FormControl<string | null>; user_email: FormControl<string | null>; user_password: FormControl<string | null> }, 
