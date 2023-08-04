@@ -13,7 +13,7 @@ import {Ticket} from '../models/ticket';
 })
 
 export class DeparturesComponent implements OnInit {
-  displayedColumns: string[] = [ 'tic_placa', 'tic_hora', 'tic_destino', 'tic_categoria', 'tarifa_quantity', 'actions'];
+  displayedColumns: string[] = [ 'tic_placa','tic_hora', 'tic_destino', 'tic_categoria', 'tarifa_quantity', 'actions'];
   dataSource = [] as Ticket[];
   tabContentsVisibility: boolean[] = [true, false];
 
