@@ -41,4 +41,7 @@ export class OwnerService {
     return this.http.get<Owner[]>(`${this.basePath}/list`, this.httpOptions);
   }
 
+  createOwner(owner: Owner): Observable<any> {
+    return this.http.post<any>(`${this.basePath}/create`, owner, this.httpOptions);
+  }
 }   

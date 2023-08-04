@@ -1,7 +1,7 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import { Owner } from '../models/owner';
-
+import { OwnerService } from '../services/owner.service';
 
 @Component({
   selector: 'app-driver-dialog',
@@ -13,9 +13,7 @@ export class DriverDialogComponent implements OnInit{
   isEditMode: boolean;
 
   constructor(
-    public dialogRef: MatDialogRef<DriverDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: Owner
-  ) {
+    public dialogRef: MatDialogRef<DriverDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: Owner, private ownerService: OwnerService) {
     this.isEditMode = !!data; // Si data tiene valor, estamos en modo edición
     this.editedDriver = this.isEditMode ? { ...data } : {} as Owner;
   }
@@ -23,8 +21,23 @@ export class DriverDialogComponent implements OnInit{
   ngOnInit(): void {}
 
   onSave(): void {
-    // Puedes realizar validaciones y lógica antes de cerrar el diálogo
+
     this.dialogRef.close(this.editedDriver); // Devolvemos el Departure editado
+    
+    this.dialogRef.afterClosed().subscribe((result: Owner) => {
+      if (result) {
+        this.ownerService.createOwner(result).subscribe(
+          response => {
+            console.log('Solicitud POST exitosa:', response);
+          },
+          error => {
+            console.error('Error en la solicitud POST:', error);
+          }
+        );
+      } else {
+        console.log('Diálogo cerrado sin guardar.');
+      }
+    });
   }
 
   onCancel(): void {
