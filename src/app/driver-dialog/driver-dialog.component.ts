@@ -1,6 +1,6 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
-import { Driver } from '../drivers/drivers.component';
+import { Owner } from '../models/owner';
 
 
 @Component({
@@ -9,15 +9,15 @@ import { Driver } from '../drivers/drivers.component';
   styleUrls: ['./driver-dialog.component.css']
 })
 export class DriverDialogComponent implements OnInit{
-  editedDriver: Driver;
+  editedDriver: Owner;
   isEditMode: boolean;
 
   constructor(
     public dialogRef: MatDialogRef<DriverDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: Driver
+    @Inject(MAT_DIALOG_DATA) public data: Owner
   ) {
     this.isEditMode = !!data; // Si data tiene valor, estamos en modo edición
-    this.editedDriver = this.isEditMode ? { ...data } : {} as Driver;
+    this.editedDriver = this.isEditMode ? { ...data } : {} as Owner;
   }
 
   ngOnInit(): void {}

@@ -3,7 +3,7 @@ import {MatPaginator, MatPaginatorIntl} from "@angular/material/paginator";
 import {MatDialog} from "@angular/material/dialog";
 import {VehicleDialogComponent} from "../vehicle-dialog/vehicle-dialog.component";
 import {Vehicule} from "../models/vehicule";
-import { VehiculesService } from '../services/vehicules.service';
+import {VehiculesService} from '../services/vehicules.service';
 
 @Component({
   selector: 'app-vehicles',

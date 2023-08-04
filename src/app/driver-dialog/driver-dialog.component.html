@@ -5,36 +5,21 @@
 <div mat-dialog-content class="input-container" style="font-family: 'Poppins', sans-serif; font-size: 0.8rem;">
   <div class="input-row">
     <p>Nombres:</p>
-    <input [(ngModel)]="editedDriver.name_lastname" />
+    <input [(ngModel)]="editedDriver.prop_nombre" />
   </div>
   <div class="input-row">
     <p>N° licencia:</p>
-    <input [(ngModel)]="editedDriver.n_licencia" />
+    <input [(ngModel)]="editedDriver.prop_licencia" />
   </div>
   <div class="input-row">
-    <p>Clase:</p>
-    <input [(ngModel)]="editedDriver.class" />
+    <p>Categoria:</p>
+    <input [(ngModel)]="editedDriver.prop_categoria" />
   </div>
   <div class="input-row">
     <p>Fecha Revalt.:</p>
-    <input [(ngModel)]="editedDriver.revalt_date" />
+    <input [(ngModel)]="editedDriver.prop_fecha_revalidacion" />
   </div>
-  <div class="input-row">
-    <p>Domicilio:</p>
-    <input [(ngModel)]="editedDriver.address_driver" />
-  </div>
-  <div class="input-row">
-    <p>Estado actual:</p>
-    <input [(ngModel)]="editedDriver.actual_state" />
-  </div>
-  <div class="input-row">
-    <p>Placa vehiculo:</p>
-    <input [(ngModel)]="editedDriver.plate" />
-  </div>
-  <div class="input-row">
-    <p>N° telefono:</p>
-    <input [(ngModel)]="editedDriver.cellphone" />
-  </div>
+  
 </div>
 <div class="button-container">
   <div class="button-wrapper" fxLayout="row" fxLayoutAlign="center center">
