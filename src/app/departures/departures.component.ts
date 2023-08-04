@@ -1,7 +1,10 @@
 import {Component, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
 import {MatDialog} from "@angular/material/dialog";
 import {DepartureDialogComponent} from "../departure-dialog/departure-dialog.component";
-import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
+import {MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
+import {TicketService } from '../services/ticket.service';
+import {Ticket} from '../models/ticket';
+
 export interface Departure{
   n_plate: string;
   driver_name: string;
@@ -11,14 +14,14 @@ export interface Departure{
   amount: number
 }
 
-const DEPARTURE_DATA: Departure[] = [
-  { n_plate: 'BKT-167', driver_name: 'KENJI MOZOMBITE TAPIA', exit_time: 17.50,destination: 'CONSUELO', categorie: 'AUTOMOVIL', amount: 6.00},
-  { n_plate: 'BKT-167', driver_name: 'KENJI MOZOMBITE TAPIA', exit_time: 17.50,destination: 'CONSUELO', categorie: 'AUTOMOVIL', amount: 6.00},
-  { n_plate: 'BKT-167', driver_name: 'KENJI MOZOMBITE TAPIA', exit_time: 17.50,destination: 'CONSUELO', categorie: 'AUTOMOVIL', amount: 6.00},
-  { n_plate: 'BKT-167', driver_name: 'KENJI MOZOMBITE TAPIA', exit_time: 17.50,destination: 'CONSUELO', categorie: 'AUTOMOVIL', amount: 6.00},
-  { n_plate: 'BKT-167', driver_name: 'KENJI MOZOMBITE TAPIA', exit_time: 17.50,destination: 'CONSUELO', categorie: 'AUTOMOVIL', amount: 6.00},
-  { n_plate: 'BKT-167', driver_name: 'KENJI MOZOMBITE TAPIA', exit_time: 17.50,destination: 'CONSUELO', categorie: 'AUTOMOVIL', amount: 6.00},
-];
+// const DEPARTURE_DATA: Departure[] = [
+//   { n_plate: 'BKT-167', driver_name: 'KENJI MOZOMBITE TAPIA', exit_time: 17.50,destination: 'CONSUELO', categorie: 'AUTOMOVIL', amount: 6.00},
+//   { n_plate: 'BKT-167', driver_name: 'KENJI MOZOMBITE TAPIA', exit_time: 17.50,destination: 'CONSUELO', categorie: 'AUTOMOVIL', amount: 6.00},
+//   { n_plate: 'BKT-167', driver_name: 'KENJI MOZOMBITE TAPIA', exit_time: 17.50,destination: 'CONSUELO', categorie: 'AUTOMOVIL', amount: 6.00},
+//   { n_plate: 'BKT-167', driver_name: 'KENJI MOZOMBITE TAPIA', exit_time: 17.50,destination: 'CONSUELO', categorie: 'AUTOMOVIL', amount: 6.00},
+//   { n_plate: 'BKT-167', driver_name: 'KENJI MOZOMBITE TAPIA', exit_time: 17.50,destination: 'CONSUELO', categorie: 'AUTOMOVIL', amount: 6.00},
+//   { n_plate: 'BKT-167', driver_name: 'KENJI MOZOMBITE TAPIA', exit_time: 17.50,destination: 'CONSUELO', categorie: 'AUTOMOVIL', amount: 6.00},
+// ];
 
 @Component({
   selector: 'app-departures',
@@ -26,19 +29,28 @@ const DEPARTURE_DATA: Departure[] = [
   styleUrls: ['./departures.component.css'],
   encapsulation: ViewEncapsulation.None
 })
+
 export class DeparturesComponent implements OnInit {
-  displayedColumns: string[] = [ 'n_plate', 'driver_name', 'exit_time', 'destination', 'categorie', 'amount', 'actions'];
-  dataSource = DEPARTURE_DATA;
+  displayedColumns: string[] = [ 'tic_placa', 'tic_hora', 'tic_destino', 'tic_categoria', 'tarifa_quantity', 'actions'];
+
+  dataSource = [] as Ticket[];
+
   // @ts-ignore
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  constructor(private dialog: MatDialog, private paginatorIntl: MatPaginatorIntl) {}
+
+  constructor(private dialog: MatDialog, private paginatorIntl: MatPaginatorIntl, private ticketService: TicketService) {
+  }
+
   ngOnInit(): void {
     console.log('DeparturesComponent ngOnInit');
     // @ts-ignore
     this.dataSource.paginator = this.paginator;
     this.paginatorIntl.itemsPerPageLabel = 'Elementos por página';
+    this.getData();
+    console.log(this.dataSource);
   }
-  openDepartureDialog(departure?: Departure): void {
+
+  openDepartureDialog(departure?: Ticket): void {
     const dialogRef = this.dialog.open(DepartureDialogComponent, {
       data: departure // Si departure está presente, estamos en modo de edición
     });
@@ -61,7 +73,7 @@ export class DeparturesComponent implements OnInit {
     });
   }
 
-  deleteDeparture(departure: Departure): void {
+  deleteDeparture(departure: Ticket): void {
     // Encontrar el índice del departure en el dataSource
     const index = this.dataSource.findIndex(d => d === departure);
 
@@ -71,4 +83,17 @@ export class DeparturesComponent implements OnInit {
       this.dataSource = [...this.dataSource];
     }
   }
+
+  getData(){
+    this.ticketService.getAll().subscribe(
+      (data) => {
+        this.dataSource.push(data);
+        //console.log(this.dataSource);
+      },
+      (error) => {
+        console.log(error);
+      }
+    )
+  }
+
 }

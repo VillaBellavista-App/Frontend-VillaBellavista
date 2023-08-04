@@ -50,7 +50,7 @@ export class LoginComponent implements AfterViewInit {
 
           console.log('LOGIN SUCCESSFUL');
 
-          this.route.navigate(['/register']);
+          this.route.navigate(['/departures']);
           this.isLoading=false;
         },
         (error) => {
