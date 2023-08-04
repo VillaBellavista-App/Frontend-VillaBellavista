@@ -4,23 +4,24 @@ import {AdminLayoutComponent} from "./layouts/admin/admin-layout.component";
 
 export const appRoutes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full'},
+
   {
     path: '',
     children: [{
       path: 'login',
       loadChildren: () => import('src/app/login/login.module').then(m => m.LoginModule)
-    },
-    {
+      },
+      {
         path: 'register',
         loadChildren: () => import('src/app/register/register.module').then(m => m.RegisterModule)
-    }
-  ]
+      }
+    ]
   },
   {
     path: '',
     component: AdminLayoutComponent,
     children: [{
-      path: 'departures',
+      path: 'departures',   
       loadChildren: () => import('src/app/departures/departures.module').then(m => m.DeparturesModule)
     },
       {

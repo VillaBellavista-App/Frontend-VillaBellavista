@@ -1,5 +1,5 @@
 import {Component, Inject} from '@angular/core';
-import {Vehicle} from "../vehicles/vehicles.component";
+import {Vehicule} from "../models/vehicule";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 
 @Component({
@@ -8,15 +8,15 @@ import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
   styleUrls: ['./vehicle-dialog.component.css']
 })
 export class VehicleDialogComponent {
-  editedVehicle: Vehicle;
+  editedVehicle: Vehicule;
   isEditMode: boolean;
 
   constructor(
     public dialogRef: MatDialogRef<VehicleDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: Vehicle
+    @Inject(MAT_DIALOG_DATA) public data: Vehicule
   ) {
     this.isEditMode = !!data; // Si data tiene valor, estamos en modo edición
-    this.editedVehicle = this.isEditMode ? { ...data } : {} as Vehicle;
+    this.editedVehicle = this.isEditMode ? { ...data } : {} as Vehicule;
   }
 
   ngOnInit(): void {}

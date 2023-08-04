@@ -2,47 +2,35 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator, MatPaginatorIntl} from "@angular/material/paginator";
 import {MatDialog} from "@angular/material/dialog";
 import {VehicleDialogComponent} from "../vehicle-dialog/vehicle-dialog.component";
+import {Vehicule} from "../models/vehicule";
+import { VehiculesService } from '../services/vehicules.service';
 
-//placa propietario cat marca modelo añof serie asientos color carroceria motor
-export interface Vehicle{
-  plate: string;
-  owner: string;
-  category: string;
-  brand: string;
-  model: string;
-  year: number;
-  serie: string;
-  seats: number;
-  color: string;
-  bodywork: string;
-  engine: string;
-}
-const VEHICLE_DATA: Vehicle[] = [
-  {plate: 'M3R-300', owner: 'KENJI MOZOMBITE TAPIA', category: 'M1', brand: 'TOYOTA', model: 'YARIS', year: 2019, serie: '123456789', seats: 5, color: 'BLANCO', bodywork: 'SEDAN', engine: '1.5'},
-  {plate: 'M3R-300', owner: 'KENJI MOZOMBITE TAPIA', category: 'M1', brand: 'TOYOTA', model: 'YARIS', year: 2019, serie: '123456789', seats: 5, color: 'BLANCO', bodywork: 'SEDAN', engine: '1.5'},
-  {plate: 'M3R-300', owner: 'KENJI MOZOMBITE TAPIA', category: 'M1', brand: 'TOYOTA', model: 'YARIS', year: 2019, serie: '123456789', seats: 5, color: 'BLANCO', bodywork: 'SEDAN', engine: '1.5'},
-  {plate: 'M3R-300', owner: 'KENJI MOZOMBITE TAPIA', category: 'M1', brand: 'TOYOTA', model: 'YARIS', year: 2019, serie: '123456789', seats: 5, color: 'BLANCO', bodywork: 'SEDAN', engine: '1.5'},
-  {plate: 'M3R-300', owner: 'KENJI MOZOMBITE TAPIA', category: 'M1', brand: 'TOYOTA', model: 'YARIS', year: 2019, serie: '123456789', seats: 5, color: 'BLANCO', bodywork: 'SEDAN', engine: '1.5'},
-  {plate: 'M3R-300', owner: 'KENJI MOZOMBITE TAPIA', category: 'M1', brand: 'TOYOTA', model: 'YARIS', year: 2019, serie: '123456789', seats: 5, color: 'BLANCO', bodywork: 'SEDAN', engine: '1.5'},
-];
 @Component({
   selector: 'app-vehicles',
   templateUrl: './vehicles.component.html',
   styleUrls: ['./vehicles.component.css']
 })
-export class VehiclesComponent implements OnInit{
-  displayedColumns: string[] = [ 'plate', 'owner', 'category', 'brand', 'model', 'year', 'serie', 'seats', 'color', 'bodywork', 'engine', 'actions'];
-  dataSource = VEHICLE_DATA;
+
+export class VehiclesComponent implements OnInit {
+
+  displayedColumns: string[] = [ 'plate', 'owner', 'category', 'brand', 'model', 'year', 'serie', 'seats', 'actions'];
+  
+  dataSource = [] as Vehicule[];
+
   // @ts-ignore
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  constructor(private dialog: MatDialog, private paginatorIntl: MatPaginatorIntl) {}
+
+  constructor(private dialog: MatDialog, private paginatorIntl: MatPaginatorIntl, private vehiculeService: VehiculesService) {}
+
   ngOnInit(): void {
     console.log('DriversComponent ngOnInit');
     // @ts-ignore
     this.dataSource.paginator = this.paginator;
     this.paginatorIntl.itemsPerPageLabel = 'Elementos por página';
+    this.getData();
   }
-  openVehicleDialog(vehicle?: Vehicle): void {
+
+  openVehicleDialog(vehicle?: Vehicule): void {
     const dialogRef = this.dialog.open( VehicleDialogComponent, {
       data: vehicle // Si vehicle está presente, estamos en modo de edición
     });
@@ -64,7 +52,7 @@ export class VehiclesComponent implements OnInit{
       }
     });
   }
-  deleteVehicle(vehicle: Vehicle): void {
+  deleteVehicle(vehicle: Vehicule): void {
     // Encontrar el índice del vehicle en el dataSource
     const index = this.dataSource.findIndex(d => d === vehicle);
 
@@ -73,5 +61,16 @@ export class VehiclesComponent implements OnInit{
       this.dataSource.splice(index, 1);
       this.dataSource = [...this.dataSource];
     }
+  }
+
+  getData(){
+    this.vehiculeService.getAll().subscribe(
+      (data: Vehicule[]) => {
+        this.dataSource = data;
+      },
+      (error) => {
+        console.log(error);
+      }
+    )
   }
 }

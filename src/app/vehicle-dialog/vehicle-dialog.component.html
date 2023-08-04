@@ -7,48 +7,37 @@
 <div mat-dialog-content class="input-container" style="font-family: 'Poppins', sans-serif; font-size: 0.8rem;">
   <div class="input-row">
     <p>Placa:</p>
-    <input [(ngModel)]="editedVehicle.plate" />
+    <input [(ngModel)]="editedVehicle.veh_placa" />
   </div>
   <div class="input-row">
     <p>Propietario:</p>
-    <input [(ngModel)]="editedVehicle.owner" />
+    <input [(ngModel)]="editedVehicle.owner_name" />
   </div>
   <div class="input-row">
     <p>CAT:</p>
-    <input [(ngModel)]="editedVehicle.category" />
+    <input [(ngModel)]="editedVehicle.veh_categoria" />
   </div>
   <div class="input-row">
     <p>Marca:</p>
-    <input [(ngModel)]="editedVehicle.brand" />
+    <input [(ngModel)]="editedVehicle.veh_marca" />
   </div>
   <div class="input-row">
     <p>Modelo:</p>
-    <input [(ngModel)]="editedVehicle.model" />
+    <input [(ngModel)]="editedVehicle.veh_modelo" />
   </div>
   <div class="input-row">
     <p>Año fab:</p>
-    <input [(ngModel)]="editedVehicle.year" />
+    <input [(ngModel)]="editedVehicle.veh_anio_fabricacion" />
   </div>
   <div class="input-row">
-    <p>Serie:</p>
-    <input [(ngModel)]="editedVehicle.serie" />
+    <p>Destino:</p>
+    <input [(ngModel)]="editedVehicle.destino_name" />
   </div>
   <div class="input-row">
     <p>N° asientos:</p>
-    <input [(ngModel)]="editedVehicle.seats" />
+    <input [(ngModel)]="editedVehicle.veh_nro_asientos" />
   </div>
-  <div class="input-row">
-    <p>Color:</p>
-    <input [(ngModel)]="editedVehicle.color" />
-  </div>
-  <div class="input-row">
-    <p>Carroceria:</p>
-    <input [(ngModel)]="editedVehicle.bodywork" />
-  </div>
-  <div class="input-row">
-    <p>Motor:</p>
-    <input [(ngModel)]="editedVehicle.engine" />
-  </div>
+
 </div>
 <div class="button-container">
   <div class="button-wrapper" fxLayout="row" fxLayoutAlign="center center">
