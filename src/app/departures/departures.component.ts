@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
+import {ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
 import {MatDialog} from "@angular/material/dialog";
 import {DepartureDialogComponent} from "../departure-dialog/departure-dialog.component";
 import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
@@ -27,13 +27,18 @@ const DEPARTURE_DATA: Departure[] = [
   encapsulation: ViewEncapsulation.None
 })
 export class DeparturesComponent implements OnInit {
-  displayedColumns: string[] = [ 'n_plate', 'driver_name', 'exit_time', 'destination', 'categorie', 'amount', 'actions'];
+  displayedColumns: string[] = ['n_plate', 'driver_name', 'exit_time', 'destination', 'categorie', 'amount', 'actions'];
   dataSource = DEPARTURE_DATA;
+  tabContentsVisibility: boolean[] = [true, false];
   // @ts-ignore
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  constructor(private dialog: MatDialog, private paginatorIntl: MatPaginatorIntl) {}
+  @ViewChild('line', { static: true }) line!: ElementRef;
+  activeTab: number = 0;
+
+  constructor(private dialog: MatDialog, private paginatorIntl: MatPaginatorIntl, private cdr: ChangeDetectorRef) {
+  }
+
   ngOnInit(): void {
-    console.log('DeparturesComponent ngOnInit');
     // @ts-ignore
     this.dataSource.paginator = this.paginator;
     this.paginatorIntl.itemsPerPageLabel = 'Elementos por página';
@@ -70,5 +75,18 @@ export class DeparturesComponent implements OnInit {
       this.dataSource.splice(index, 1);
       this.dataSource = [...this.dataSource];
     }
+  }
+
+  toggleTab(tabIndex: number, e: MouseEvent): void {
+    this.activeTab = tabIndex;
+
+    const line = this.line.nativeElement as HTMLElement;
+
+    if (e.target instanceof HTMLElement) {
+      line.style.width = e.target.offsetWidth - 27 + 'px';
+      line.style.left = e.target.offsetLeft +12 +'px';
+    }
+    // Cambiar la visibilidad del contenido
+    this.tabContentsVisibility = this.tabContentsVisibility.map((_, index) => index === tabIndex);
   }
 }

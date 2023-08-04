@@ -4,6 +4,7 @@ import {Route, RouterModule} from "@angular/router";
 import {MatTabsModule} from "@angular/material/tabs";
 import {MatTableModule} from "@angular/material/table";
 import { MatPaginatorModule } from '@angular/material/paginator';
+import {NgClass, NgIf} from "@angular/common";
 
 const departuresRoutes: Route[] = [
   {
@@ -24,6 +25,8 @@ const departuresRoutes: Route[] = [
     MatTabsModule,
     MatTableModule,
     MatPaginatorModule,
+    NgIf,
+    NgClass,
   ]
 })
 
