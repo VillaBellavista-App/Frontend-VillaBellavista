@@ -5,24 +5,6 @@ import {MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
 import {TicketService } from '../services/ticket.service';
 import {Ticket} from '../models/ticket';
 
-export interface Departure{
-  n_plate: string;
-  driver_name: string;
-  exit_time: number;
-  destination: string;
-  categorie: string;
-  amount: number
-}
-
-// const DEPARTURE_DATA: Departure[] = [
-//   { n_plate: 'BKT-167', driver_name: 'KENJI MOZOMBITE TAPIA', exit_time: 17.50,destination: 'CONSUELO', categorie: 'AUTOMOVIL', amount: 6.00},
-//   { n_plate: 'BKT-167', driver_name: 'KENJI MOZOMBITE TAPIA', exit_time: 17.50,destination: 'CONSUELO', categorie: 'AUTOMOVIL', amount: 6.00},
-//   { n_plate: 'BKT-167', driver_name: 'KENJI MOZOMBITE TAPIA', exit_time: 17.50,destination: 'CONSUELO', categorie: 'AUTOMOVIL', amount: 6.00},
-//   { n_plate: 'BKT-167', driver_name: 'KENJI MOZOMBITE TAPIA', exit_time: 17.50,destination: 'CONSUELO', categorie: 'AUTOMOVIL', amount: 6.00},
-//   { n_plate: 'BKT-167', driver_name: 'KENJI MOZOMBITE TAPIA', exit_time: 17.50,destination: 'CONSUELO', categorie: 'AUTOMOVIL', amount: 6.00},
-//   { n_plate: 'BKT-167', driver_name: 'KENJI MOZOMBITE TAPIA', exit_time: 17.50,destination: 'CONSUELO', categorie: 'AUTOMOVIL', amount: 6.00},
-// ];
-
 @Component({
   selector: 'app-departures',
   templateUrl: './departures.component.html',
@@ -86,14 +68,12 @@ export class DeparturesComponent implements OnInit {
 
   getData(){
     this.ticketService.getAll().subscribe(
-      (data) => {
-        this.dataSource.push(data);
-        //console.log(this.dataSource);
+      (data: Ticket[]) => {
+        this.dataSource = data;
       },
       (error) => {
         console.log(error);
       }
     )
   }
-
 }
