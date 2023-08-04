@@ -1,0 +1,9 @@
+<div class="wrapper">
+  <div class="sidebar">
+    <app-sidenav (onToggleSidenav)="onToggleSideNav($event)"></app-sidenav>
+  </div>
+  <app-body
+    [collapsed]="isSideNavCollapsed"
+    [screenWidth]="screenWidth"
+  ></app-body>
+</div>

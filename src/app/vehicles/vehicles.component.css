@@ -1,0 +1,94 @@
+body{
+  background-color: #F7F7F7;
+  font-family: 'Poppins', sans-serif;
+}
+.header{
+  width: auto;
+  height: 5rem;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  padding-left: 3rem;
+  color: #959494;
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+.second{
+  width: auto;
+  height: 5rem;
+  display: flex;
+  align-items: center;
+  padding-left: 3rem;
+  padding-right: 3rem;
+  color: #4A4A4A;
+  font-size: 1.2rem;
+  justify-content: space-between;
+}
+.title{
+  color: #7E7E7E;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  padding-top: 2rem;
+}
+.third{
+  width: auto;
+  height: 6rem;
+  display: flex;
+  align-items: center;
+  padding-left: 3rem;
+  color: #4A4A4A;
+  font-size: 10px;
+}
+.four{
+  width: auto;
+  height: 6rem;
+  padding-left: 3rem;
+  padding-right: 3rem;
+}
+
+.btn-box{
+  margin-top: 4rem;
+  margin-bottom: 2rem;
+}
+
+.btn{
+  cursor: pointer;
+  text-align: center;
+  min-width: 10rem;
+  text-decoration: none;
+  display: inline-block;
+  padding: 10px 10px;
+  background: var(--second-color);
+  color: var(--text-color);
+  font-size: 0.9rem;
+  font-weight: 400;
+  letter-spacing: 1px;
+  border-radius: 0.3rem;
+}
+.logo{
+  background: var(--second-color);
+  color: var(--text-color);
+  font-size: 0.8rem;
+  text-align: center;
+  width: 1.7rem;
+  min-width: 1.7rem;
+  border-radius: 1rem;
+  padding: 0.4rem;
+  cursor: pointer;
+  border: none;
+  margin-right: 0.5rem;
+}
+.logo2{
+  background: #de2a2a;
+  color: var(--text-color);
+  font-size: 0.8rem;
+  text-align: center;
+  width: 1.7rem;
+  min-width: 1.7rem;
+  border-radius: 1rem;
+  padding: 0.4rem;
+  cursor: pointer;
+  border: none;
+}

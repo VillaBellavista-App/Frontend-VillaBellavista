@@ -1,0 +1,37 @@
+<div fxLayout="column" fxLayoutAlign="center center">
+<h2 mat-dialog-title>{{ isEditMode ? 'Editar' : 'Añadir Nuevo' }} Departure</h2>
+</div>
+<div mat-dialog-content class="input-container" style="font-family: 'Poppins', sans-serif; font-size: 0.8rem;">
+  <div class="input-row">
+    <p>N° Placa:</p>
+    <input [(ngModel)]="editedDeparture.n_plate" />
+  </div>
+  <div class="input-row">
+    <p>Nombre conductor:</p>
+    <input [(ngModel)]="editedDeparture.driver_name" />
+  </div>
+  <div class="input-row">
+    <p>Hora salida:</p>
+    <input [(ngModel)]="editedDeparture.exit_time" />
+  </div>
+  <div class="input-row">
+    <p>Destino:</p>
+    <input [(ngModel)]="editedDeparture.destination" />
+  </div>
+  <div class="input-row">
+    <p>Categoria:</p>
+    <input [(ngModel)]="editedDeparture.categorie" />
+  </div>
+  <div class="input-row">
+    <p>Monto:</p>
+    <input [(ngModel)]="editedDeparture.amount" />
+  </div>
+</div>
+<div class="button-container">
+  <div class="button-wrapper" fxLayout="row" fxLayoutAlign="center center">
+    <button mat-button class="custom-button" fxFlex (click)="onCancel()" style="background-color: #228CE8FF; color: white;">Cancelar</button>
+    <button mat-button class="custom-button" fxFlex color="primary" (click)="onSave()" style="background-color: #228CE8FF; color: white;">
+      {{ isEditMode ? 'Guardar' : 'Añadir' }}
+    </button>
+  </div>
+</div>

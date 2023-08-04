@@ -1,0 +1,60 @@
+<div fxLayout="column" fxLayoutAlign="center center">
+  <h2 mat-dialog-title>{{ isEditMode ? 'Editar' : 'Añadir Nuevo' }} Vehicle</h2>
+</div>
+<!--placa propietario cat marca modelo añof serie asientos color carroceria motor-->
+<!--[ 'plate', 'owner', 'category', 'brand', 'model', 'year', 'serie', 'seats', 'color', 'bodywork', 'engine', 'actions'];-->
+
+<div mat-dialog-content class="input-container" style="font-family: 'Poppins', sans-serif; font-size: 0.8rem;">
+  <div class="input-row">
+    <p>Placa:</p>
+    <input [(ngModel)]="editedVehicle.plate" />
+  </div>
+  <div class="input-row">
+    <p>Propietario:</p>
+    <input [(ngModel)]="editedVehicle.owner" />
+  </div>
+  <div class="input-row">
+    <p>CAT:</p>
+    <input [(ngModel)]="editedVehicle.category" />
+  </div>
+  <div class="input-row">
+    <p>Marca:</p>
+    <input [(ngModel)]="editedVehicle.brand" />
+  </div>
+  <div class="input-row">
+    <p>Modelo:</p>
+    <input [(ngModel)]="editedVehicle.model" />
+  </div>
+  <div class="input-row">
+    <p>Año fab:</p>
+    <input [(ngModel)]="editedVehicle.year" />
+  </div>
+  <div class="input-row">
+    <p>Serie:</p>
+    <input [(ngModel)]="editedVehicle.serie" />
+  </div>
+  <div class="input-row">
+    <p>N° asientos:</p>
+    <input [(ngModel)]="editedVehicle.seats" />
+  </div>
+  <div class="input-row">
+    <p>Color:</p>
+    <input [(ngModel)]="editedVehicle.color" />
+  </div>
+  <div class="input-row">
+    <p>Carroceria:</p>
+    <input [(ngModel)]="editedVehicle.bodywork" />
+  </div>
+  <div class="input-row">
+    <p>Motor:</p>
+    <input [(ngModel)]="editedVehicle.engine" />
+  </div>
+</div>
+<div class="button-container">
+  <div class="button-wrapper" fxLayout="row" fxLayoutAlign="center center">
+    <button mat-button class="custom-button" fxFlex (click)="onCancel()" style="background-color: #228CE8FF; color: white;">Cancelar</button>
+    <button mat-button class="custom-button" fxFlex color="primary" (click)="onSave()" style="background-color: #228CE8FF; color: white;">
+      {{ isEditMode ? 'Guardar' : 'Añadir' }}
+    </button>
+  </div>
+</div>

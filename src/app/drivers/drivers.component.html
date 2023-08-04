@@ -1,0 +1,82 @@
+<head>
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/boxicons@latest/css/boxicons.min.css"
+  />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <!--Google Fonts-->
+</head>
+<body>
+<div class="header">
+  <p>ADMIN</p>
+</div>
+<div class="second">
+  <p class="title">Drivers Admin</p>
+  <div class="btn-box">
+    <a (click)="openDriverDialog()" class="btn">+ Add Driver</a>
+  </div>
+</div>
+<div class="third">
+  <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start">
+    <mat-tab label="All Drivers"> </mat-tab>
+    <mat-tab label="Valid"></mat-tab>
+    <mat-tab label="Expired"></mat-tab>
+  </mat-tab-group>
+</div>
+<!--Nombres y apellidos |N° licencia|Clase|Fecha Revalt.|Domicilio|Estado actual|Placa vehiculo|N° telefono-->
+<div class="four">
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" style="font-family: 'Poppins', sans-serif;">
+    <ng-container matColumnDef="name_lastname">
+      <th mat-header-cell *matHeaderCellDef style="color: #228CE8FF;"> Nombres y Apellidos </th>
+      <td mat-cell *matCellDef="let element" style="color: #5A5A5A;font-size: 13px;"> {{element.name_lastname}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="n_licencia">
+      <th mat-header-cell *matHeaderCellDef style="color: #A5A5A5;"> N° licencia </th>
+      <td mat-cell *matCellDef="let element" style="color: #5A5A5A;font-size: 13px;"> {{element.n_licencia}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="class">
+      <th mat-header-cell *matHeaderCellDef style="color: #A5A5A5;"> Clase </th>
+      <td mat-cell *matCellDef="let element" style="color: #5A5A5A;font-size: 13px;"> {{element.class}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="revalt_date">
+      <th mat-header-cell *matHeaderCellDef style="color: #A5A5A5;"> Fecha Revalt. </th>
+      <td mat-cell *matCellDef="let element" style="color: #5A5A5A;font-size: 13px;"> {{element.revalt_date}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="address">
+      <th mat-header-cell *matHeaderCellDef style="color: #A5A5A5;"> Domicilio </th>
+      <td mat-cell *matCellDef="let element" style="color: #5A5A5A;font-size: 13px;"> {{element.address_driver}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actual_state">
+      <th mat-header-cell *matHeaderCellDef style="color: #A5A5A5;"> Estado actual </th>
+      <td mat-cell *matCellDef="let element" style="color: #5A5A5A;font-size: 13px;"> {{element.actual_state}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="plate">
+      <th mat-header-cell *matHeaderCellDef style="color: #A5A5A5;"> Placa vehiculo </th>
+      <td mat-cell *matCellDef="let element" style="color: #5A5A5A;font-size: 13px;"> {{element.plate}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="cellphone">
+      <th mat-header-cell *matHeaderCellDef style="color: #A5A5A5;"> N° telefono </th>
+      <td mat-cell *matCellDef="let element" style="color: #5A5A5A;font-size: 13px;"> {{element.cellphone}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef>  </th>
+      <td mat-cell *matCellDef="let element">
+        <button class="logo" (click)="openDriverDialog(element)"><i class='bx bxs-pencil'></i></button>
+        <button class="logo2" (click)="deleteDriver(element)"><i class='bx bx-trash'></i></button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+  <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons></mat-paginator>
+</div>
+</body>

@@ -1,0 +1,108 @@
+::ng-deep :root{
+  --main-color: #282A37;
+  --text-color: #fff;
+  --other-color: #575965;
+  --extra-color: #959494;
+  --second-color: #228CE8;
+  --bg-color: #3f414e;
+
+  --big-font: 3.3rem;
+  --h1-font: 1.6rem;
+  --h2-font: 1.2rem;
+  --p-font: 1rem;
+  --p2-font: 0.8rem;
+}
+
+.sidenav{
+  background: var(--main-color);
+  transition: all .5s ease;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  width: 6rem;
+  height: 100%;
+  box-shadow: 0.063rem 0 1.25rem 0 #8690a3;
+}
+
+.sidenav .logo-container{
+  display: flex;
+  align-items: center;
+  padding: 1.5rem 0.938rem 4.5rem 0.6rem;
+  width: 100%;
+}
+
+.logo{
+  background: var(--second-color);
+  color: var(--text-color);
+  text-align: center;
+  width: 2.8rem;
+  min-width: 2.8rem;
+  border-radius: 2rem;
+  padding: 0.5rem;
+  font-size: var(--h1-font);
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  margin-left: 1rem;
+}
+.logo-text{
+  color: var(--text-color);
+  font-size: var(--h1-font);
+  margin-left: 0.3rem;
+  font-weight: 500;
+}
+.btn-close{
+  margin-left: 2.2rem;
+  cursor: pointer;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background: transparent;
+  border: none;
+}
+.bx-x{
+  color: var(--text-color);
+  font-size: var(--h1-font);
+}
+.sidenav-collapsed{
+  width: 16rem;
+}
+.sidenav-nav{
+  list-style: none;
+  padding: 0.938rem;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: calc(100% - 4.375rem);
+  cursor: pointer;
+}
+.sidenav-nav-item{
+  margin-bottom: 0.625rem;
+  width: 100%;
+  /*text-align: center;*/
+}
+.sidenav-nav-link{
+  display: flex;
+  align-items: center;
+  height: 3rem;
+  color: var(--text-color);
+  text-decoration: none;
+  transition: all .3s ease;
+}
+.sidenav-link-icon{
+  font-size: 22px;
+  width: 2rem;
+  min-width: 2rem;
+  margin-left: 1rem;
+  text-align: center;
+}
+.sidenav-link-text{
+  margin-left: 1rem;
+  font-size: var(--h2-font);
+  font-weight: 500;
+}
+
+.sidenav-nav-item:hover .sidenav-nav-link{
+  color: var(--second-color);
+}
