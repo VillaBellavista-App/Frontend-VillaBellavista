@@ -3,7 +3,7 @@ import {MatPaginator, MatPaginatorIntl} from "@angular/material/paginator";
 import {MatDialog} from "@angular/material/dialog";
 import {DriverDialogComponent} from "../driver-dialog/driver-dialog.component";
 import {Owner} from "../models/owner";
-import { OwnerService } from '../services/owner.service';
+import {OwnerService} from '../services/owner.service';
 
 @Component({
   selector: 'app-drivers',

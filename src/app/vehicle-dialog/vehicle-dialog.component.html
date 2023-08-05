@@ -1,6 +1,7 @@
 <div fxLayout="column" fxLayoutAlign="center center">
   <h2 mat-dialog-title>{{ isEditMode ? 'Editar' : 'Añadir Nuevo' }} Vehicle</h2>
 </div>
+
 <!--placa propietario cat marca modelo añof serie asientos color carroceria motor-->
 <!--[ 'plate', 'owner', 'category', 'brand', 'model', 'year', 'serie', 'seats', 'color', 'bodywork', 'engine', 'actions'];-->
 
@@ -14,7 +15,7 @@
     <input [(ngModel)]="editedVehicle.owner_name" />
   </div>
   <div class="input-row">
-    <p>CAT:</p>
+    <p>Cat:</p>
     <input [(ngModel)]="editedVehicle.veh_categoria" />
   </div>
   <div class="input-row">
