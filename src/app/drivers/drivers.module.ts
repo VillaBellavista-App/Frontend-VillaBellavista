@@ -4,6 +4,7 @@ import {Route, RouterModule} from "@angular/router";
 import {MatPaginatorModule} from "@angular/material/paginator";
 import {MatTableModule} from "@angular/material/table";
 import {MatTabsModule} from "@angular/material/tabs";
+import {NgClass, NgIf} from "@angular/common";
 
 const driversRoutes: Route[] = [
   {
@@ -19,12 +20,14 @@ const driversRoutes: Route[] = [
   exports: [
     DriversComponent
   ],
-    imports: [
-        RouterModule.forChild(driversRoutes),
-        MatPaginatorModule,
-        MatTableModule,
-        MatTabsModule,
-    ]
+  imports: [
+    RouterModule.forChild(driversRoutes),
+    MatPaginatorModule,
+    MatTableModule,
+    MatTabsModule,
+    NgIf,
+    NgClass,
+  ]
 })
 
 export class DriversModule

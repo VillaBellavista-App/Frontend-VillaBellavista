@@ -26,7 +26,6 @@
   </div>
   <div class="content_box">
     <div class="content" *ngIf="tabContentsVisibility[0]" [ngClass]="{ 'active': tabContentsVisibility[0] }">
-      <div class="four">
         <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" style="font-family: 'Poppins', sans-serif;">
           <ng-container matColumnDef="tic_placa">
             <th mat-header-cell *matHeaderCellDef style="color: #228CE8FF;font-size: 16px;"> N° Placa </th>
@@ -70,7 +69,6 @@
           <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
         <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons></mat-paginator>
-      </div>
     </div>
     <div class="content" *ngIf="tabContentsVisibility[1]" [ngClass]="{ 'active': tabContentsVisibility[1] }">
       <h2>Other Departures</h2>

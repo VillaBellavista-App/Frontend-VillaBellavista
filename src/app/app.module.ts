@@ -20,6 +20,7 @@ import {MatDialogModule} from "@angular/material/dialog";
 import {FlexModule} from "@angular/flex-layout";
 import { DriverDialogComponent } from './driver-dialog/driver-dialog.component';
 import { VehicleDialogComponent } from './vehicle-dialog/vehicle-dialog.component';
+import {MatSortModule} from "@angular/material/sort";
 @NgModule({
   declarations: [
     AppComponent,
@@ -43,6 +44,7 @@ import { VehicleDialogComponent } from './vehicle-dialog/vehicle-dialog.componen
         FormsModule,
         MatDialogModule,
         FlexModule,
+        MatSortModule
     ],
   providers: [],
   bootstrap: [AppComponent]

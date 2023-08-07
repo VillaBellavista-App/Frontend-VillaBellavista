@@ -4,7 +4,7 @@ body{
 }
 .header{
   width: auto;
-  height: 5rem;
+  height: 6rem;
   background-color: white;
   display: flex;
   align-items: center;
@@ -15,7 +15,7 @@ body{
 }
 .second{
   width: auto;
-  height: 5rem;
+  height: 6rem;
   display: flex;
   align-items: center;
   padding-left: 3rem;
@@ -31,21 +31,6 @@ body{
   font-weight: 400;
   line-height: normal;
   padding-top: 2rem;
-}
-.third{
-  width: auto;
-  height: 6rem;
-  display: flex;
-  align-items: center;
-  padding-left: 3rem;
-  color: #4A4A4A;
-  font-size: 10px;
-}
-.four{
-  width: auto;
-  height: 6rem;
-  padding-left: 3rem;
-  padding-right: 3rem;
 }
 
 .btn-box{
@@ -91,4 +76,56 @@ body{
   padding: 0.4rem;
   cursor: pointer;
   border: none;
+}
+.container{
+  width: auto;
+  height: auto;
+}
+.tab {
+  width: 100%;
+  border-bottom: 2px solid rgba(229, 229, 229);
+}
+.tab_box{
+  margin-left: 1.5rem;
+  width: 25%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-around;
+  font-weight: 600;
+  position: relative;
+}
+.tab_box .tab_btn{
+  font-size: 18px;
+  font-weight: 600;
+  padding: 1.5rem 1.5rem 0.5rem;
+  border: none;
+  color: #C1C1C1;
+  background: none;
+}
+.tab_box .tab_btn.active{
+  color: #726E6E;
+}
+.content_box{
+  margin-left: 3rem;
+  margin-top: 2rem;
+  margin-right: 3rem;
+}
+.content_box .content{
+  display: none;
+}
+.content_box .content.active{
+  display: block;
+}
+.content_box .content h2{
+  margin-bottom: 10px;
+}
+.line{
+  position: absolute;
+  top:51px;
+  left: 24px;
+  width: 41%;
+  height: 3px;
+  background-color: var(--second-color);
+  border-radius: 10px;
+  transition: all 0.3s ease-in-out;
 }

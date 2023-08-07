@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator, MatPaginatorIntl} from "@angular/material/paginator";
 import {MatDialog} from "@angular/material/dialog";
 import {VehicleDialogComponent} from "../vehicle-dialog/vehicle-dialog.component";
@@ -14,11 +14,13 @@ import {VehiculesService} from '../services/vehicules.service';
 export class VehiclesComponent implements OnInit {
 
   displayedColumns: string[] = [ 'plate', 'owner', 'category', 'brand', 'model', 'year', 'serie', 'seats', 'actions'];
-  
   dataSource = [] as Vehicule[];
+  tabContentsVisibility: boolean[] = [true, false];
 
   // @ts-ignore
   @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild('line', { static: true }) line!: ElementRef;
+  activeTab: number = 0;
 
   constructor(private dialog: MatDialog, private paginatorIntl: MatPaginatorIntl, private vehiculeService: VehiculesService) {}
 
@@ -62,7 +64,18 @@ export class VehiclesComponent implements OnInit {
       this.dataSource = [...this.dataSource];
     }
   }
+  toggleTab(tabIndex: number, e: MouseEvent): void {
+    this.activeTab = tabIndex;
 
+    const line = this.line.nativeElement as HTMLElement;
+
+    if (e.target instanceof HTMLElement) {
+      line.style.width = e.target.offsetWidth - 27 + 'px';
+      line.style.left = e.target.offsetLeft +12 +'px';
+    }
+    // Cambiar la visibilidad del contenido
+    this.tabContentsVisibility = this.tabContentsVisibility.map((_, index) => index === tabIndex);
+  }
   getData(){
     this.vehiculeService.getAll().subscribe(
       (data: Vehicule[]) => {

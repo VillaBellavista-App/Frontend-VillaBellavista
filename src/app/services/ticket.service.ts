@@ -12,7 +12,7 @@ export class TicketService {
 
   // Endpoint Backend
   basePath = 'http://127.0.0.1:8000/app/ticket';
-    
+
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
@@ -42,8 +42,8 @@ export class TicketService {
     return this.http.get<Ticket[]>(`${this.basePath}/list`, this.httpOptions);
   }
 
-  create(user: ɵTypedOrUntyped<{user_nombre: FormControl<string | null>; user_apellidos: FormControl<string | null>; user_email: FormControl<string | null>; user_password: FormControl<string | null> }, 
-    ɵFormGroupValue<{user_nombre: FormControl<string | null>; user_apellidos: FormControl<string | null>; user_email: FormControl<string | null>; user_password: FormControl<string | null>  }>, any>): 
+  create(user: ɵTypedOrUntyped<{user_nombre: FormControl<string | null>; user_apellidos: FormControl<string | null>; user_email: FormControl<string | null>; user_password: FormControl<string | null> },
+    ɵFormGroupValue<{user_nombre: FormControl<string | null>; user_apellidos: FormControl<string | null>; user_email: FormControl<string | null>; user_password: FormControl<string | null>  }>, any>):
     Observable<Ticket> {
     return this.http.post<Ticket>(`${this.basePath}/create`, JSON.stringify(user), this.httpOptions)
       .pipe(

@@ -1,9 +1,11 @@
-import {DeparturesComponent} from "./departures.component";
-import {NgModule} from "@angular/core";
-import {Route, RouterModule} from "@angular/router";
-import {MatTabsModule} from "@angular/material/tabs";
-import {MatTableModule} from "@angular/material/table";
+import { NgModule } from '@angular/core';
+import { Route, RouterModule } from '@angular/router';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort'; // Import MatSortModule
+
+import { DeparturesComponent } from './departures.component';
 import {NgClass, NgIf} from "@angular/common";
 
 const departuresRoutes: Route[] = [
@@ -11,7 +13,7 @@ const departuresRoutes: Route[] = [
     path: '',
     component: DeparturesComponent
   }
-]
+];
 
 @NgModule({
   declarations: [
@@ -25,11 +27,10 @@ const departuresRoutes: Route[] = [
     MatTabsModule,
     MatTableModule,
     MatPaginatorModule,
-    NgIf,
+    MatSortModule,
     NgClass,
+    NgIf,
+    // Include MatSortModule
   ]
 })
-
-export class DeparturesModule
-{
-}
+export class DeparturesModule {}
