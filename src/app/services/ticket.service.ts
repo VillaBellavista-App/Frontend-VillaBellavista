@@ -2,7 +2,7 @@ import {Injectable} from "@angular/core";
 import {HttpClient, HttpErrorResponse, HttpHeaders} from "@angular/common/http";
 import {catchError, Observable, retry, throwError} from "rxjs";
 import {Ticket} from "../models/ticket";
-//import {UserPost} from "../models/userPost";
+import {TicketPost} from "../models/ticketPost";
 import {FormControl, ɵFormGroupRawValue, ɵFormGroupValue, ɵGetProperty, ɵTypedOrUntyped} from "@angular/forms";
 
 @Injectable({
@@ -42,14 +42,9 @@ export class TicketService {
     return this.http.get<Ticket[]>(`${this.basePath}/list`, this.httpOptions);
   }
 
-  create(user: ɵTypedOrUntyped<{user_nombre: FormControl<string | null>; user_apellidos: FormControl<string | null>; user_email: FormControl<string | null>; user_password: FormControl<string | null> },
-    ɵFormGroupValue<{user_nombre: FormControl<string | null>; user_apellidos: FormControl<string | null>; user_email: FormControl<string | null>; user_password: FormControl<string | null>  }>, any>):
-    Observable<Ticket> {
-    return this.http.post<Ticket>(`${this.basePath}/create`, JSON.stringify(user), this.httpOptions)
-      .pipe(
-        retry(2),
-        catchError(this.handleError));
-  }
+  createTicket(ticket: TicketPost): Observable<any> {
+    return this.http.post<any>(`${this.basePath}/create`, ticket, this.httpOptions);
+  } 
 
   deleteTicket(id: number) {
     return this.http.delete(`${this.basePath}/${id}`, this.httpOptions)

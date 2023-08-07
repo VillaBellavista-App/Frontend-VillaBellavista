@@ -40,6 +40,10 @@ export class VehiculesService {
     return this.http.get<Vehicule[]>(`${this.basePath}/list`, this.httpOptions);
   }
 
+  getVehicleIdByPlate(plate: string): Observable<Vehicule[]> {
+    return this.http.get<Vehicule[]>(`${this.basePath}/plate/${plate}`, this.httpOptions);
+  }
+
   createVehicule(vehicule: Vehicule): Observable<any> {
     return this.http.post<any>(`${this.basePath}/create`, vehicule, this.httpOptions);
   }
