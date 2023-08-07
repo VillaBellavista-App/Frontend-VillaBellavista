@@ -42,10 +42,12 @@ export class VehiclesComponent implements OnInit {
         if (vehicle) {
           // Modo edición - actualizamos los datos del vehicle en el dataSource
           const index = this.allVehiculesDataSource.data.findIndex(d => d === vehicle);
+
           if (index !== -1) {
             this.allVehiculesDataSource.data[index] = result;
             this.allVehiculesDataSource.data = [...this.allVehiculesDataSource.data];
           }
+          
         } else {
           // Modo añadir - agregamos el nuevo Vehicle al dataSource
           this.allVehiculesDataSource.data.push(result);
@@ -54,7 +56,11 @@ export class VehiclesComponent implements OnInit {
       }
     });
   }
+
   deleteVehicle(vehicle: Vehicule): void {
+
+    const idToDelete = vehicle.veh_id;
+
     // Encontrar el índice del vehicle en el dataSource
     const index = this.allVehiculesDataSource.data.findIndex(d => d === vehicle);
 
@@ -62,8 +68,13 @@ export class VehiclesComponent implements OnInit {
     if (index !== -1) {
       this.allVehiculesDataSource.data.splice(index, 1);
       this.allVehiculesDataSource.data = [...this.allVehiculesDataSource.data];
+
+      this.vehiculeService.deleteVehicule(idToDelete).subscribe(data => {
+        console.log(data);
+      });
     }
   }
+
   toggleTab(tabIndex: number, e: MouseEvent): void {
     this.activeTab = tabIndex;
 
@@ -78,6 +89,7 @@ export class VehiclesComponent implements OnInit {
     console.log(tabIndex);
     this.getDataForTab(tabIndex);
   }
+
   getDataForTab(tabIndex: number):void{
     this.vehiculeService.getAll().subscribe(
       (data: Vehicule[]) => {

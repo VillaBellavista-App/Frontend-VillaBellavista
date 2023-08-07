@@ -52,24 +52,29 @@ export class DriversComponent implements OnInit{
       }
     });
   }
-    toggleTab(tabIndex: number, e: MouseEvent): void {
-        this.activeTab = tabIndex;
 
-        const line = this.line.nativeElement as HTMLElement;
+  toggleTab(tabIndex: number, e: MouseEvent): void {
+      this.activeTab = tabIndex;
+      const line = this.line.nativeElement as HTMLElement;
 
-        if (e.target instanceof HTMLElement) {
-            line.style.width = e.target.offsetWidth - 27 + 'px';
-            line.style.left = e.target.offsetLeft + 12 + 'px';
-        }
+      if (e.target instanceof HTMLElement) {
+          line.style.width = e.target.offsetWidth - 27 + 'px';
+          line.style.left = e.target.offsetLeft + 12 + 'px';
+      }
 
-        // Cambiar la visibilidad del contenido
-        this.tabContentsVisibility = this.tabContentsVisibility.map((_, index) => index === tabIndex);
-        console.log(this.tabContentsVisibility)
-        console.log(tabIndex)
-        // Actualizar el paginator y cargar los datos correspondientes
-        this.getDataForTab(tabIndex);
-    }
+      // Cambiar la visibilidad del contenido
+      this.tabContentsVisibility = this.tabContentsVisibility.map((_, index) => index === tabIndex);
+      console.log(this.tabContentsVisibility)
+      console.log(tabIndex)
+
+      // Actualizar el paginator y cargar los datos correspondientes
+      this.getDataForTab(tabIndex);
+  }
+
   deleteDriver(driver: Owner): void {
+
+    const idToDelete = driver.prop_id;
+
     // Encontrar el índice del departure en el dataSource
     const index = this.allDriversDataSource.data.findIndex(d => d === driver);
 
@@ -77,6 +82,10 @@ export class DriversComponent implements OnInit{
     if (index !== -1) {
       this.allDriversDataSource.data.splice(index, 1);
       this.allDriversDataSource.data = [...this.allDriversDataSource.data];
+
+      this.ownerService.deleteOwner(idToDelete).subscribe(data => {
+        console.log(data);
+      });
     }
   }
 

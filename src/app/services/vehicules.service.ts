@@ -44,4 +44,8 @@ export class VehiculesService {
     return this.http.post<any>(`${this.basePath}/create`, vehicule, this.httpOptions);
   }
 
+  deleteVehicule(id: number): Observable<Vehicule> {
+    return this.http.delete<Vehicule>(`${this.basePath}/${id}`, this.httpOptions);
+  }
+
 }
