@@ -51,8 +51,8 @@ export class TicketService {
         catchError(this.handleError));
   }
 
-  delete(id: any) {
-    return this.http.delete(`${this.basePath}/delete/${id}`, this.httpOptions)
+  deleteTicket(id: number) {
+    return this.http.delete(`${this.basePath}/${id}`, this.httpOptions)
       .pipe(
         retry(2),
         catchError(this.handleError));

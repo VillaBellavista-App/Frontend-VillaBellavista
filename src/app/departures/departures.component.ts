@@ -53,11 +53,17 @@ export class DeparturesComponent implements OnInit {
   }
 
   deleteDeparture(departure: Ticket): void {
+
+    const idToDelete = departure.tic_id;
+
     const index = this.allDeparturesDataSource.data.findIndex((d) => d === departure);
 
     if (index !== -1) {
       this.allDeparturesDataSource.data.splice(index, 1);
       this.allDeparturesDataSource.data = [...this.allDeparturesDataSource.data];
+      this.ticketService.deleteTicket(idToDelete).subscribe(data => {
+        console.log(data);
+      });
     }
   }
 
