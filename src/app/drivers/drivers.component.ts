@@ -4,7 +4,8 @@ import {MatDialog} from "@angular/material/dialog";
 import {DriverDialogComponent} from "../driver-dialog/driver-dialog.component";
 import {Owner} from "../models/owner";
 import {OwnerService} from '../services/owner.service';
-import {Ticket} from "../models/ticket";
+import {MatSort} from "@angular/material/sort";
+import {MatTableDataSource} from "@angular/material/table";
 
 @Component({
   selector: 'app-drivers',
@@ -14,88 +15,106 @@ import {Ticket} from "../models/ticket";
 
 export class DriversComponent implements OnInit{
   displayedColumns: string[] = [ 'name_lastname', 'n_licencia', 'class', 'revalt_date', 'actions'];
-  dataSource = [] as Owner[];
-  tabContentsVisibility: boolean[] = [true, false];
+  allDriversDataSource: MatTableDataSource<Owner> = new MatTableDataSource<Owner>();
+  validDriversDataSource: MatTableDataSource<Owner> = new MatTableDataSource<Owner>();
+  invalidDriversDataSource: MatTableDataSource<Owner> = new MatTableDataSource<Owner>();
+    tabContentsVisibility: boolean[] = [true, false, false];
 
   // @ts-ignore
   @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
   @ViewChild('line', { static: true }) line!: ElementRef;
   activeTab: number = 0;
 
-  constructor(private dialog: MatDialog, private paginatorIntl: MatPaginatorIntl, private ownerService: OwnerService, private cdr: ChangeDetectorRef) {}
+  constructor(private dialog: MatDialog, private ownerService: OwnerService) {}
 
   ngOnInit(): void {
-    console.log('DeparturesComponent ngOnInit');
-    // @ts-ignore
-    this.dataSource.paginator = this.paginator;
-    this.paginatorIntl.itemsPerPageLabel = 'Elementos por página';
-    this.getData();
+    this.getDataForTab(1);
   }
 
   openDriverDialog(driver?: Owner): void {
     const dialogRef = this.dialog.open(DriverDialogComponent, {
-      data: driver // Si driver está presente, estamos en modo de edición
+      data: driver,
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         if (driver) {
-          // Modo edición - actualizamos los datos del driver en el dataSource
-          const index = this.dataSource.findIndex(d => d === driver);
+          const index = this.allDriversDataSource.data.findIndex((d) => d === driver);
           if (index !== -1) {
-            this.dataSource[index] = result;
-            this.dataSource = [...this.dataSource];
+            this.allDriversDataSource.data[index] = result;
+            this.allDriversDataSource.data = [...this.allDriversDataSource.data];
           }
         } else {
-          // Modo añadir - agregamos el nuevo Driver al dataSource
-          this.dataSource.push(result);
-          this.dataSource = [...this.dataSource];
+          this.allDriversDataSource.data.push(result);
+          this.allDriversDataSource.data = [...this.allDriversDataSource.data];
         }
       }
     });
   }
-  deleteDeparture(owner: Owner): void {
-    // Encontrar el índice del departure en el dataSource
-    const index = this.dataSource.findIndex(d => d === owner);
+    toggleTab(tabIndex: number, e: MouseEvent): void {
+        this.activeTab = tabIndex;
 
-    // Si se encuentra el departure, eliminarlo del dataSource
-    if (index !== -1) {
-      this.dataSource.splice(index, 1);
-      this.dataSource = [...this.dataSource];
+        const line = this.line.nativeElement as HTMLElement;
+
+        if (e.target instanceof HTMLElement) {
+            line.style.width = e.target.offsetWidth - 27 + 'px';
+            line.style.left = e.target.offsetLeft + 12 + 'px';
+        }
+
+        // Cambiar la visibilidad del contenido
+        this.tabContentsVisibility = this.tabContentsVisibility.map((_, index) => index === tabIndex);
+        console.log(this.tabContentsVisibility)
+        console.log(tabIndex)
+        // Actualizar el paginator y cargar los datos correspondientes
+        this.getDataForTab(tabIndex);
     }
-  }
-
-  toggleTab(tabIndex: number, e: MouseEvent): void {
-    this.activeTab = tabIndex;
-
-    const line = this.line.nativeElement as HTMLElement;
-
-    if (e.target instanceof HTMLElement) {
-      line.style.width = e.target.offsetWidth - 27 + 'px';
-      line.style.left = e.target.offsetLeft +12 +'px';
-    }
-    // Cambiar la visibilidad del contenido
-    this.tabContentsVisibility = this.tabContentsVisibility.map((_, index) => index === tabIndex);
-  }
   deleteDriver(driver: Owner): void {
     // Encontrar el índice del departure en el dataSource
-    const index = this.dataSource.findIndex(d => d === driver);
+    const index = this.allDriversDataSource.data.findIndex(d => d === driver);
 
     // Si se encuentra el departure, eliminarlo del dataSource
     if (index !== -1) {
-      this.dataSource.splice(index, 1);
-      this.dataSource = [...this.dataSource];
+      this.allDriversDataSource.data.splice(index, 1);
+      this.allDriversDataSource.data = [...this.allDriversDataSource.data];
     }
   }
 
-  getData(){
-    this.ownerService.getAll().subscribe(
-      (data: Owner[]) => {
-        this.dataSource = data;
-      },
-      (error) => {
-        console.log(error);
-      }
-    )
-  }
+  getDataForTab(tabIndex: number): void {
+        this.ownerService.getAll().subscribe(
+            (data: Owner[]) => {
+                this.allDriversDataSource.data = data;
+                this.allDriversDataSource.paginator = this.paginator;
+                this.allDriversDataSource.sort = this.sort;
+                const today = new Date();
+
+                switch (tabIndex) {
+                    case 0:
+                        // Mostrar todos los registros
+                        break;
+                    case 1:
+                        // Filtrar y mostrar registros válidos
+                        this.validDriversDataSource.data = data.filter(
+                            (owner) => new Date(owner.prop_fecha_revalidacion) >= today
+                        );
+                        this.validDriversDataSource.paginator = this.paginator;
+                        this.validDriversDataSource.sort = this.sort;
+                        break;
+                    case 2:
+                        // Filtrar y mostrar registros inválidos
+                        this.invalidDriversDataSource.data = data.filter(
+                            (owner) => new Date(owner.prop_fecha_revalidacion) < today
+                        );
+                        this.invalidDriversDataSource.paginator = this.paginator;
+                        this.invalidDriversDataSource.sort = this.sort;
+                        break;
+                    default:
+                        break;
+                }
+            },
+            (error) => {
+                console.log(error);
+            }
+        );
+    }
 }

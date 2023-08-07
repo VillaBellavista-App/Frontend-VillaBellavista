@@ -2,7 +2,7 @@ export const navbarItems = [
   {
     routerLink: 'departures',
     icon: 'bx bx-file',
-    label: 'Departures'
+    label: 'Tickets'
   },
   {
     routerLink: 'drivers',

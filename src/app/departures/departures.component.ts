@@ -23,7 +23,6 @@ export class DeparturesComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild('line', { static: true }) line!: ElementRef;
-
   activeTab: number = 0;
 
   constructor(private dialog: MatDialog, private ticketService: TicketService) {}
@@ -71,7 +70,6 @@ export class DeparturesComponent implements OnInit {
     }
 
     this.activeTab = tabIndex;
-
     this.tabContentsVisibility = this.tabContentsVisibility.map((_, index) => index === tabIndex);
 
 
