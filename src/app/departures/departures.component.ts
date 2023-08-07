@@ -16,7 +16,8 @@ import { DepartureDialogComponent } from "../departure-dialog/departure-dialog.c
 
 export class DeparturesComponent implements OnInit {
   displayedColumns: string[] = ['tic_placa', 'tic_hora', 'tic_destino', 'tic_categoria', 'tarifa_quantity', 'actions'];
-  dataSource = new MatTableDataSource<Ticket>(); // Create an instance of MatTableDataSource
+  allDeparturesDataSource: MatTableDataSource<Ticket> = new MatTableDataSource<Ticket>();
+  todayDeparturesDataSource: MatTableDataSource<Ticket> = new MatTableDataSource<Ticket>();
   tabContentsVisibility: boolean[] = [true, false];
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -25,44 +26,42 @@ export class DeparturesComponent implements OnInit {
 
   activeTab: number = 0;
 
-  constructor(private dialog: MatDialog, private paginatorIntl: MatPaginatorIntl, private ticketService: TicketService) {
-  }
+  constructor(private dialog: MatDialog, private ticketService: TicketService) {}
 
   ngOnInit(): void {
     this.getData();
-
   }
 
   openDepartureDialog(departure?: Ticket): void {
     const dialogRef = this.dialog.open(DepartureDialogComponent, {
-      data: departure // Si departure está presente, estamos en modo de edición
+      data: departure,
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         if (departure) {
-          // Modo edición - actualizamos los datos del departure en el dataSource
-          const index = this.dataSource.data.findIndex(d => d === departure); // Use this.dataSource.data
+          const index = this.allDeparturesDataSource.data.findIndex((d) => d === departure);
           if (index !== -1) {
-            this.dataSource.data[index] = result; // Update data in MatTableDataSource
-            this.dataSource.data = [...this.dataSource.data]; // Update the reference to trigger change detection
+            this.allDeparturesDataSource.data[index] = result;
+            this.allDeparturesDataSource.data = [...this.allDeparturesDataSource.data];
           }
         } else {
-          // Modo añadir - agregamos el nuevo departure al dataSource
-          this.dataSource.data.push(result); // Update data in MatTableDataSource
-          this.dataSource.data = [...this.dataSource.data]; // Update the reference to trigger change detection
+          this.allDeparturesDataSource.data.push(result);
+          this.allDeparturesDataSource.data = [...this.allDeparturesDataSource.data];
         }
       }
     });
   }
+
   deleteDeparture(departure: Ticket): void {
-    const index = this.dataSource.data.findIndex(d => d === departure);
+    const index = this.allDeparturesDataSource.data.findIndex((d) => d === departure);
 
     if (index !== -1) {
-      this.dataSource.data.splice(index, 1); // Update data in MatTableDataSource
-      this.dataSource.data = [...this.dataSource.data]; // Update the reference to trigger change detection
+      this.allDeparturesDataSource.data.splice(index, 1);
+      this.allDeparturesDataSource.data = [...this.allDeparturesDataSource.data];
     }
   }
+
   toggleTab(tabIndex: number, e: MouseEvent): void {
     const line = this.line.nativeElement as HTMLElement;
 
@@ -71,30 +70,31 @@ export class DeparturesComponent implements OnInit {
       line.style.left = e.target.offsetLeft + 12 + 'px';
     }
 
-    this.dataSource.paginator = this.paginator; // Set the paginator initially
-
     this.activeTab = tabIndex;
 
-    // Update the visibility of the content
     this.tabContentsVisibility = this.tabContentsVisibility.map((_, index) => index === tabIndex);
 
-    if (tabIndex === 0) {
+
       this.getData();
-      console.log(this.dataSource.paginator)// Reapply paginator for "All Departures" tab
-    }
   }
 
-  getData(){
+  getData() {
     this.ticketService.getAll().subscribe(
       (data: Ticket[]) => {
-        this.dataSource.data = data; // Set data to the MatTableDataSource
-        this.dataSource.paginator = this.paginator;// Set paginator property of MatTableDataSource
-        this.dataSource.sort = this.sort;
-        this.paginatorIntl.itemsPerPageLabel = 'Elementos por página';
+        this.allDeparturesDataSource.data = data;
+        this.allDeparturesDataSource.paginator = this.paginator;
+        this.allDeparturesDataSource.sort = this.sort;
+
+        const today = new Date();
+        this.todayDeparturesDataSource.data = data.filter(
+          (ticket) => new Date(ticket.tic_hora).toLocaleDateString() === today.toLocaleDateString()
+        );
+        this.todayDeparturesDataSource.paginator = this.paginator;
+        this.todayDeparturesDataSource.sort = this.sort;
       },
       (error) => {
         console.log(error);
       }
-    )
+    );
   }
 }
