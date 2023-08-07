@@ -3,9 +3,9 @@ import {Vehicule} from "../models/vehicule";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {VehiculesService} from '../services/vehicules.service';
 import {OwnerService} from '../services/owner.service';
-import { Owner } from '../models/owner';
+import {Owner} from '../models/owner';
 import {DestinationService} from '../services/destination.service';
-import { Destination } from '../models/destination';
+import {Destination} from '../models/destination';
 
 @Component({
   selector: 'app-vehicle-dialog',

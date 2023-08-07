@@ -44,4 +44,8 @@ export class OwnerService {
   createOwner(owner: Owner): Observable<any> {
     return this.http.post<any>(`${this.basePath}/create`, owner, this.httpOptions);
   }
+
+  deleteOwner(id: number): Observable<Owner> {
+    return this.http.delete<Owner>(`${this.basePath}/${id}`, this.httpOptions);
+  }
 }   
