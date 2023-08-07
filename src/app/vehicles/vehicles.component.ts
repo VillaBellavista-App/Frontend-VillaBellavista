@@ -4,6 +4,8 @@ import {MatDialog} from "@angular/material/dialog";
 import {VehicleDialogComponent} from "../vehicle-dialog/vehicle-dialog.component";
 import {Vehicule} from "../models/vehicule";
 import {VehiculesService} from '../services/vehicules.service';
+import {MatTableDataSource} from "@angular/material/table";
+import {MatSort} from "@angular/material/sort";
 
 @Component({
   selector: 'app-vehicles',
@@ -14,22 +16,20 @@ import {VehiculesService} from '../services/vehicules.service';
 export class VehiclesComponent implements OnInit {
 
   displayedColumns: string[] = [ 'plate', 'owner', 'category', 'brand', 'model', 'year', 'serie', 'seats', 'actions'];
-  dataSource = [] as Vehicule[];
   tabContentsVisibility: boolean[] = [true, false];
+  allVehiculesDataSource: MatTableDataSource<Vehicule> = new MatTableDataSource<Vehicule>();
+  filterVehiculesDataSource: MatTableDataSource<Vehicule> = new MatTableDataSource<Vehicule>();
 
   // @ts-ignore
   @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
   @ViewChild('line', { static: true }) line!: ElementRef;
   activeTab: number = 0;
 
-  constructor(private dialog: MatDialog, private paginatorIntl: MatPaginatorIntl, private vehiculeService: VehiculesService) {}
+  constructor(private dialog: MatDialog, private vehiculeService: VehiculesService) {}
 
   ngOnInit(): void {
-    console.log('DriversComponent ngOnInit');
-    // @ts-ignore
-    this.dataSource.paginator = this.paginator;
-    this.paginatorIntl.itemsPerPageLabel = 'Elementos por página';
-    this.getData();
+    this.getDataForTab(1);
   }
 
   openVehicleDialog(vehicle?: Vehicule): void {
@@ -41,27 +41,27 @@ export class VehiclesComponent implements OnInit {
       if (result) {
         if (vehicle) {
           // Modo edición - actualizamos los datos del vehicle en el dataSource
-          const index = this.dataSource.findIndex(d => d === vehicle);
+          const index = this.allVehiculesDataSource.data.findIndex(d => d === vehicle);
           if (index !== -1) {
-            this.dataSource[index] = result;
-            this.dataSource = [...this.dataSource];
+            this.allVehiculesDataSource.data[index] = result;
+            this.allVehiculesDataSource.data = [...this.allVehiculesDataSource.data];
           }
         } else {
           // Modo añadir - agregamos el nuevo Vehicle al dataSource
-          this.dataSource.push(result);
-          this.dataSource = [...this.dataSource];
+          this.allVehiculesDataSource.data.push(result);
+          this.allVehiculesDataSource.data = [...this.allVehiculesDataSource.data];
         }
       }
     });
   }
   deleteVehicle(vehicle: Vehicule): void {
     // Encontrar el índice del vehicle en el dataSource
-    const index = this.dataSource.findIndex(d => d === vehicle);
+    const index = this.allVehiculesDataSource.data.findIndex(d => d === vehicle);
 
     // Si se encuentra el vehicle, eliminarlo del dataSource
     if (index !== -1) {
-      this.dataSource.splice(index, 1);
-      this.dataSource = [...this.dataSource];
+      this.allVehiculesDataSource.data.splice(index, 1);
+      this.allVehiculesDataSource.data = [...this.allVehiculesDataSource.data];
     }
   }
   toggleTab(tabIndex: number, e: MouseEvent): void {
@@ -75,11 +75,32 @@ export class VehiclesComponent implements OnInit {
     }
     // Cambiar la visibilidad del contenido
     this.tabContentsVisibility = this.tabContentsVisibility.map((_, index) => index === tabIndex);
+    console.log(tabIndex);
+    this.getDataForTab(tabIndex);
   }
-  getData(){
+  getDataForTab(tabIndex: number):void{
     this.vehiculeService.getAll().subscribe(
       (data: Vehicule[]) => {
-        this.dataSource = data;
+        this.allVehiculesDataSource.data = data;
+        this.allVehiculesDataSource.paginator = this.paginator;
+        this.allVehiculesDataSource.sort = this.sort;
+        const today = new Date();
+
+        switch (tabIndex) {
+          case 0:
+            // Mostrar todos los registros
+            break;
+          case 1:
+            // Mostrar solo los vehiculos mas antiguos
+            this.filterVehiculesDataSource.data = data.filter(
+                (vehicle) => vehicle.veh_anio_fabricacion <= (today.getFullYear() - 5),
+            );
+            this.filterVehiculesDataSource.paginator = this.paginator;
+            this.filterVehiculesDataSource.sort = this.sort;
+            break;
+          default:
+            break;
+        }
       },
       (error) => {
         console.log(error);

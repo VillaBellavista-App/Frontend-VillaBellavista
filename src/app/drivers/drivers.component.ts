@@ -18,7 +18,7 @@ export class DriversComponent implements OnInit{
   allDriversDataSource: MatTableDataSource<Owner> = new MatTableDataSource<Owner>();
   validDriversDataSource: MatTableDataSource<Owner> = new MatTableDataSource<Owner>();
   invalidDriversDataSource: MatTableDataSource<Owner> = new MatTableDataSource<Owner>();
-    tabContentsVisibility: boolean[] = [true, false, false];
+  tabContentsVisibility: boolean[] = [true, false, false];
 
   // @ts-ignore
   @ViewChild(MatPaginator) paginator: MatPaginator;
