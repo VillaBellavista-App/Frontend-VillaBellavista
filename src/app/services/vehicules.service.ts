@@ -44,6 +44,14 @@ export class VehiculesService {
     return this.http.post<any>(`${this.basePath}/create`, vehicule, this.httpOptions);
   }
 
+  updateVehicle(id: number, updatedOwner: Vehicule): Observable<any> {
+    const url = `${this.basePath}/${id}`;
+    return this.http.put<any>(url, updatedOwner, this.httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
   deleteVehicule(id: number): Observable<Vehicule> {
     return this.http.delete<Vehicule>(`${this.basePath}/${id}`, this.httpOptions);
   }

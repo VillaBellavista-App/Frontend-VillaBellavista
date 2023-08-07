@@ -43,6 +43,14 @@ export class OwnerService {
 
   createOwner(owner: Owner): Observable<any> {
     return this.http.post<any>(`${this.basePath}/create`, owner, this.httpOptions);
+  } 
+
+  updateOwner(id: number, updatedOwner: Owner): Observable<any> {
+    const url = `${this.basePath}/${id}`;
+    return this.http.put<any>(url, updatedOwner, this.httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      );
   }
 
   deleteOwner(id: number): Observable<Owner> {

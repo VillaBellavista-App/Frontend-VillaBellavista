@@ -13,7 +13,8 @@ export class DriverDialogComponent implements OnInit{
   isEditMode: boolean;
 
   constructor(
-    public dialogRef: MatDialogRef<DriverDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: Owner, private ownerService: OwnerService) {
+    public dialogRef: MatDialogRef<DriverDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: Owner, 
+    private ownerService: OwnerService) {
     this.isEditMode = !!data; // Si data tiene valor, estamos en modo edición
     this.editedDriver = this.isEditMode ? { ...data } : {} as Owner;
   }
@@ -24,26 +25,30 @@ export class DriverDialogComponent implements OnInit{
 
     this.dialogRef.close(this.editedDriver); // Devolvemos el Departure editado
     
-    this.dialogRef.afterClosed().subscribe((result: Owner) => {
-      if (result) {
-        this.ownerService.createOwner(result).subscribe(
-          response => {
-            console.log('Solicitud POST exitosa:', response);
-          },
-          error => {
-            console.error('Error en la solicitud POST:', error);
-          }
-        );
-      } else {
-        console.log('Diálogo cerrado sin guardar.');
-      }
-    });
+    if (this.isEditMode) {
+      this.ownerService.updateOwner(this.editedDriver.prop_id, this.editedDriver).subscribe(
+        response => {
+          console.log('Solicitud PUT exitosa:', response);
+        },
+        error => {
+          console.error('Error en la solicitud PUT:', error);
+        }
+      );
+    } else {
+      this.ownerService.createOwner(this.editedDriver).subscribe(
+        response => {
+          console.log('Solicitud POST exitosa:', response);
+        },
+        error => {
+          console.error('Error en la solicitud POST:', error);
+        }
+      );
+    }
   }
 
   onCancel(): void {
     // Si el usuario cancela, simplemente cerramos el diálogo sin guardar cambios
     this.dialogRef.close();
   }
-  
-  
+
 }

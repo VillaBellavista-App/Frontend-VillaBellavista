@@ -35,20 +35,25 @@ export class VehicleDialogComponent {
     // Puedes realizar validaciones y lógica antes de cerrar el diálogo
     this.dialogRef.close(this.editedVehicle); // Devolvemos el Vehicle editado
 
-    this.dialogRef.afterClosed().subscribe((result: Vehicule) => {
-      if (result) {
-        this.vehiculeService.createVehicule(result).subscribe(
-          response => {
-            console.log('Solicitud POST exitosa:', response);
-          },
-          error => {
-            console.error('Error en la solicitud POST:', error);
-          }
-        );
-      } else {
-        console.log('Diálogo cerrado sin guardar.');
-      }
-    });
+    if (this.isEditMode) {
+      this.vehiculeService.updateVehicle(this.editedVehicle.veh_id, this.editedVehicle).subscribe(
+        response => {
+          console.log('Solicitud PUT exitosa:', response);
+        },
+        error => {
+          console.error('Error en la solicitud PUT:', error);
+        }
+      );
+    } else {
+      this.vehiculeService.createVehicule(this.editedVehicle).subscribe(
+        response => {
+          console.log('Solicitud POST exitosa:', response);
+        },
+        error => {
+          console.error('Error en la solicitud POST:', error);
+        }
+      );
+    }
 
   }
 
