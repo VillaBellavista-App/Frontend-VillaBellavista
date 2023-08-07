@@ -11,16 +11,16 @@
   <p>ADMIN</p>
 </div>
 <div class="second">
-  <p class="title">Departures Admin</p>
+  <p class="title">Tickets Admin</p>
   <div class="btn-box">
-    <a (click)="openDepartureDialog()" class="btn">+ Add Departure</a>
+    <a (click)="openDepartureDialog()" class="btn">+ Add Tickets</a>
   </div>
 </div>
 <div class="container">
   <div class="tab">
   <div class="tab_box">
-    <button class="tab_btn" (click)="toggleTab(0, $event)" [class.active]="activeTab === 0">All Departures</button>
-    <button class="tab_btn" (click)="toggleTab(1, $event)" [class.active]="activeTab === 1">Departures</button>
+    <button class="tab_btn" (click)="toggleTab(0, $event)" [class.active]="activeTab === 0">All Tickets</button>
+    <button class="tab_btn" (click)="toggleTab(1, $event)" [class.active]="activeTab === 1">Today Tickets</button>
     <div class="line" #line></div> <!-- Added line element with reference -->
   </div>
   </div>

@@ -22,20 +22,15 @@ export class DeparturesComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild('line', { static: true }) line!: ElementRef;
+
   activeTab: number = 0;
 
   constructor(private dialog: MatDialog, private paginatorIntl: MatPaginatorIntl, private ticketService: TicketService) {
   }
 
   ngOnInit(): void {
-    // Initialize paginator and sort properties of MatTableDataSource
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
-
-    // Set custom itemsPerPageLabel for paginator
-    this.paginatorIntl.itemsPerPageLabel = 'Elementos por página';
-
     this.getData();
+
   }
 
   openDepartureDialog(departure?: Ticket): void {
@@ -69,23 +64,33 @@ export class DeparturesComponent implements OnInit {
     }
   }
   toggleTab(tabIndex: number, e: MouseEvent): void {
-    this.activeTab = tabIndex;
-
     const line = this.line.nativeElement as HTMLElement;
 
     if (e.target instanceof HTMLElement) {
       line.style.width = e.target.offsetWidth - 27 + 'px';
-      line.style.left = e.target.offsetLeft +12 +'px';
+      line.style.left = e.target.offsetLeft + 12 + 'px';
     }
-// Cambiar la visibilidad del contenido
+
+    this.dataSource.paginator = this.paginator; // Set the paginator initially
+
+    this.activeTab = tabIndex;
+
+    // Update the visibility of the content
     this.tabContentsVisibility = this.tabContentsVisibility.map((_, index) => index === tabIndex);
+
+    if (tabIndex === 0) {
+      this.getData();
+      console.log(this.dataSource.paginator)// Reapply paginator for "All Departures" tab
+    }
   }
 
   getData(){
     this.ticketService.getAll().subscribe(
       (data: Ticket[]) => {
         this.dataSource.data = data; // Set data to the MatTableDataSource
-        this.dataSource.paginator = this.paginator; // Set paginator property of MatTableDataSource
+        this.dataSource.paginator = this.paginator;// Set paginator property of MatTableDataSource
+        this.dataSource.sort = this.sort;
+        this.paginatorIntl.itemsPerPageLabel = 'Elementos por página';
       },
       (error) => {
         console.log(error);
