@@ -7,6 +7,9 @@ import {Owner} from '../models/owner';
 import {DestinationService} from '../services/destination.service';
 import {Destination} from '../models/destination';
 
+import { MatSelect } from '@angular/material/select';
+import {MatSelectModule} from '@angular/material/select';
+
 @Component({
   selector: 'app-vehicle-dialog',
   templateUrl: './vehicle-dialog.component.html',

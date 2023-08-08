@@ -12,7 +12,11 @@
   </div>
   <div class="input-row">
     <p>Propietario:</p>
-    <input [(ngModel)]="editedVehicle.owner_name" />
+    <mat-select>
+      <mat-option *ngFor="let driver of arrayOwners" [value]="driver">
+        {{driver}}
+      </mat-option>
+    </mat-select>
   </div>
   <div class="input-row">
     <p>Cat:</p>
@@ -32,7 +36,11 @@
   </div>
   <div class="input-row">
     <p>Destino:</p>
-    <input [(ngModel)]="editedVehicle.destino_name" />
+    <mat-select>
+      <mat-option *ngFor="let dest of arrayDestination" [value]="dest">
+        {{dest}}
+      </mat-option>
+    </mat-select>
   </div>
   <div class="input-row">
     <p>N° asientos:</p>
