@@ -25,12 +25,23 @@
     <div class="content" *ngIf="tabContentsVisibility[0]" [ngClass]="{ 'active': tabContentsVisibility[0] }">
       <div class="white-container">
         <div class="chart-container">
+          <span class="chart-title">Balance Stadistics</span>
+          <div class="balance-info">
+            <div class="balance-item">
+              <span class="balance-amount">S/400.00</span>
+              <span class="balance-label">Current Balance</span>
+            </div>
+            <div class="balance-item">
+              <span class="balance-amount">S/200.00</span>
+              <span class="balance-label">Cost Balance</span>
+            </div>
+          </div>
           <canvas baseChart
                   [datasets]="chartData2.datasets"
                   [labels]="chartData2.labels"
                   [type]="chartType2"
                   [options]="chartOptions2"
-                  style="max-height: 20rem;max-width: 80%; overflow: hidden;">
+                  style="max-height: 18rem;max-width: 100%; overflow: hidden;">
           </canvas>
         </div>
       </div>

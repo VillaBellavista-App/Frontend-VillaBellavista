@@ -38,10 +38,16 @@ export class GraphicsComponent {
   };
   public chartOptions2: any = {
     responsive: true,
+    plugins: {
+      legend: {
+        display: false
+      }
+    },
     scales: {
       x: {
         ticks: {
           font: {
+            color: '#228CE8',// Cambiar el color de fuente del eje X
             size: 16,// Cambiar el tamaño de fuente del eje X
           }
         }
