@@ -26,15 +26,34 @@ export class GraphicsComponent {
     datasets: [
       {
         label: 'Ventas',
-        data: [10, 20, 15, 25, 30,40,30],
+        data: [30, 20, 15, 25, 30,40,30],
         borderColor: '#228CE8',
         backgroundColor: '#228CE8',
         pointBorderColor: '#228CE8',
-        pointRadius: 5,
+        pointRadius: 6,
         pointBackgroundColor: 'white',
         fill: false
       }
     ]
+  };
+  public chartOptions2: any = {
+    responsive: true,
+    scales: {
+      x: {
+        ticks: {
+          font: {
+            size: 16,// Cambiar el tamaño de fuente del eje X
+          }
+        }
+      },
+      y: {
+        ticks: {
+          font: {
+            size: 18,// Cambiar el tamaño de fuente del eje X
+          }
+        }
+      }
+    }
   };
   toggleTab(tabIndex: number, e: MouseEvent): void {
     const line = this.line.nativeElement as HTMLElement;
