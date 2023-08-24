@@ -22,6 +22,7 @@ import { DriverDialogComponent } from './driver-dialog/driver-dialog.component';
 import { VehicleDialogComponent } from './vehicle-dialog/vehicle-dialog.component';
 import {MatSortModule} from "@angular/material/sort";
 import {MatSelectModule} from '@angular/material/select';
+import { NgChartsModule } from 'ng2-charts';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import {MatSelectModule} from '@angular/material/select';
         MatDialogModule,
         FlexModule,
         MatSortModule,
-        MatSelectModule
+        MatSelectModule,
+        NgChartsModule
     ],
   providers: [],
   bootstrap: [AppComponent]

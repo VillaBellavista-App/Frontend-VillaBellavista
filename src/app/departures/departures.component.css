@@ -52,31 +52,6 @@ body{
   letter-spacing: 1px;
   border-radius: 0.3rem;
 }
-.logo{
-  background: var(--second-color);
-  color: var(--text-color);
-  font-size: 0.8rem;
-  text-align: center;
-  width: 1.7rem;
-  min-width: 1.7rem;
-  border-radius: 1rem;
-  padding: 0.4rem;
-  cursor: pointer;
-  border: none;
-  margin-right: 0.5rem;
-}
-.logo2{
-  background: #de2a2a;
-  color: var(--text-color);
-  font-size: 0.8rem;
-  text-align: center;
-  width: 1.7rem;
-  min-width: 1.7rem;
-  border-radius: 1rem;
-  padding: 0.4rem;
-  cursor: pointer;
-  border: none;
-}
 .container{
   width: auto;
   height: auto;

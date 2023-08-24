@@ -1,1 +1,53 @@
-<p>graphics works!</p>
+<head>
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/boxicons@latest/css/boxicons.min.css"
+  />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <!--Google Fonts-->
+</head>
+<body>
+<div class="header">
+  <p>ADMIN</p>
+</div>
+<div class="second">
+  <p class="title">Graphics</p>
+</div>
+<div class="container">
+  <div class="tab">
+    <div class="tab_box">
+      <button class="tab_btn" (click)="toggleTab(0, $event)" [class.active]="activeTab === 0">Most Importants</button>
+      <button class="tab_btn" (click)="toggleTab(1, $event)" [class.active]="activeTab === 1">Others</button>
+      <div class="line" #line></div> <!-- Added line element with reference -->
+    </div>
+  </div>
+  <div class="content_box">
+    <div class="content" *ngIf="tabContentsVisibility[0]" [ngClass]="{ 'active': tabContentsVisibility[0] }">
+      <div class="white-container">
+        <div class="chart-container">
+          <canvas baseChart
+                  [datasets]="chartData2.datasets"
+                  [labels]="chartData2.labels"
+                  [type]="chartType2"
+                  style="max-height: 20rem;max-width: 80%; overflow: hidden;">
+          </canvas>
+        </div>
+      </div>
+
+    </div>
+    <div class="content" *ngIf="tabContentsVisibility[1]" [ngClass]="{ 'active': tabContentsVisibility[1] }">
+      <div class="white-container">
+        <div class="chart-container">
+          <canvas baseChart
+                  [datasets]="chartData.datasets"
+                  [labels]="chartData.labels"
+                  [type]="chartType"
+                  style="max-height: 100%; overflow: hidden;">
+          </canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+
