@@ -111,16 +111,16 @@ body{
   margin-bottom: 0.4rem;
 }
 .chart-container .balance-amount {
-  font-size: 24px;
+  font-size: 1.5rem;
   font-weight: 400;
   color: #726E6E;
 }
 .chart-container .balance-label {
-  font-size: 14px;
+  font-size: 0.9rem;
   color: #979393;
 }
 .chart-container .chart-title{
-  font-size: 18px;
+  font-size: 1.125rem;
   font-weight: 500;
   color: #726E6E;
 }

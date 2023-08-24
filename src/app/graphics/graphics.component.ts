@@ -22,7 +22,7 @@ export class GraphicsComponent {
   };
   public chartType2: ChartType = 'line';
   public chartData2: ChartData = {
-    labels: ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo'],
+    labels: ['Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab', 'Dom'],
     datasets: [
       {
         label: 'Ventas',
@@ -46,16 +46,19 @@ export class GraphicsComponent {
     scales: {
       x: {
         ticks: {
+          color: '#BABABA',// Cambiar el color de fuente del eje X
           font: {
-            color: '#228CE8',// Cambiar el color de fuente del eje X
-            size: 16,// Cambiar el tamaño de fuente del eje X
+            size: 18,// Cambiar el tamaño de fuente del eje X
+            weight: 600,
           }
         }
       },
       y: {
         ticks: {
+          color: '#BABABA',
           font: {
             size: 18,// Cambiar el tamaño de fuente del eje X
+            weight: 600,
           }
         }
       }
