@@ -1,10 +1,11 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, HostListener} from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Ticket } from '../models/ticket';
 import { TicketPost } from '../models/ticketPost';
 import { VehiculesService } from '../services/vehicules.service';
 import { TicketService } from '../services/ticket.service';
 import { Vehicule } from '../models/vehicule';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-departure-dialog',
@@ -19,7 +20,7 @@ export class DepartureDialogComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<DepartureDialogComponent>, private vehicleService: VehiculesService, private ticketService: TicketService,
-    @Inject(MAT_DIALOG_DATA) public data: Ticket
+    @Inject(MAT_DIALOG_DATA) public data: Ticket, private location: Location
   ) {
     this.isEditMode = !!data; // Si data tiene valor, estamos en modo edición
     this.editedDeparture = this.isEditMode ? { ...data } : {} as Ticket;
@@ -53,6 +54,7 @@ export class DepartureDialogComponent implements OnInit {
 
           // Cerrar el diálogo después de realizar la operación
           this.dialogRef.close(this.editedDeparture);
+          window.location.reload();
       },
       error => {
         console.error('Error al obtener el ID del vehículo:', error);
