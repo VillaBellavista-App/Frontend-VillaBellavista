@@ -1,6 +1,7 @@
 body{
   background-color: #F7F7F7;
   font-family: 'Poppins', sans-serif;
+  min-height: 100vh;
 }
 .header{
   width: auto;
@@ -42,7 +43,7 @@ body{
 }
 .tab_box{
   margin-left: 1.5rem;
-  width: 25%;
+  width: 23rem;
   display: flex;
   align-items: flex-start;
   justify-content: space-around;
@@ -77,8 +78,8 @@ body{
 .line{
   position: absolute;
   top:51px;
-  left: 24px;
-  width: 41%;
+  left: 1.875rem;
+  width: 10rem;
   height: 3px;
   background-color: var(--second-color);
   border-radius: 10px;
@@ -97,7 +98,7 @@ body{
 
 .chart-container .balance-info {
   display: flex;
-  justify-content: start;
+  justify-content: flex-start;
   margin-bottom: 1.5rem;
   margin-top: 1.5rem;
 }
@@ -116,11 +117,37 @@ body{
   color: #726E6E;
 }
 .chart-container .balance-label {
-  font-size: 0.9rem;
+  font-size: 0.875rem;
+  font-weight: 500;
   color: #979393;
 }
 .chart-container .chart-title{
   font-size: 1.125rem;
   font-weight: 500;
   color: #726E6E;
+}
+/* responsive */
+@media (max-width: 1100px) {
+  .white-container{
+    padding: 2rem 2rem;
+    margin: 1rem 1rem;
+  }
+}
+
+@media (max-width: 900px) {
+  .white-container{
+    padding: 1.5rem 2rem;
+  }
+  .chart-container .balance-label{
+    font-size: 0.65rem;
+  }
+  .chart-container .balance-amount{
+    font-size: 1.2rem;
+  }
+  .chart-container .balance-item {
+    margin-right: 3rem;
+  }
+  .chart-container .chart-title{
+    font-size: 1rem;
+  }
 }
