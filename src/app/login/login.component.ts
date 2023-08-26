@@ -2,6 +2,7 @@ import {AfterViewInit, Component, ElementRef, Input} from "@angular/core";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
 import {UserService} from "../services/user.services";
+import { User } from "../models/user";
 
 @Component({
   selector: 'app-login',
@@ -38,27 +39,33 @@ export class LoginComponent implements AfterViewInit {
       lockIcon.classList.add("bxs-lock-open-alt");
     }
   }
-
-  login(){
-    if(this.userFormGroup.valid) {
+  
+  login() {
+    if (this.userFormGroup.valid) {
       this.isLoading = true;
-      this.userService.authenticate(this.userFormGroup.get("email")?.value, this.userFormGroup.get("password")?.value).subscribe(
-        (response) => {
-          // local storage
-          localStorage.setItem('id', String(response.id));
-          //localStorage.setItem('name', response.name);
+      const email = <undefined>this.userFormGroup.get('email')?.value;
+      const password = <undefined>this.userFormGroup.get('password')?.value;
+  
+      if (email !== undefined && password !== undefined) {
+        this.userService.authenticate(email, password).subscribe(
+          (user: User[]) => {
+            if (user.length > 0) {
+              console.log('Authenticated', user);
+              this.route.navigate(['/departures']);
 
-          console.log('LOGIN SUCCESSFUL');
+            } else {
 
-          this.route.navigate(['/departures']);
-          this.isLoading=false;
-        },
-        (error) => {
-          this.userFormGroup.setValue({email: '', password: ''})
-          this.isLoading=false;
-        }
-      );
+              this.userFormGroup.setValue({ email: '', password: '' });
+              this.isLoading = false;
+            }
+          },
+        );
+      } else {
+        console.log('Email or password is undefined');
+        this.isLoading = false;
+      }
     }
   }
+  
 
 }

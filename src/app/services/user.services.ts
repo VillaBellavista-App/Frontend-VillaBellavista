@@ -42,12 +42,11 @@ export class UserService {
     return this.http.get<User>(`${this.basePath}/${username}`, this.httpOptions)
   }
 
-  authenticate(username: ɵGetProperty<ɵTypedOrUntyped<{ password: FormControl<string | null>; username: FormControl<string | null> }, ɵFormGroupRawValue<{ password: FormControl<string | null>; username: FormControl<string | null> }>, any>, "username"> | undefined, password: ɵGetProperty<ɵTypedOrUntyped<{ password: FormControl<string | null>; username: FormControl<string | null> }, ɵFormGroupRawValue<{ password: FormControl<string | null>; username: FormControl<string | null> }>, any>, "password"> | undefined): Observable<User> {
-    return this.http.get<User>(`${this.basePath}/authenticate/${username}/${password}`, this.httpOptions)
-      .pipe(
-        retry(2),
-        catchError(this.handleError));
+  authenticate(email: string, password: string): Observable<User[]> {
+    const url = `${this.basePath}/authenticate/${email}/${password}`;
+    return this.http.get<User[]>(url);
   }
+
 
   create(user: ɵTypedOrUntyped<{user_nombre: FormControl<string | null>; user_apellidos: FormControl<string | null>; user_email: FormControl<string | null>; user_password: FormControl<string | null> }, 
     ɵFormGroupValue<{user_nombre: FormControl<string | null>; user_apellidos: FormControl<string | null>; user_email: FormControl<string | null>; user_password: FormControl<string | null>  }>, any>): 
