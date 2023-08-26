@@ -50,11 +50,9 @@ export class LoginComponent implements AfterViewInit {
         this.userService.authenticate(email, password).subscribe(
           (user: User[]) => {
             if (user.length > 0) {
-              console.log('Authenticated', user);
+              localStorage.setItem('user', JSON.stringify(user[0].user_role));
               this.route.navigate(['/departures']);
-
             } else {
-
               this.userFormGroup.setValue({ email: '', password: '' });
               this.isLoading = false;
             }

@@ -250,6 +250,7 @@ input[type="text"].password:focus {
     width: 75%;
   }
 }
+
 @media (max-width: 860px) {
   ::ng-deep:root {
     --big-font: 2.7rem;
@@ -287,6 +288,7 @@ input[type="text"].password:focus {
     margin-bottom: 5rem;
   }
 }
+
 @media (max-width: 575px) {
   header{
     padding: 25px 4% 0px;
