@@ -254,20 +254,20 @@ input[type="text"].password:focus {
 
 @media (max-width: 1350px) {
   header {
-    padding: 22px 5%;
+    padding: 30px 10px 5px 5%;
   }
-
   section {
     padding: 0px 10% 40px;
   }
 }
+
 @media (max-width: 1060px) {
   ::ng-deep:root {
     --big-font: 3rem;
     --h2-font: 1rem;
   }
   .text-one{
-    margin-bottom: 1rem;
+    margin-bottom: 1rem;  
   }
   .text-two {
     margin-bottom: 1rem;
@@ -286,6 +286,7 @@ input[type="text"].password:focus {
     width: 75%;
   }
 }
+
 @media (max-width: 860px) {
   ::ng-deep:root {
     --big-font: 2.7rem;
@@ -311,6 +312,7 @@ input[type="text"].password:focus {
     margin-bottom: 10rem;
   }
 }
+
 @media (max-width: 625px) {
   ::ng-deep:root {
     --big-font: 2.5rem;
@@ -328,10 +330,10 @@ input[type="text"].password:focus {
     margin-bottom: 8rem;
   }
 }
+
 @media (max-width: 575px) {
-  header{
-    padding: 25px 4% 0px;
-    width: 100%;
+  header {
+    padding: 30px 10px 5px 5%;
   }
   .logo{
     margin: 0 5%;
@@ -363,10 +365,10 @@ input[type="text"].password:focus {
     font-size: 2.3rem;
   }
 }
+
 @media (max-width: 350px) {
-  header{
-    padding: 25px 2% 0px;
-    width: 100%;
+  header {
+    padding: 5px 5px 1px 5%;
   }
   .logo{
     margin: 0 3%;

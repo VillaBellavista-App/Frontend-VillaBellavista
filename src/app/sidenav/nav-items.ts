@@ -19,4 +19,9 @@ export const navbarItems = [
     icon: 'bx bxl-graphql',
     label: 'Graphics'
   },
+  {
+    routerLink: 'login',
+    icon: 'bx bx-log-out',
+    label: 'Logout'
+  },
 ];

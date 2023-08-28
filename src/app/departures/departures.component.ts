@@ -2,7 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild, ViewEncapsulation } from '@an
 import {MatPaginator, MatPaginatorIntl} from '@angular/material/paginator';
 import {MatSort, Sort} from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-
+import { DatePipe } from '@angular/common';
 import { Ticket } from '../models/ticket';
 import { MatDialog } from "@angular/material/dialog";
 import { TicketService } from "../services/ticket.service";
@@ -15,6 +15,7 @@ import { DepartureDialogComponent } from "../departure-dialog/departure-dialog.c
 })
 
 export class DeparturesComponent implements OnInit {
+
   displayedColumns: string[] = ['tic_placa', 'tic_hora', 'tic_destino', 'tic_categoria', 'tarifa_quantity', 'actions'];
   allDeparturesDataSource: MatTableDataSource<Ticket> = new MatTableDataSource<Ticket>();
   todayDeparturesDataSource: MatTableDataSource<Ticket> = new MatTableDataSource<Ticket>();
