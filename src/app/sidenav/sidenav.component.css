@@ -22,6 +22,9 @@
   width: 6rem;
   height: 100%;
   box-shadow: 0.063rem 0 1.25rem 0 #8690a3;
+  @media (max-width: 400px) {
+    width: 4rem;
+  }
 }
 
 .sidenav .logo-container{
@@ -44,6 +47,9 @@
   cursor: pointer;
   border: none;
   margin-left: 1rem;
+  @media (max-width: 400px) {
+    margin-left: 0rem;
+  }
 }
 .logo-text{
   color: var(--text-color);
@@ -51,21 +57,13 @@
   margin-left: 0.3rem;
   font-weight: 500;
 }
-.btn-close{
-  margin-left: 2.2rem;
-  cursor: pointer;
-  width: 2rem;
-  height: 2rem;
-  border-radius: 50%;
-  background: transparent;
-  border: none;
-}
 .bx-x{
   color: var(--text-color);
   font-size: var(--h1-font);
 }
 .sidenav-collapsed{
-  width: 16rem;
+  width: 12.5rem;
+  transition: all .5s ease;
 }
 .sidenav-nav{
   list-style: none;
@@ -96,6 +94,9 @@
   min-width: 2rem;
   margin-left: 1rem;
   text-align: center;
+  @media (max-width: 400px) {
+    margin-left: 0rem;
+  }
 }
 .sidenav-link-text{
   margin-left: 1rem;
@@ -106,3 +107,4 @@
 .sidenav-nav-item:hover .sidenav-nav-link{
   color: var(--second-color);
 }
+

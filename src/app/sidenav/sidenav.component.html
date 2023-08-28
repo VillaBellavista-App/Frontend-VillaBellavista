@@ -6,9 +6,9 @@
   <div class="logo-container">
     <button class="logo" (click)="toggleCollapse()">B</button>
     <div class="logo-text" *ngIf="collapse">ellavista</div>
-    <button class="btn-close" *ngIf="collapse" (click)="closeSidenav()">
-      <i class='bx bx-x'></i>  <!-- close-icon -->
-    </button>
+   <!-- <button class="btn-close" *ngIf="collapse" (click)="closeSidenav()">
+      <i class='bx bx-x'></i>
+    </button> -->
   </div>
   <ul class="sidenav-nav">
     <li class="sidenav-nav-item" *ngFor="let data of navItems">

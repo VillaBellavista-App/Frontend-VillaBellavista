@@ -150,4 +150,36 @@ body{
   .chart-container .chart-title{
     font-size: 1rem;
   }
+  .header{
+    font-size: 1.1rem;
+  }
+  .title{
+    font-size: 1.3rem;
+  }
+  .tab_box .tab_btn{
+    font-size: 1rem;
+  }
+}
+@media (max-width: 650px) {
+  .header{
+    padding-left: 1.5rem;
+  }
+.second{
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+  .tab_box{
+    margin-left: 0.5rem;
+    width: 20rem;
+  }
+  .content_box{
+    margin-left: 1.5rem;
+    margin-right: 1.5rem;
+  }
+  .white-container{
+    padding: 1.5rem 1.5rem;
+    margin: 0;
+    height: 25rem;
+  }
+
 }
