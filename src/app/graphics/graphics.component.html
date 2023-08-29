@@ -50,11 +50,12 @@
     <div class="content" *ngIf="tabContentsVisibility[1]" [ngClass]="{ 'active': tabContentsVisibility[1] }">
       <div class="white-container">
         <div class="chart-container">
+          <span class="chart-title">Destinations Stadistics</span>
           <canvas baseChart
                   [datasets]="chartData.datasets"
                   [labels]="chartData.labels"
                   [type]="chartType"
-                  style="max-height: 100%; overflow: hidden;">
+                  style="max-height: 25rem; overflow: hidden;">
           </canvas>
         </div>
       </div>
