@@ -150,21 +150,6 @@ body{
 
 
 @media (max-width: 910px) {
-  .white-container{
-    padding: 1.5rem 2rem;
-  }
-  .chart-container .balance-label{
-    font-size: 0.65rem;
-  }
-  .chart-container .balance-amount{
-    font-size: 1.2rem;
-  }
-  .chart-container .balance-item {
-    margin-right: 3rem;
-  }
-  .chart-container .chart-title{
-    font-size: 1rem;
-  }
   .header{
     font-size: 1.1rem;
   }
