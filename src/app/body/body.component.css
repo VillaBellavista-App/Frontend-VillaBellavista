@@ -9,13 +9,17 @@
 .body-trimmed{
   width: calc(100% - 12.5rem);
   margin-left: 12.5rem;
+  @media (max-width: 500px) {
+    width: calc(100% - 3rem);
+    margin-left: 3rem;
+  }
 }
 .body-md-screen{
   width: calc(100% - 6rem);
   margin-left: 6rem;
   @media (max-width: 500px) {
-    width: calc(100% - 4rem);
-    margin-left: 4rem;
+    width: calc(100% - 3rem);
+    margin-left: 3rem;
   }
 }
 .body-sm-screen{

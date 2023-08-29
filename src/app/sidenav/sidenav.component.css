@@ -23,7 +23,7 @@
   height: 100%;
   box-shadow: 0.063rem 0 1.25rem 0 #8690a3;
   @media (max-width: 500px) {
-    width: 4rem;
+    width: 3rem;
   }
 }
 
@@ -32,9 +32,12 @@
   align-items: center;
   padding: 1.5rem 0.938rem 4.5rem 0.6rem;
   width: 100%;
+  @media (max-width: 500px) {
+    padding: 1.5rem 0.7rem 4.5rem 0.7rem;
+  }
 }
 
-.logo{
+.logo-side{
   background: var(--second-color);
   color: var(--text-color);
   text-align: center;
@@ -49,6 +52,10 @@
   margin-left: 1rem;
   @media (max-width: 500px) {
     margin-left: 0rem;
+    font-size: 0.9rem;
+    padding: 0.3rem;
+    width: 1.7rem;
+    min-width: 1.7rem;
   }
 }
 .logo-text{
@@ -56,6 +63,9 @@
   font-size: var(--h1-font);
   margin-left: 0.3rem;
   font-weight: 500;
+  @media (max-width: 500px) {
+    font-size: 1rem;
+  }
 }
 .bx-x{
   color: var(--text-color);
@@ -64,6 +74,9 @@
 .sidenav-collapsed{
   width: 12.5rem;
   transition: all .5s ease;
+  @media (max-width: 500px) {
+    width: 7.5rem;
+  }
 }
 .sidenav-nav{
   list-style: none;
@@ -74,6 +87,9 @@
   align-items: center;
   height: calc(100% - 4.375rem);
   cursor: pointer;
+  @media (max-width: 500px) {
+    padding: 0.5rem;
+  }
 }
 .sidenav-nav-item{
   margin-bottom: 0.625rem;
@@ -96,12 +112,17 @@
   text-align: center;
   @media (max-width: 500px) {
     margin-left: 0rem;
+    font-size: 1rem;
   }
 }
 .sidenav-link-text{
   margin-left: 1rem;
   font-size: var(--h2-font);
   font-weight: 500;
+  @media (max-width: 500px) {
+    margin-left: 0.2rem;
+    font-size: 0.9rem;
+  }
 }
 
 .sidenav-nav-item:hover .sidenav-nav-link{

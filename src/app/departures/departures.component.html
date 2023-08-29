@@ -28,14 +28,10 @@
     <div class="content" *ngIf="tabContentsVisibility[0]" [ngClass]="{ 'active': tabContentsVisibility[0] }">
         <table mat-table [dataSource]="allDeparturesDataSource" class="mat-elevation-z8" style="font-family: 'Poppins', sans-serif;">
           <ng-container matColumnDef="tic_placa" >
-            <th mat-header-cell *matHeaderCellDef class="th-column" style="color: #228CE8FF;font-size: 16px;"> N° Placa </th>
-            <td mat-cell *matCellDef="let element" class="td-column" style="color: #5A5A5A;font-size: 13px;"> {{element.tic_placa}} </td>
+            <th mat-header-cell *matHeaderCellDef class="th-column2" style="color: #228CE8FF;"> N° Placa </th>
+            <td mat-cell *matCellDef="let element" class="td-column2" style="color: #5A5A5A;"> {{element.tic_placa}} </td>
           </ng-container>
 
-          <ng-container matColumnDef="tic_propietario">
-            <th mat-header-cell *matHeaderCellDef class="th-column" style="color: #A5A5A5;font-size: 16px;"> Nombre del conductor </th>
-            <td mat-cell *matCellDef="let element" class="td-column" style="color: #5A5A5A;font-size: 13px;"> {{element.tic_propietario}} </td>
-          </ng-container>
 
           <ng-container matColumnDef="tic_hora">
             <th mat-header-cell *matHeaderCellDef class="th-column" style="color: #A5A5A5;"> Hora salida </th>
@@ -45,23 +41,23 @@
           </ng-container>
 
           <ng-container matColumnDef="tic_destino">
-            <th mat-header-cell *matHeaderCellDef class="th-column2" style="color: #A5A5A5;font-size: 16px;"> Destino </th>
-            <td mat-cell *matCellDef="let element" class="td-column2" style="color: #5A5A5A;font-size: 13px;"> {{element.tic_destino}} </td>
+            <th mat-header-cell *matHeaderCellDef class="th-column2" style="color: #A5A5A5;"> Destino </th>
+            <td mat-cell *matCellDef="let element" class="td-column2" style="color: #5A5A5A;"> {{element.tic_destino}} </td>
           </ng-container>
 
           <ng-container matColumnDef="tic_categoria">
-            <th mat-header-cell *matHeaderCellDef class="th-column2" style="color: #A5A5A5;font-size: 16px;"> Categoria </th>
-            <td mat-cell *matCellDef="let element" class="td-column2" style="color: #5A5A5A;font-size: 13px;"> {{element.tic_categoria}} </td>
+            <th mat-header-cell *matHeaderCellDef class="th-column2" style="color: #A5A5A5;"> Categoria </th>
+            <td mat-cell *matCellDef="let element" class="td-column2" style="color: #5A5A5A;"> {{element.tic_categoria}} </td>
           </ng-container>
 
           <ng-container matColumnDef="tarifa_quantity">
-            <th mat-header-cell *matHeaderCellDef class="th-column2" style="color: #A5A5A5;font-size: 16px;"> Monto </th>
-            <td mat-cell *matCellDef="let element" class="td-column2"style="color: #5A5A5A;font-size: 13px;"> {{'S/ ' + element.tarifa_quantity + '.00'}} </td>
+            <th mat-header-cell *matHeaderCellDef class="th-column2" style="color: #A5A5A5;"> Monto </th>
+            <td mat-cell *matCellDef="let element" class="td-column2"style="color: #5A5A5A;"> {{'S/ ' + element.tarifa_quantity + '.00'}} </td>
           </ng-container>
 
           <ng-container matColumnDef="actions">
-            <th mat-header-cell *matHeaderCellDef class="th-column2">  </th>
-            <td mat-cell *matCellDef="let element" class="td-column2">
+            <th mat-header-cell *matHeaderCellDef style="max-width: 10rem">  </th>
+            <td mat-cell *matCellDef="let element" style="max-width: 10rem">
               <button class="logo" (click)="openDepartureDialog(element)"><i class='bx bxs-pencil'></i></button>
               <button class="logo2" (click)="deleteDeparture(element)"><i class='bx bx-trash'></i></button>
             </td>
