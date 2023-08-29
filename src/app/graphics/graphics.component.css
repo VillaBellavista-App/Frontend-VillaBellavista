@@ -38,7 +38,7 @@ body{
   height: auto;
 }
 .tab {
-  width: 100%;
+  width: auto;
   border-bottom: 2px solid rgba(229, 229, 229);
 }
 .tab_box{
