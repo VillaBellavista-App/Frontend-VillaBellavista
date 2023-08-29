@@ -2,6 +2,7 @@ body{
   background-color: #F7F7F7;
   font-family: 'Poppins', sans-serif;
   min-height: 100vh;
+  width: auto;
 }
 .header{
   width: auto;
@@ -88,7 +89,7 @@ body{
 }
 .tab_box{
   margin-left: 1.5rem;
-  width: 25%;
+  width: 24rem;
   display: flex;
   align-items: flex-start;
   justify-content: space-around;

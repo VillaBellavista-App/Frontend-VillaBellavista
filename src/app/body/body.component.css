@@ -1,5 +1,4 @@
 .body{
-  width: calc(100% - 6rem);
   height: 100%;
   margin-left: 6rem;
   z-index: 0;
@@ -8,12 +7,16 @@
   transition: all .5s ease;
 }
 .body-trimmed{
-  width: calc(100% - 16rem);
-  margin-left: 16rem;
+  width: calc(100% - 12.5rem);
+  margin-left: 12.5rem;
 }
 .body-md-screen{
   width: calc(100% - 6rem);
   margin-left: 6rem;
+  @media (max-width: 500px) {
+    width: calc(100% - 4rem);
+    margin-left: 4rem;
+  }
 }
 .body-sm-screen{
   width: 100%;

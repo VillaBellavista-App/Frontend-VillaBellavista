@@ -22,7 +22,7 @@
   width: 6rem;
   height: 100%;
   box-shadow: 0.063rem 0 1.25rem 0 #8690a3;
-  @media (max-width: 400px) {
+  @media (max-width: 500px) {
     width: 4rem;
   }
 }
@@ -47,7 +47,7 @@
   cursor: pointer;
   border: none;
   margin-left: 1rem;
-  @media (max-width: 400px) {
+  @media (max-width: 500px) {
     margin-left: 0rem;
   }
 }
@@ -94,7 +94,7 @@
   min-width: 2rem;
   margin-left: 1rem;
   text-align: center;
-  @media (max-width: 400px) {
+  @media (max-width: 500px) {
     margin-left: 0rem;
   }
 }
