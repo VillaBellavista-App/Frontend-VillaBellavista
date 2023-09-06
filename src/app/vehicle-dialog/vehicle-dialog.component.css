@@ -1,33 +1,94 @@
-/* Establecer el contenedor de la columna como un flex container */
+.dialog-container {
+  min-width: 350px;
+  margin: 0 auto;
+}
+
+.custom-title-container {
+  background-color: var(--main-color);
+  width: 100%;
+  text-align: center;
+}
+
+.custom-title {
+  font-size: 1rem; /* Ajusta el tamaño del título según tus preferencias */
+  font-weight: 500;
+  font-family: 'Poppins', sans-serif;
+  margin-bottom: 0;
+  color: var(--text-color);
+}
+
 .mat-dialog-content.input-container {
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 
-/* Alinear los elementos en la columna */
 .input-container .input-row {
   display: flex;
-  align-items: center;
-  margin-bottom: 10px; /* Espacio entre los campos de entrada */
+  flex-direction: column;
+  align-items: flex-start;
 }
 
-/* Estilo adicional para los nombres del campo */
-.input-container .input-row p {
-  margin: 0; /* Eliminar márgenes predeterminados para los párrafos */
-  min-width: 150px; /* Ancho mínimo para los nombres del campo para alinearlos uniformemente */
+.input-container .input-row label {
+  font-size: 1rem; /* Ajusta el tamaño de la etiqueta del campo */
+  color: var(--extra-color);
+  margin-bottom: 1px;
 }
-/* Envoltorio de los botones */
+
+.input-container .input-row {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.input-container .input-row label {
+  font-size: 1rem;
+  color: var(--extra-color);
+  margin-bottom: 1px;
+}
+.custom-input {
+  width: 95%;
+  padding: 10px;
+  border: 1.6px solid var(--main-color);
+  border-radius: 5px;
+  background-color: var(--text-color);
+  color: var(--other-color);
+  font-size: 0.8rem;
+  font-weight: 400;
+  margin-top: 1px;
+  transition: border-color 0.2s ease;
+  margin-bottom: 1rem;
+}
+
+.custom-input:focus {
+  border-color: var(--second-color);
+}
+
 .button-wrapper {
-  padding: 20px;
   display: flex;
   justify-content: center;
-  width: 100%; /* Establecer el ancho para asegurar que los botones tengan un ancho homogéneo */
 }
 
-/* Estilo para el espacio entre los botones */
-.button-wrapper .custom-button:not(:first-child) {
-  margin-left: 10px; /* Espacio entre los botones */
+.button-wrapper .custom-button {
+  width: 50%;
+  padding: 24px 10px;
+  font-size: 0.8rem;
+  color: white; /* Color del texto blanco */
+  border: none;
+  border-radius: 0;
+  cursor: pointer;
+  font-weight: 400;
+  transition: background-color 0.3s ease;
 }
-h2.mat-dialog-title {
-  text-align: center;
+.cancel-button {
+  background-color: var(--bg-color);/* Color para el botón Cancelar */
+}
+
+.save-button {
+  background-color: #3a3c48; /* Color para el botón Guardar */
+}
+
+.button-wrapper .custom-button:hover {
+  background-color: var(--extra-color); /* Cambia el color de fondo al pasar el ratón */
+  color: #282A37;
 }

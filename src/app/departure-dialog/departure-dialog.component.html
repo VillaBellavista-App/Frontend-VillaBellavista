@@ -1,17 +1,21 @@
-<div fxLayout="column" fxLayoutAlign="center center">
-<h2 mat-dialog-title>{{ isEditMode ? 'Editar' : 'Añadir Nuevo' }} Departure</h2>
-</div>
-<div mat-dialog-content class="input-container" style="font-family: 'Poppins', sans-serif; font-size: 0.8rem;">
-  <div class="input-row">
-    <p>N° Placa:</p>
-    <input [(ngModel)]="editedDeparture.tic_placa" />
+<div class="dialog-container">
+  <div fxLayout="column" fxLayoutAlign="center center">
+    <div class="custom-title-container">
+      <h2 mat-dialog-title class="custom-title">{{ isEditMode ? 'Editar' : 'Añadir Nuevo' }} Departure</h2>
+    </div>
   </div>
-</div>
-<div class="button-container">
-  <div class="button-wrapper" fxLayout="row" fxLayoutAlign="center center">
-    <button mat-button class="custom-button" fxFlex (click)="onCancel()" style="background-color: #228CE8FF; color: white;">Cancelar</button>
-    <button mat-button class="custom-button" fxFlex color="primary" (click)="onSave()" style="background-color: #228CE8FF; color: white;">
-      {{ isEditMode ? 'Guardar' : 'Añadir' }}
-    </button>
+  <div mat-dialog-content class="input-container">
+    <div class="input-row">
+      <label for="tic_placa">N° Placa:</label>
+      <input id="tic_placa"  type="text" [(ngModel)]="editedDeparture.tic_placa" class="custom-input" />
+    </div>
+  </div>
+  <div class="button-container">
+    <div class="button-wrapper" fxLayout="row" fxLayoutAlign="center center">
+      <button mat-button class="custom-button cancel-button" fxFlex (click)="onCancel()">Cancelar</button>
+      <button mat-button class="custom-button save-button" fxFlex color="primary" (click)="onSave()">
+        {{ isEditMode ? 'Guardar' : 'Añadir' }}
+      </button>
+    </div>
   </div>
 </div>

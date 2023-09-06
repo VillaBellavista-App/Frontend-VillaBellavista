@@ -1,58 +1,59 @@
-<div fxLayout="column" fxLayoutAlign="center center">
-  <h2 mat-dialog-title>{{ isEditMode ? 'Editar' : 'Añadir Nuevo' }} Vehicle</h2>
+<div class="dialog-container">
+  <div fxLayout="column" fxLayoutAlign="center center">
+    <div class="custom-title-container">
+  <h2 mat-dialog-title class="custom-title">{{ isEditMode ? 'Editar' : 'Añadir Nuevo' }} Vehicle</h2>
+    </div>
 </div>
 
-<!--placa propietario cat marca modelo añof serie asientos color carroceria motor-->
-<!--[ 'plate', 'owner', 'category', 'brand', 'model', 'year', 'serie', 'seats', 'color', 'bodywork', 'engine', 'actions'];-->
-
-<div mat-dialog-content class="input-container" style="font-family: 'Poppins', sans-serif; font-size: 0.8rem;">
+<div mat-dialog-content class="input-container">
   <div class="input-row">
-    <p>Placa:</p>
-    <input [(ngModel)]="editedVehicle.veh_placa" />
+    <label for="vehiclePlate">Placa:</label>
+    <input id="vehiclePlate" type="text" [(ngModel)]="editedVehicle.veh_placa" class="custom-input" />
   </div>
   <div class="input-row">
-    <p>Propietario:</p>
-    <mat-select [(ngModel)]="editedVehicle.owner_name">
+    <label for="vehicleOwner">Propietario:</label>
+    <mat-select id="vehicleOwner" [(ngModel)]="editedVehicle.owner_name">
       <mat-option *ngFor="let driver of arrayOwners" [value]="driver">
-        {{driver}}
+        {{ driver }}
       </mat-option>
     </mat-select>
   </div>
   <div class="input-row">
-    <p>Cat:</p>
-    <input [(ngModel)]="editedVehicle.veh_categoria" />
+    <label for="vehicleCategory">Categoría:</label>
+    <input id="vehicleCategory" type="text" [(ngModel)]="editedVehicle.veh_categoria" class="custom-input" />
   </div>
   <div class="input-row">
-    <p>Marca:</p>
-    <input [(ngModel)]="editedVehicle.veh_marca" />
+    <label for="vehicleBrand">Marca:</label>
+    <input id="vehicleBrand" type="text" [(ngModel)]="editedVehicle.veh_marca" class="custom-input" />
   </div>
   <div class="input-row">
-    <p>Modelo:</p>
-    <input [(ngModel)]="editedVehicle.veh_modelo" />
+    <label for="vehicleModel">Modelo:</label>
+    <input id="vehicleModel" type="text" [(ngModel)]="editedVehicle.veh_modelo" class="custom-input" />
   </div>
   <div class="input-row">
-    <p>Año fab:</p>
-    <input [(ngModel)]="editedVehicle.veh_anio_fabricacion" />
+    <label for="vehicleYear">Año fab:</label>
+    <input id="vehicleYear" type="text" [(ngModel)]="editedVehicle.veh_anio_fabricacion" class="custom-input" />
   </div>
   <div class="input-row">
-    <p>Destino:</p>
-    <mat-select [(ngModel)]="editedVehicle.destino_name">
+    <label for="vehicleDestination">Destino:</label>
+    <mat-select id="vehicleDestination" [(ngModel)]="editedVehicle.destino_name">
       <mat-option *ngFor="let dest of arrayDestination" [value]="dest">
-        {{dest}}
+        {{ dest }}
       </mat-option>
     </mat-select>
   </div>
   <div class="input-row">
-    <p>N° asientos:</p>
-    <input [(ngModel)]="editedVehicle.veh_nro_asientos" />
+    <label for="vehicleSeats">N° asientos:</label>
+    <input id="vehicleSeats" type="text" [(ngModel)]="editedVehicle.veh_nro_asientos" class="custom-input" />
   </div>
-
 </div>
+
 <div class="button-container">
   <div class="button-wrapper" fxLayout="row" fxLayoutAlign="center center">
-    <button mat-button class="custom-button" fxFlex (click)="onCancel()" style="background-color: #228CE8FF; color: white;">Cancelar</button>
-    <button mat-button class="custom-button" fxFlex color="primary" (click)="onSave()" style="background-color: #228CE8FF; color: white;">
+    <button mat-button class="custom-button cancel-button" fxFlex (click)="onCancel()">Cancelar</button>
+    <button mat-button class="custom-button save-button" fxFlex color="primary" (click)="onSave()">
       {{ isEditMode ? 'Guardar' : 'Añadir' }}
     </button>
   </div>
+</div>
 </div>
