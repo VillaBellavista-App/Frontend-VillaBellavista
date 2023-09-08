@@ -19,7 +19,7 @@ export class GraphicsComponent {
     this.getDestination();
     this.countTickets();
   }
-  
+
   public chartType: ChartType = 'doughnut';
 
   public chartData: ChartData = {
@@ -33,11 +33,11 @@ export class GraphicsComponent {
   public chartType2: ChartType = 'line';
 
   public chartData2: ChartData = {
-    labels: ['Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab', 'Dom'],
+    labels: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul','Ago','Sep','Oct','Nov','Dic'],
     datasets: [
       {
         label: 'Ventas',
-        data: [30, 20, 15, 25, 30, 40, 30],
+        data: [30, 20, 15, 25, 30, 40, 30, 20, 15, 25, 30, 40],
         borderColor: '#228CE8',
         backgroundColor: '#228CE8',
         pointBorderColor: '#228CE8',
