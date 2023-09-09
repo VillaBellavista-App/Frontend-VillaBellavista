@@ -8,9 +8,11 @@ import { OwnerService } from '../services/owner.service';
   templateUrl: './driver-dialog.component.html',
   styleUrls: ['./driver-dialog.component.css']
 })
+
 export class DriverDialogComponent implements OnInit{
   editedDriver: Owner;
   isEditMode: boolean;
+  categoryArray: string[] = ["A1", "AII-A", "AII-B", "AIII-A", "AIII-B"];
 
   constructor(
     public dialogRef: MatDialogRef<DriverDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: Owner, 

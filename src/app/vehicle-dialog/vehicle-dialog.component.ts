@@ -6,7 +6,6 @@ import {OwnerService} from '../services/owner.service';
 import {Owner} from '../models/owner';
 import {DestinationService} from '../services/destination.service';
 import {Destination} from '../models/destination';
-
 import { MatSelect } from '@angular/material/select';
 import {MatSelectModule} from '@angular/material/select';
 
@@ -21,6 +20,7 @@ export class VehicleDialogComponent {
   isEditMode: boolean;
   arrayOwners: string[] = [];
   arrayDestination: string[] = [];
+  categoryArray: string[] = ["M1", "N1"];
 
   constructor(public dialogRef: MatDialogRef<VehicleDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: Vehicule, 
   private vehiculeService: VehiculesService, private ownerService: OwnerService, 

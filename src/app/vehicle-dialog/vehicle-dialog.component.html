@@ -10,9 +10,9 @@
     <label for="vehiclePlate">Placa:</label>
     <input id="vehiclePlate" type="text" [(ngModel)]="editedVehicle.veh_placa" class="custom-input" />
   </div>
-  <div class="input-row" style="margin-bottom: 10px;">
+  <div class="input-row" style="margin-bottom: 5px;">
     <label for="vehicleOwner">Propietario:</label>
-    <mat-select id="vehicleOwner" [(ngModel)]="editedVehicle.owner_name">
+    <mat-select id="vehicleOwner" [(ngModel)]="editedVehicle.owner_name" class="custom-input">
       <mat-option *ngFor="let driver of arrayOwners" [value]="driver">
         {{ driver }}
       </mat-option>
@@ -20,7 +20,11 @@
   </div>
   <div class="input-row">
     <label for="vehicleCategory">Categoría:</label>
-    <input id="vehicleCategory" type="text" [(ngModel)]="editedVehicle.veh_categoria" class="custom-input" />
+    <mat-select id="vehicleCategory" [(ngModel)]="editedVehicle.veh_categoria" class="custom-input">
+      <mat-option *ngFor="let cat of categoryArray" [value]="cat">
+        {{ cat }}
+      </mat-option>
+    </mat-select>
   </div>
   <div class="input-row">
     <label for="vehicleBrand">Marca:</label>
@@ -34,9 +38,9 @@
     <label for="vehicleYear">Año fab:</label>
     <input id="vehicleYear" type="text" [(ngModel)]="editedVehicle.veh_anio_fabricacion" class="custom-input" />
   </div>
-  <div class="input-row" style="margin-bottom: 10px;">
+  <div class="input-row" style="margin-bottom: 5px;">
     <label for="vehicleDestination">Destino:</label>
-    <mat-select id="vehicleDestination" [(ngModel)]="editedVehicle.destino_name">
+    <mat-select id="vehicleDestination" [(ngModel)]="editedVehicle.destino_name" class="custom-input">
       <mat-option *ngFor="let dest of arrayDestination" [value]="dest">
         {{ dest }}
       </mat-option>

@@ -17,9 +17,13 @@
       <label for="driverLicense">N° licencia:</label>
       <input id="driverLicense"  type="text" [(ngModel)]="editedDriver.prop_licencia" class="custom-input" />
     </div>
-    <div class="input-row">
+    <div class="input-row" style="margin-bottom:5px;">
       <label for="driverCategory">Categoría:</label>
-      <input id="driverCategory"  type="text" [(ngModel)]="editedDriver.prop_categoria" class="custom-input" />
+      <mat-select id="driverCategory" [(ngModel)]="editedDriver.prop_categoria" class="custom-input">
+        <mat-option *ngFor="let cat of categoryArray" [value]="cat">
+          {{ cat }}
+        </mat-option>
+      </mat-select>
     </div>
     <div class="input-row">
       <label for="driverRevalidationDate">Fecha Revalt.:</label>
