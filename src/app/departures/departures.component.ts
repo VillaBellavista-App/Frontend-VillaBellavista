@@ -82,16 +82,22 @@ export class DeparturesComponent implements OnInit {
   }
 
   getData() {
+    const today = new Date();
+    const timeZoneOffset = today.getTimezoneOffset(); // Obtener el offset de la zona horaria en minutos
+    const adjustedDate = new Date(today.getTime() - timeZoneOffset * 60000); // Restar el offset para obtener la fecha local
+    const formattedToday = adjustedDate.toISOString().split('T')[0]; // Formato "YYYY-MM-DD"
+    console.log(formattedToday)
     this.ticketService.getAll().subscribe(
       (data: Ticket[]) => {
         this.allDeparturesDataSource.data = data;
         this.allDeparturesDataSource.paginator = this.paginator;
         this.allDeparturesDataSource.sort = this.sort;
 
-        const today = new Date();
         this.todayDeparturesDataSource.data = data.filter(
-          (ticket) => new Date(ticket.tic_fecha).toLocaleDateString() === today.toLocaleDateString()
+          (ticket) => ticket.tic_fecha.split(' ')[0] === formattedToday, // Formato "YYYY-MM-DD"
+
         );
+        console.log(this.todayDeparturesDataSource.data)
         this.todayDeparturesDataSource.paginator = this.paginator;
         this.todayDeparturesDataSource.sort = this.sort;
       },
