@@ -17,6 +17,7 @@ export class DepartureDialogComponent implements OnInit {
   editedDeparture: Ticket;
   isEditMode: boolean;
   vehicle_response: TicketPost | undefined;
+  vehiculoPlacas: string[] = [];
 
   constructor(
     public dialogRef: MatDialogRef<DepartureDialogComponent>, private vehicleService: VehiculesService, private ticketService: TicketService,
@@ -26,7 +27,9 @@ export class DepartureDialogComponent implements OnInit {
     this.editedDeparture = this.isEditMode ? { ...data } : {} as Ticket;
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.getVehiculesData();
+  }
 
   onSave(): void {
     const plate = this.editedDeparture.tic_placa;
@@ -66,5 +69,12 @@ export class DepartureDialogComponent implements OnInit {
   onCancel(): void {
     // Si el usuario cancela, simplemente cerramos el diálogo sin guardar cambios
     this.dialogRef.close();
+  }
+
+  getVehiculesData() {
+    this.vehicleService.getAll().subscribe((vehiculos) => {
+      // Mapear solo las placas de los vehículos y guardarlas en el arreglo
+      this.vehiculoPlacas = vehiculos.map((vehiculo) => vehiculo.veh_placa);
+    });
   }
 }

@@ -16,7 +16,7 @@ import { DepartureDialogComponent } from "../departure-dialog/departure-dialog.c
 
 export class DeparturesComponent implements OnInit {
 
-  displayedColumns: string[] = ['tic_placa', 'tic_hora', 'tic_destino', 'tic_categoria', 'tarifa_quantity', 'actions'];
+  displayedColumns: string[] = ['tic_placa', 'tic_fecha', 'tic_hora', 'tic_destino', 'tic_categoria', 'tarifa_quantity', 'actions'];
   allDeparturesDataSource: MatTableDataSource<Ticket> = new MatTableDataSource<Ticket>();
   todayDeparturesDataSource: MatTableDataSource<Ticket> = new MatTableDataSource<Ticket>();
   tabContentsVisibility: boolean[] = [true, false];
@@ -78,9 +78,7 @@ export class DeparturesComponent implements OnInit {
 
     this.activeTab = tabIndex;
     this.tabContentsVisibility = this.tabContentsVisibility.map((_, index) => index === tabIndex);
-
-
-      this.getData();
+    this.getData();
   }
 
   getData() {
@@ -92,7 +90,7 @@ export class DeparturesComponent implements OnInit {
 
         const today = new Date();
         this.todayDeparturesDataSource.data = data.filter(
-          (ticket) => new Date(ticket.tic_hora).toLocaleDateString() === today.toLocaleDateString()
+          (ticket) => new Date(ticket.tic_fecha).toLocaleDateString() === today.toLocaleDateString()
         );
         this.todayDeparturesDataSource.paginator = this.paginator;
         this.todayDeparturesDataSource.sort = this.sort;

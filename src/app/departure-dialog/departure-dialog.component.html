@@ -7,7 +7,11 @@
   <div mat-dialog-content class="input-container">
     <div class="input-row">
       <label for="tic_placa">N° Placa:</label>
-      <input id="tic_placa"  type="text" [(ngModel)]="editedDeparture.tic_placa" class="custom-input" />
+      <mat-select id="tic_placa" [(ngModel)]="editedDeparture.tic_placa" class="custom-input">
+        <mat-option *ngFor="let veh of vehiculoPlacas" [value]="veh">
+          {{ veh }}
+        </mat-option>
+      </mat-select>
     </div>
   </div>
   <div class="button-container">

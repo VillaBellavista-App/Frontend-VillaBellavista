@@ -1,5 +1,6 @@
 export interface Ticket {
     tic_id:number;
+    tic_fecha: string;  
     tic_hora: string;
     tic_destino: string;
     tic_propietario: string;
