@@ -3,6 +3,7 @@ import {ChartData, ChartType } from 'chart.js';
 import {DestinationService} from '../services/destination.service';
 import {TicketService} from '../services/ticket.service';
 import {Ticket} from '../models/ticket';
+import {TicketCountItem} from '../models/ticketCount';
 
 @Component({
   selector: 'app-graphics',
@@ -14,10 +15,12 @@ export class GraphicsComponent {
   tabContentsVisibility: boolean[] = [true, false];
   @ViewChild('line', { static: true }) line!: ElementRef;
   activeTab: number = 0;
+  ticketCounts: TicketCountItem[] = [];
 
-  constructor(private destinationService: DestinationService, private tickerService: TicketService) {
+  constructor(private destinationService: DestinationService, private ticketService: TicketService) {
     this.getDestination();
     this.countTickets();
+    this.countTicketPerMonth();
   }
 
   public chartType: ChartType = 'doughnut';
@@ -33,11 +36,11 @@ export class GraphicsComponent {
   public chartType2: ChartType = 'line';
 
   public chartData2: ChartData = {
-    labels: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul','Ago','Sep','Oct','Nov','Dic'],
+    labels: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
     datasets: [
       {
         label: 'Ventas',
-        data: [30, 20, 15, 25, 30, 40, 30, 20, 15, 25, 30, 40],
+        data: [],
         borderColor: '#228CE8',
         backgroundColor: '#228CE8',
         pointBorderColor: '#228CE8',
@@ -98,7 +101,7 @@ export class GraphicsComponent {
   }
 
   countTickets() {
-    this.tickerService.getAll().subscribe((tickets: Ticket[]) => {
+    this.ticketService.getAll().subscribe((tickets: Ticket[]) => {
       const destinationCounts: { [key: string]: number } = {};
 
       for (const ticket of tickets) {
@@ -115,11 +118,33 @@ export class GraphicsComponent {
         resultArray.push({ destination: destination, count: destinationCounts[destination] });
       }
 
-       // Actualizar los datos del gráfico
+      // Actualizar los datos del gráfico
       this.chartData.labels = resultArray.map(item => item.destination);
       this.chartData.datasets[0].data = resultArray.map(item => item.count);
 
-      console.log(resultArray); // Aquí puedes hacer lo que necesites con los resultados
+      //console.log(resultArray); // Aquí puedes hacer lo que necesites con los resultados
     });
   }
+
+  updateChartData() {
+    const newData: number[] = [];
+    if (this.chartData2.datasets && this.chartData2.datasets.length > 0) {
+      for (const ticketCount of this.ticketCounts) {
+        // Acceder a la propiedad 'ticket_count' de manera segura
+        const ticketCountValue = ticketCount.ticket_count;
+        newData.push(ticketCountValue);
+      }  
+      this.chartData2.datasets[0].data = newData;
+    }
+  }
+  
+  
+  countTicketPerMonth() {
+    this.ticketService.countTicketPerMonth().subscribe(data => {
+      this.ticketCounts = data;
+      console.log(this.ticketCounts)
+      this.updateChartData();
+    });
+  }
+
 }

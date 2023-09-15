@@ -4,6 +4,7 @@ import {catchError, Observable, retry, throwError} from "rxjs";
 import {Ticket} from "../models/ticket";
 import {TicketPost} from "../models/ticketPost";
 import {FormControl, ɵFormGroupRawValue, ɵFormGroupValue, ɵGetProperty, ɵTypedOrUntyped} from "@angular/forms";
+import { TicketCountItem } from "../models/ticketCount";
 
 @Injectable({
   providedIn: 'root'
@@ -44,7 +45,11 @@ export class TicketService {
 
   createTicket(ticket: TicketPost): Observable<any> {
     return this.http.post<any>(`${this.basePath}/create`, ticket, this.httpOptions);
-  } 
+  }
+
+  countTicketPerMonth(): Observable<TicketCountItem[]> {
+    return this.http.get<TicketCountItem[]>(`${this.basePath}/count`, this.httpOptions);
+  }
 
   deleteTicket(id: number) {
     return this.http.delete(`${this.basePath}/${id}`, this.httpOptions)
