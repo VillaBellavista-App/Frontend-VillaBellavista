@@ -10,6 +10,7 @@ import {FormControl, ɵFormGroupRawValue, ɵFormGroupValue, ɵGetProperty, ɵTyp
 export class VehiculesService {
 
   // Endpoint Backend
+  //basePath = 'https://villa-bellavista-app.onrender.com/app/vehicules';
   basePath = 'http://127.0.0.1:8000/app/vehicules';
 
   httpOptions = {
