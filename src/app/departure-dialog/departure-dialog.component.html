@@ -5,19 +5,24 @@
     </div>
   </div>
   <div mat-dialog-content class="input-container">
+    <form [formGroup]="departureForm" (ngSubmit)="onSave()">
     <div class="input-row">
       <label for="tic_placa">N° Placa:</label>
-      <mat-select id="tic_placa" [(ngModel)]="editedDeparture.tic_placa" class="custom-input">
+      <mat-select id="tic_placa" formControlName="tic_placa" class="custom-input">
         <mat-option *ngFor="let veh of vehiculoPlacas" [value]="veh">
           {{ veh }}
         </mat-option>
       </mat-select>
+      <div *ngIf="departureForm.get('tic_placa')?.hasError('required')" class="error-message">
+        Seleccione una placa.
+      </div>
     </div>
+    </form>
   </div>
   <div class="button-container">
     <div class="button-wrapper" fxLayout="row" fxLayoutAlign="center center">
       <button mat-button class="custom-button cancel-button" fxFlex (click)="onCancel()">Cancelar</button>
-      <button mat-button class="custom-button save-button" fxFlex color="primary" (click)="onSave()">
+      <button mat-button class="custom-button save-button" fxFlex color="primary" [disabled]="!departureForm.valid" (click)="onSave()">
         {{ isEditMode ? 'Guardar' : 'Añadir' }}
       </button>
     </div>

@@ -32,9 +32,21 @@
 .input-container .input-row label {
   font-size: 1rem; /* Ajusta el tamaño de la etiqueta del campo */
   color: var(--extra-color);
-  margin-bottom: 5px;
+  margin-bottom: 1px;
+  margin-top: 3px;
 }
 
+.input-container .input-row {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.input-container .input-row label {
+  font-size: 1rem;
+  color: var(--extra-color);
+  margin-bottom: 1px;
+}
 .custom-input {
   width: 95%;
   padding: 10px;
@@ -44,9 +56,9 @@
   color: var(--other-color);
   font-size: 0.8rem;
   font-weight: 400;
-  margin-top: 5px;
+  margin-top: 1px;
   transition: border-color 0.2s ease;
-  margin-bottom: 1rem;
+  margin-bottom: 1px;
 }
 
 .custom-input:focus {
@@ -80,4 +92,11 @@
 .button-wrapper .custom-button:hover {
   background-color: var(--extra-color); /* Cambia el color de fondo al pasar el ratón */
   color: #282A37;
+}
+.error-message {
+  color: red;
+  font-size: 0.8rem;
+  font-weight: 400;
+  margin-top: -0.1rem;
+  margin-bottom: -0.3rem;
 }
