@@ -45,35 +45,35 @@ export class VehicleDialogComponent implements OnInit{
     this.vehiclesForm = this.formBuilder.group({
       veh_placa: [
         this.editedVehicle.veh_placa,
-        [Validators.required]
+        [Validators.required, Validators.pattern(/^[A-Za-z0-9]{3}-[0-9]{3}$/)]
       ],
       owner_name: [
-        this.editedVehicle.veh_placa,
-        [Validators.required]
+        this.editedVehicle.owner_name,
+        [Validators.required,]
       ],
       veh_categoria: [
-        this.editedVehicle.veh_placa,
+        this.editedVehicle.veh_categoria,
         [Validators.required]
       ],
       veh_marca: [
-        this.editedVehicle.veh_placa,
-        [Validators.required]
+        this.editedVehicle.veh_marca,
+        [Validators.required, Validators.pattern(/^[A-Za-z ]+$/) ]
       ],
       veh_modelo: [
-        this.editedVehicle.veh_placa,
-        [Validators.required]
+        this.editedVehicle.veh_modelo,
+        [Validators.required, Validators.pattern(/^[A-Za-z ]+$/) ]
       ],
       veh_anio_fabricacion: [
-        this.editedVehicle.veh_placa,
-        [Validators.required]
+        this.editedVehicle.veh_anio_fabricacion,
+        [Validators.required, Validators.pattern(/^[0-9]{4}$/)]
       ],
       destino_name: [
-        this.editedVehicle.veh_placa,
+        this.editedVehicle.destino_name,
         [Validators.required]
       ],
       veh_nro_asientos: [
-        this.editedVehicle.veh_placa,
-        [Validators.required]
+        this.editedVehicle.veh_nro_asientos,
+        [Validators.required, Validators.pattern(/^[0-9]{1,3}$/)]
       ],
     });
     }

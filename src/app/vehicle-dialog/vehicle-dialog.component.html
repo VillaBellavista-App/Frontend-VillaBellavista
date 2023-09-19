@@ -11,7 +11,10 @@
         <label for="vehiclePlate">Placa:</label>
         <input id="vehiclePlate" formControlName="veh_placa" type="text" class="custom-input" />
         <div *ngIf="vehiclesForm.get('veh_placa')?.hasError('required')" class="error-message">
-          es obligatorio.
+          La placa es obligatoria.
+        </div>
+        <div *ngIf="vehiclesForm.get('veh_placa')?.hasError('pattern')" class="error-message">
+          Debe tener el siguiente formato: ABC-123
         </div>
       </div>
 
@@ -43,6 +46,9 @@
         <div *ngIf="vehiclesForm.get('veh_marca')?.hasError('required')" class="error-message">
           La marca es obligatoria.
         </div>
+        <div *ngIf="vehiclesForm.get('veh_marca')?.hasError('pattern')" class="error-message">
+          Solo se permiten letras.
+        </div>
       </div>
       <div class="input-row">
         <label for="vehicleModel">Modelo:</label>
@@ -50,12 +56,18 @@
         <div *ngIf="vehiclesForm.get('veh_modelo')?.hasError('required')" class="error-message">
           El modelo es obligatorio.
         </div>
+        <div *ngIf="vehiclesForm.get('veh_marca')?.hasError('pattern')" class="error-message">
+          Solo se permiten letras.
+        </div>
       </div>
       <div class="input-row">
         <label for="vehicleYear">Año fab:</label>
         <input id="vehicleYear" type="text" formControlName="veh_anio_fabricacion" class="custom-input" />
         <div *ngIf="vehiclesForm.get('veh_anio_fabricacion')?.hasError('required')" class="error-message">
           El año de fab. es obligatorio.
+        </div>
+        <div *ngIf="vehiclesForm.get('veh_marca')?.hasError('pattern')" class="error-message">
+          Solo se permiten números de 4 digitos.
         </div>
       </div>
       <div class="input-row" style="margin-bottom: 5px;">
@@ -74,6 +86,9 @@
         <input id="vehicleSeats" type="text" formControlName="veh_nro_asientos" class="custom-input" />
         <div *ngIf="vehiclesForm.get('veh_nro_asientos')?.hasError('required')" class="error-message">
           El numero de asientos es obligatorio.
+        </div>
+        <div *ngIf="vehiclesForm.get('veh_nro_asientos')?.hasError('pattern')" class="error-message">
+          Solo se permiten números, máx. 3 digitos.
         </div>
       </div>
     </form>
