@@ -1,4 +1,4 @@
-import {Component, ElementRef, ViewChild} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {ChartData, ChartType } from 'chart.js';
 import {DestinationService} from '../services/destination.service';
 import {TicketService} from '../services/ticket.service';
@@ -11,13 +11,20 @@ import {TicketCountItem} from '../models/ticketCount';
   styleUrls: ['./graphics.component.css']
 })
 
-export class GraphicsComponent {
+export class GraphicsComponent implements OnInit{
+  dataLoaded: boolean = false;
   tabContentsVisibility: boolean[] = [true, false];
   @ViewChild('line', { static: true }) line!: ElementRef;
   activeTab: number = 0;
+  totalEarnings: number | undefined;
   ticketCounts: TicketCountItem[] = [];
 
   constructor(private destinationService: DestinationService, private ticketService: TicketService) {
+    this.getDestination();
+    this.countTickets();
+    this.countTicketPerMonth();
+  }
+  ngOnInit() {
     this.getDestination();
     this.countTickets();
     this.countTicketPerMonth();
@@ -133,18 +140,24 @@ export class GraphicsComponent {
         // Acceder a la propiedad 'ticket_count' de manera segura
         const ticketCountValue = ticketCount.ticket_count;
         newData.push(ticketCountValue);
-      }  
+      }
       this.chartData2.datasets[0].data = newData;
     }
   }
-  
-  
+
+
   countTicketPerMonth() {
     this.ticketService.countTicketPerMonth().subscribe(data => {
       this.ticketCounts = data;
       console.log(this.ticketCounts)
+      this.totalEarnings = this.calculateTotalEarnings(data);
+      this.dataLoaded = true;
       this.updateChartData();
     });
   }
 
+  calculateTotalEarnings(ticketCounts: TicketCountItem[]): number {
+    return ticketCounts.reduce((total, item) => total + item.total_earnings, 0);
+  }
 }
+

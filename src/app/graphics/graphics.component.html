@@ -28,12 +28,8 @@
           <span class="chart-title">Balance Stadistics</span>
           <div class="balance-info">
             <div class="balance-item">
-              <span class="balance-amount">S/400.00</span>
-              <span class="balance-label">Current Balance</span>
-            </div>
-            <div class="balance-item">
-              <span class="balance-amount">S/200.00</span>
-              <span class="balance-label">Cost Balance</span>
+              <span class="balance-amount">S/{{totalEarnings}}.00</span>
+              <span class="balance-label">Total Balance</span>
             </div>
           </div>
           <canvas baseChart
@@ -41,7 +37,8 @@
                   [labels]="chartData2.labels"
                   [type]="chartType2"
                   [options]="chartOptions2"
-                  style="max-height: 15rem;max-width: 100%; overflow: hidden;">
+                  *ngIf="dataLoaded"
+                  style="max-height: 15rem; max-width: 100%; overflow: hidden;">
           </canvas>
         </div>
       </div>
