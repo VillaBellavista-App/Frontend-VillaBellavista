@@ -4,17 +4,18 @@
       <h2 mat-dialog-title class="custom-title">{{ isEditMode ? 'Editar' : 'Añadir Nuevo' }} Driver</h2>
     </div>
   </div>
+
   <div mat-dialog-content class="input-container">
     <form [formGroup]="driverForm" (ngSubmit)="onSave()">
       <div class="input-row">
         <label for="driverName">Nombres:</label>
         <input id="driverName" formControlName="prop_nombre" type="text" class="custom-input" />
-        <div *ngIf="driverForm.get('prop_nombre')?.hasError('required')" class="error-message">
-          El nombre es obligatorio.
-        </div>
-        <div *ngIf="driverForm.get('prop_nombre')?.hasError('pattern')" class="error-message">
-          El nombre no debe contener números.
-        </div>
+          <div *ngIf="driverForm.get('prop_nombre')?.hasError('required')" class="error-message">
+            El nombre es obligatorio.
+          </div>
+          <div *ngIf="driverForm.get('prop_nombre')?.hasError('pattern')" class="error-message">
+            El nombre no debe contener números.
+          </div>
       </div>
       <div class="input-row">
         <label for="driverLastName">Apellidos:</label>

@@ -6,52 +6,78 @@
 </div>
 
 <div mat-dialog-content class="input-container">
-  <div class="input-row">
-    <label for="vehiclePlate">Placa:</label>
-    <input id="vehiclePlate" type="text" [(ngModel)]="editedVehicle.veh_placa" class="custom-input" />
-  </div>
-  <div class="input-row" style="margin-bottom: 5px;">
-    <label for="vehicleOwner">Propietario:</label>
-    <mat-select id="vehicleOwner" [(ngModel)]="editedVehicle.owner_name" class="custom-input">
-      <mat-option *ngFor="let driver of arrayOwners" [value]="driver">
-        {{ driver }}
-      </mat-option>
-    </mat-select>
-  </div>
-  <div class="input-row">
-    <label for="vehicleCategory">Categoría:</label>
-    <mat-select id="vehicleCategory" [(ngModel)]="editedVehicle.veh_categoria" class="custom-input">
-      <mat-option *ngFor="let cat of categoryArray" [value]="cat">
-        {{ cat }}
-      </mat-option>
-    </mat-select>
-  </div>
-  <div class="input-row">
-    <label for="vehicleBrand">Marca:</label>
-    <input id="vehicleBrand" type="text" [(ngModel)]="editedVehicle.veh_marca" class="custom-input" />
-  </div>
-  <div class="input-row">
-    <label for="vehicleModel">Modelo:</label>
-    <input id="vehicleModel" type="text" [(ngModel)]="editedVehicle.veh_modelo" class="custom-input" />
-  </div>
-  <div class="input-row">
-    <label for="vehicleYear">Año fab:</label>
-    <input id="vehicleYear" type="text" [(ngModel)]="editedVehicle.veh_anio_fabricacion" class="custom-input" />
-  </div>
-  <div class="input-row" style="margin-bottom: 5px;">
-    <label for="vehicleDestination">Destino:</label>
-    <mat-select id="vehicleDestination" [(ngModel)]="editedVehicle.destino_name" class="custom-input">
-      <mat-option *ngFor="let dest of arrayDestination" [value]="dest">
-        {{ dest }}
-      </mat-option>
-    </mat-select>
-  </div>
-  <div class="input-row">
-    <label for="vehicleSeats">N° asientos:</label>
-    <input id="vehicleSeats" type="text" [(ngModel)]="editedVehicle.veh_nro_asientos" class="custom-input" />
-  </div>
-</div>
+  <form [formGroup]="vehiclesForm" (ngSubmit)="onSave()">
+      <div class="input-row">
+        <label for="vehiclePlate">Placa:</label>
+        <input id="vehiclePlate" formControlName="veh_placa" type="text" class="custom-input" />
+        <div *ngIf="vehiclesForm.get('veh_placa')?.hasError('required')" class="error-message">
+          es obligatorio.
+        </div>
+      </div>
 
+      <div class="input-row" style="margin-bottom: 5px;">
+        <label for="vehicleOwner">Propietario:</label>
+        <mat-select id="vehicleOwner" formControlName="owner_name" class="custom-input">
+          <mat-option *ngFor="let driver of arrayOwners" [value]="driver">
+            {{ driver }}
+          </mat-option>
+        </mat-select>
+        <div *ngIf="vehiclesForm.get('owner_name')?.hasError('required')" class="error-message">
+          Seleccione un propietario.
+        </div>
+      </div>
+      <div class="input-row">
+        <label for="vehicleCategory">Categoría:</label>
+        <mat-select id="vehicleCategory" formControlName="veh_categoria" class="custom-input">
+          <mat-option *ngFor="let cat of categoryArray" [value]="cat">
+            {{ cat }}
+          </mat-option>
+        </mat-select>
+        <div *ngIf="vehiclesForm.get('veh_categoria')?.hasError('required')" class="error-message">
+          Seleccione una categoría.
+        </div>
+      </div>
+      <div class="input-row">
+        <label for="vehicleBrand">Marca:</label>
+        <input id="vehicleBrand" type="text" formControlName="veh_marca" class="custom-input" />
+        <div *ngIf="vehiclesForm.get('veh_marca')?.hasError('required')" class="error-message">
+          La marca es obligatoria.
+        </div>
+      </div>
+      <div class="input-row">
+        <label for="vehicleModel">Modelo:</label>
+        <input id="vehicleModel" type="text" formControlName="veh_modelo" class="custom-input" />
+        <div *ngIf="vehiclesForm.get('veh_modelo')?.hasError('required')" class="error-message">
+          El modelo es obligatorio.
+        </div>
+      </div>
+      <div class="input-row">
+        <label for="vehicleYear">Año fab:</label>
+        <input id="vehicleYear" type="text" formControlName="veh_anio_fabricacion" class="custom-input" />
+        <div *ngIf="vehiclesForm.get('veh_anio_fabricacion')?.hasError('required')" class="error-message">
+          El año de fab. es obligatorio.
+        </div>
+      </div>
+      <div class="input-row" style="margin-bottom: 5px;">
+        <label for="vehicleDestination">Destino:</label>
+        <mat-select id="vehicleDestination" formControlName="destino_name" class="custom-input">
+          <mat-option *ngFor="let dest of arrayDestination" [value]="dest">
+            {{ dest }}
+          </mat-option>
+        </mat-select>
+        <div *ngIf="vehiclesForm.get('destino_name')?.hasError('required')" class="error-message">
+          Seleccione un destino.
+        </div>
+      </div>
+      <div class="input-row">
+        <label for="vehicleSeats">N° asientos:</label>
+        <input id="vehicleSeats" type="text" formControlName="veh_nro_asientos" class="custom-input" />
+        <div *ngIf="vehiclesForm.get('veh_nro_asientos')?.hasError('required')" class="error-message">
+          El numero de asientos es obligatorio.
+        </div>
+      </div>
+    </form>
+</div>
 <div class="button-container">
   <div class="button-wrapper" fxLayout="row" fxLayoutAlign="center center">
     <button mat-button class="custom-button cancel-button" fxFlex (click)="onCancel()">Cancelar</button>

@@ -1,4 +1,4 @@
-import {Component, Inject} from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {Vehicule} from "../models/vehicule";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {VehiculesService} from '../services/vehicules.service';
@@ -8,6 +8,7 @@ import {DestinationService} from '../services/destination.service';
 import {Destination} from '../models/destination';
 import { MatSelect } from '@angular/material/select';
 import {MatSelectModule} from '@angular/material/select';
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-vehicle-dialog',
@@ -15,49 +16,95 @@ import {MatSelectModule} from '@angular/material/select';
   styleUrls: ['./vehicle-dialog.component.css']
 })
 
-export class VehicleDialogComponent {
-  editedVehicle: Vehicule;
+export class VehicleDialogComponent implements OnInit{
+  vehiclesForm!: FormGroup;
+
+  editedVehicle: Vehicule = {} as Vehicule
   isEditMode: boolean;
   arrayOwners: string[] = [];
   arrayDestination: string[] = [];
   categoryArray: string[] = ["M1", "N1"];
 
-  constructor(public dialogRef: MatDialogRef<VehicleDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: Vehicule, 
-  private vehiculeService: VehiculesService, private ownerService: OwnerService, 
-  private destinationService: DestinationService) {
-    this.isEditMode = !!data; // Si data tiene valor, estamos en modo edición
-    this.editedVehicle = this.isEditMode ? { ...data } : {} as Vehicule;
+  constructor(public dialogRef: MatDialogRef<VehicleDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: Vehicule,
+  private vehiculeService: VehiculesService, private ownerService: OwnerService,
+  private destinationService: DestinationService,
+  private formBuilder: FormBuilder
+  ) {
+    this.isEditMode = !!data;
+    if (this.isEditMode) {
+      this.editedVehicle = { ...data };
+    }
   }
 
   ngOnInit(): void {
     this.getOwners();
     this.getDestination();
+    this.createForm();
   }
-
-  onSave(): void {
-    // Puedes realizar validaciones y lógica antes de cerrar el diálogo
-    this.dialogRef.close(this.editedVehicle); // Devolvemos el Vehicle editado
-
-    if (this.isEditMode) {
-      this.vehiculeService.updateVehicle(this.editedVehicle.veh_id, this.editedVehicle).subscribe(
-        response => {
-          console.log('Solicitud PUT exitosa:', response);
-        },
-        error => {
-          console.error('Error en la solicitud PUT:', error);
-        }
-      );
-    } else {
-      this.vehiculeService.createVehicule(this.editedVehicle).subscribe(
-        response => {
-          console.log('Solicitud POST exitosa:', response);
-        },
-        error => {
-          console.error('Error en la solicitud POST:', error);
-        }
-      );
+  createForm() {
+    this.vehiclesForm = this.formBuilder.group({
+      veh_placa: [
+        this.editedVehicle.veh_placa,
+        [Validators.required]
+      ],
+      owner_name: [
+        this.editedVehicle.veh_placa,
+        [Validators.required]
+      ],
+      veh_categoria: [
+        this.editedVehicle.veh_placa,
+        [Validators.required]
+      ],
+      veh_marca: [
+        this.editedVehicle.veh_placa,
+        [Validators.required]
+      ],
+      veh_modelo: [
+        this.editedVehicle.veh_placa,
+        [Validators.required]
+      ],
+      veh_anio_fabricacion: [
+        this.editedVehicle.veh_placa,
+        [Validators.required]
+      ],
+      destino_name: [
+        this.editedVehicle.veh_placa,
+        [Validators.required]
+      ],
+      veh_nro_asientos: [
+        this.editedVehicle.veh_placa,
+        [Validators.required]
+      ],
+    });
     }
 
+  onSave(): void {
+    if (this.vehiclesForm.valid) {
+      this.editedVehicle = this.vehiclesForm.value;
+      this.dialogRef.close(this.editedVehicle); // Devolvemos el Vehicle editado
+
+      if (this.isEditMode) {
+        this.vehiculeService.updateVehicle(this.editedVehicle.veh_id, this.editedVehicle).subscribe(
+          response => {
+            console.log('Solicitud PUT exitosa:', response);
+          },
+          error => {
+            console.error('Error en la solicitud PUT:', error);
+          }
+        );
+      } else {
+        this.vehiculeService.createVehicule(this.editedVehicle).subscribe(
+          response => {
+            console.log('Solicitud POST exitosa:', response);
+          },
+          error => {
+            console.error('Error en la solicitud POST:', error);
+          }
+        );
+      }
+    }else {
+      console.error('El formulario no es válido. Por favor, complete todos los campos.');
+    }
   }
 
   onCancel(): void {
