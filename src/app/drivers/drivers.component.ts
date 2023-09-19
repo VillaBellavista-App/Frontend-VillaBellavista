@@ -29,7 +29,7 @@ export class DriversComponent implements OnInit{
   constructor(private dialog: MatDialog, private ownerService: OwnerService) {}
 
   ngOnInit(): void {
-    this.getDataForTab(1);
+    this.getDataForTab(0);
   }
 
   openDriverDialog(driver?: Owner): void {
@@ -92,14 +92,13 @@ export class DriversComponent implements OnInit{
   getDataForTab(tabIndex: number): void {
         this.ownerService.getAll().subscribe(
             (data: Owner[]) => {
-                this.allDriversDataSource.data = data;
-                this.allDriversDataSource.paginator = this.paginator;
-                this.allDriversDataSource.sort = this.sort;
-                const today = new Date();
+              const today = new Date();
 
                 switch (tabIndex) {
                     case 0:
-                        // Mostrar todos los registros
+                        this.allDriversDataSource.data = data;
+                        this.allDriversDataSource.paginator = this.paginator;
+                        this.allDriversDataSource.sort = this.sort;
                         break;
                     case 1:
                         // Filtrar y mostrar registros válidos

@@ -29,7 +29,7 @@ export class VehiclesComponent implements OnInit {
   constructor(private dialog: MatDialog, private vehiculeService: VehiculesService) {}
 
   ngOnInit(): void {
-    this.getDataForTab(1);
+    this.getDataForTab(0);
   }
 
   openVehicleDialog(vehicle?: Vehicule): void {
@@ -47,7 +47,7 @@ export class VehiclesComponent implements OnInit {
             this.allVehiculesDataSource.data[index] = result;
             this.allVehiculesDataSource.data = [...this.allVehiculesDataSource.data];
           }
-          
+
         } else {
           // Modo añadir - agregamos el nuevo Vehicle al dataSource
           this.allVehiculesDataSource.data.push(result);
@@ -93,14 +93,14 @@ export class VehiclesComponent implements OnInit {
   getDataForTab(tabIndex: number):void{
     this.vehiculeService.getAll().subscribe(
       (data: Vehicule[]) => {
-        this.allVehiculesDataSource.data = data;
-        this.allVehiculesDataSource.paginator = this.paginator;
-        this.allVehiculesDataSource.sort = this.sort;
         const today = new Date();
 
         switch (tabIndex) {
           case 0:
             // Mostrar todos los registros
+            this.allVehiculesDataSource.data = data;
+            this.allVehiculesDataSource.paginator = this.paginator;
+            this.allVehiculesDataSource.sort = this.sort;
             break;
           case 1:
             // Mostrar solo los vehiculos mas antiguos

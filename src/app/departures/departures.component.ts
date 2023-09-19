@@ -29,7 +29,7 @@ export class DeparturesComponent implements OnInit {
   constructor(private dialog: MatDialog, private ticketService: TicketService) {}
 
   ngOnInit(): void {
-    this.getData();
+    this.getDataForTab(0);
   }
 
   openDepartureDialog(departure?: Ticket): void {
@@ -78,28 +78,35 @@ export class DeparturesComponent implements OnInit {
 
     this.activeTab = tabIndex;
     this.tabContentsVisibility = this.tabContentsVisibility.map((_, index) => index === tabIndex);
-    this.getData();
+    this.getDataForTab(tabIndex);
   }
 
-  getData() {
-    const today = new Date();
-    const timeZoneOffset = today.getTimezoneOffset(); // Obtener el offset de la zona horaria en minutos
-    const adjustedDate = new Date(today.getTime() - timeZoneOffset * 60000); // Restar el offset para obtener la fecha local
-    const formattedToday = adjustedDate.toISOString().split('T')[0]; // Formato "YYYY-MM-DD"
-    console.log(formattedToday)
+  getDataForTab(tabIndex: number): void {
     this.ticketService.getAll().subscribe(
       (data: Ticket[]) => {
-        this.allDeparturesDataSource.data = data;
-        this.allDeparturesDataSource.paginator = this.paginator;
-        this.allDeparturesDataSource.sort = this.sort;
+        const today = new Date();
+        const timeZoneOffset = today.getTimezoneOffset(); // Obtener el offset de la zona horaria en minutos
+        const adjustedDate = new Date(today.getTime() - timeZoneOffset * 60000); // Restar el offset para obtener la fecha local
+        const formattedToday = adjustedDate.toISOString().split('T')[0]; // Formato "YYYY-MM-DD"
+        console.log(formattedToday)
 
-        this.todayDeparturesDataSource.data = data.filter(
-          (ticket) => ticket.tic_fecha.split(' ')[0] === formattedToday, // Formato "YYYY-MM-DD"
-
-        );
-        console.log(this.todayDeparturesDataSource.data)
-        this.todayDeparturesDataSource.paginator = this.paginator;
-        this.todayDeparturesDataSource.sort = this.sort;
+        switch (tabIndex) {
+          case 0:
+            this.allDeparturesDataSource.data = data;
+            this.allDeparturesDataSource.paginator = this.paginator;
+            this.allDeparturesDataSource.sort = this.sort;
+            break;
+          case 1:
+            // Filtrar y mostrar registros válidos
+            this.todayDeparturesDataSource.data = data.filter(
+              (ticket) => ticket.tic_fecha.split(' ')[0] === formattedToday, // Formato "YYYY-MM-DD"
+            );
+            this.todayDeparturesDataSource.paginator = this.paginator;
+            this.todayDeparturesDataSource.sort = this.sort;
+            break;
+          default:
+            break;
+        }
       },
       (error) => {
         console.log(error);
