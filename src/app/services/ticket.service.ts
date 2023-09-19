@@ -12,8 +12,8 @@ import { TicketCountItem } from "../models/ticketCount";
 export class TicketService {
 
   // Endpoint Backend
-  //basePath = 'https://villa-bellavista-app.onrender.com/app/ticket';
-  basePath = 'http://127.0.0.1:8000/app/ticket';
+  basePath = 'https://villa-bellavista-app.onrender.com/app/ticket';
+  //basePath = 'http://127.0.0.1:8000/app/ticket';
 
   httpOptions = {
     headers: new HttpHeaders({

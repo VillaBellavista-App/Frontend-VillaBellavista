@@ -10,8 +10,8 @@ import {FormControl, ɵFormGroupRawValue, ɵFormGroupValue, ɵGetProperty, ɵTyp
 export class OwnerService {
 
   // Endpoint Backend
-  //basePath = 'https://villa-bellavista-app.onrender.com/app/owners';
-  basePath = 'http://127.0.0.1:8000/app/owners';
+  basePath = 'https://villa-bellavista-app.onrender.com/app/owners';
+  //basePath = 'http://127.0.0.1:8000/app/owners';
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -44,7 +44,7 @@ export class OwnerService {
 
   createOwner(owner: Owner): Observable<any> {
     return this.http.post<any>(`${this.basePath}/create`, owner, this.httpOptions);
-  } 
+  }
 
   updateOwner(id: number, updatedOwner: Owner): Observable<any> {
     const url = `${this.basePath}/${id}`;
@@ -57,4 +57,4 @@ export class OwnerService {
   deleteOwner(id: number): Observable<Owner> {
     return this.http.delete<Owner>(`${this.basePath}/${id}`, this.httpOptions);
   }
-}   
+}
