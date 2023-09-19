@@ -18,13 +18,16 @@ export class DriverDialogComponent implements OnInit {
   editedDriver: Owner = {} as Owner; // Inicializa editedDriver
 
   constructor(
-    public dialogRef: MatDialogRef<DriverDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: Owner,
+    public dialogRef: MatDialogRef<DriverDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: Owner,
     private ownerService: OwnerService,
     private formBuilder: FormBuilder
   ) {
     this.isEditMode = !!data;
+    if (this.isEditMode) {
+      this.editedDriver = { ...data };
+    }
   }
-
   ngOnInit(): void {
     this.createForm();
   }
@@ -32,12 +35,13 @@ export class DriverDialogComponent implements OnInit {
   createForm() {
     this.driverForm = this.formBuilder.group({
       prop_nombre: [
+        //el nombre solo puede contener letras pero tambien puede tener espacios
         this.editedDriver.prop_nombre,
-        [Validators.required, Validators.pattern(/^[A-Za-z]+$/)]
+        [Validators.required, Validators.pattern(/^[A-Za-z ]+$/)]
       ],
       prop_apellidos: [
         this.editedDriver.prop_apellidos,
-        [Validators.required, Validators.pattern(/^[A-Za-z]+$/)]
+        [Validators.required, Validators.pattern(/^[A-Za-z ]+$/)]
       ],
       //la licencia comienza con una letra y tiene 8 números
       prop_licencia: [
