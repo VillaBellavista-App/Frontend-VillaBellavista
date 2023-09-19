@@ -33,6 +33,7 @@
   font-size: 1rem; /* Ajusta el tamaño de la etiqueta del campo */
   color: var(--extra-color);
   margin-bottom: 1px;
+  margin-top: 3px;
 }
 
 .input-container .input-row {
@@ -57,7 +58,7 @@
   font-weight: 400;
   margin-top: 1px;
   transition: border-color 0.2s ease;
-  margin-bottom: 1rem;
+  margin-bottom: 1px;
 }
 
 .custom-input:focus {
@@ -91,4 +92,11 @@
 .button-wrapper .custom-button:hover {
   background-color: var(--extra-color); /* Cambia el color de fondo al pasar el ratón */
   color: #282A37;
+}
+.error-message {
+  color: red;
+  font-size: 0.8rem;
+  font-weight: 400;
+  margin-top: -0.1rem;
+  margin-bottom: -0.3rem;
 }

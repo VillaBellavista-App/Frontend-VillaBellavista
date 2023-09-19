@@ -1,5 +1,6 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
+import { Component, Inject, OnInit } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Owner } from '../models/owner';
 import { OwnerService } from '../services/owner.service';
 
@@ -9,48 +10,78 @@ import { OwnerService } from '../services/owner.service';
   styleUrls: ['./driver-dialog.component.css']
 })
 
-export class DriverDialogComponent implements OnInit{
-  editedDriver: Owner;
+export class DriverDialogComponent implements OnInit {
+  driverForm!: FormGroup; // Añade el signo de exclamación para indicar que se inicializará en ngOnInit
+
   isEditMode: boolean;
   categoryArray: string[] = ["A1", "AII-A", "AII-B", "AIII-A", "AIII-B"];
+  editedDriver: Owner = {} as Owner; // Inicializa editedDriver
 
   constructor(
-    public dialogRef: MatDialogRef<DriverDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: Owner, 
-    private ownerService: OwnerService) {
-    this.isEditMode = !!data; // Si data tiene valor, estamos en modo edición
-    this.editedDriver = this.isEditMode ? { ...data } : {} as Owner;
+    public dialogRef: MatDialogRef<DriverDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: Owner,
+    private ownerService: OwnerService,
+    private formBuilder: FormBuilder
+  ) {
+    this.isEditMode = !!data;
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.createForm();
+  }
+
+  createForm() {
+    this.driverForm = this.formBuilder.group({
+      prop_nombre: [
+        this.editedDriver.prop_nombre,
+        [Validators.required, Validators.pattern(/^[A-Za-z]+$/)]
+      ],
+      prop_apellidos: [
+        this.editedDriver.prop_apellidos,
+        [Validators.required, Validators.pattern(/^[A-Za-z]+$/)]
+      ],
+      //la licencia comienza con una letra y tiene 8 números
+      prop_licencia: [
+        this.editedDriver.prop_licencia,
+        [Validators.required, Validators.pattern(/^[a-zA-Z]{1}[0-9]{8}$/)]
+      ],
+      prop_categoria: [this.editedDriver.prop_categoria, Validators.required],
+      //el formato de la fecha es aaaa-mm-dd, con guiones
+      prop_fecha_revalidacion: [
+        this.editedDriver.prop_fecha_revalidacion,
+        [Validators.required, Validators.pattern(/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/)],
+      ]
+    });
+  }
 
   onSave(): void {
-
-    this.dialogRef.close(this.editedDriver); // Devolvemos el Departure editado
-    
-    if (this.isEditMode) {
-      this.ownerService.updateOwner(this.editedDriver.prop_id, this.editedDriver).subscribe(
-        response => {
-          console.log('Solicitud PUT exitosa:', response);
-        },
-        error => {
-          console.error('Error en la solicitud PUT:', error);
-        }
-      );
+    if (this.driverForm.valid) {
+      this.editedDriver = this.driverForm.value;
+      this.dialogRef.close(this.editedDriver);
+      if (this.isEditMode) {
+        this.ownerService.updateOwner(this.editedDriver.prop_id, this.editedDriver).subscribe(
+          response => {
+            console.log('Solicitud PUT exitosa:', response);
+          },
+          error => {
+            console.error('Error en la solicitud PUT:', error);
+          }
+        );
+      } else {
+        this.ownerService.createOwner(this.editedDriver).subscribe(
+          response => {
+            console.log('Solicitud POST exitosa:', response);
+          },
+          error => {
+            console.error('Error en la solicitud POST:', error);
+          }
+        );
+      }
     } else {
-      this.ownerService.createOwner(this.editedDriver).subscribe(
-        response => {
-          console.log('Solicitud POST exitosa:', response);
-        },
-        error => {
-          console.error('Error en la solicitud POST:', error);
-        }
-      );
+      console.error('El formulario no es válido. Por favor, complete todos los campos.');
     }
   }
 
   onCancel(): void {
-    // Si el usuario cancela, simplemente cerramos el diálogo sin guardar cambios
     this.dialogRef.close();
   }
-
 }

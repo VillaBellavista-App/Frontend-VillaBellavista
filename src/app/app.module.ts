@@ -15,7 +15,7 @@ import { BodyComponent } from './body/body.component';
 import {AdminLayoutComponent} from "./layouts/admin/admin-layout.component";
 import {HostListener} from "@angular/core";
 import { DepartureDialogComponent } from './departure-dialog/departure-dialog.component';
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatDialogModule} from "@angular/material/dialog";
 import {FlexModule} from "@angular/flex-layout";
 import { DriverDialogComponent } from './driver-dialog/driver-dialog.component';
@@ -34,23 +34,24 @@ import { NgChartsModule } from 'ng2-charts';
     DriverDialogComponent,
     VehicleDialogComponent,
   ],
-    imports: [
-        RouterModule.forRoot(appRoutes),
-        BrowserModule,
-        BrowserAnimationsModule,
-        HttpClientModule,
-        MatRadioModule,
-        MatSlideToggleModule,
-        MatToolbarModule,
-        MatButtonModule,
-        MatTableModule,
-        FormsModule,
-        MatDialogModule,
-        FlexModule,
-        MatSortModule,
-        MatSelectModule,
-        NgChartsModule
-    ],
+  imports: [
+    RouterModule.forRoot(appRoutes),
+    BrowserModule,
+    BrowserAnimationsModule,
+    HttpClientModule,
+    MatRadioModule,
+    MatSlideToggleModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatTableModule,
+    FormsModule,
+    MatDialogModule,
+    FlexModule,
+    MatSortModule,
+    MatSelectModule,
+    NgChartsModule,
+    ReactiveFormsModule
+  ],
   providers: [],
   bootstrap: [AppComponent]
 })

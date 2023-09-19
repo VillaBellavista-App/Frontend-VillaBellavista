@@ -5,35 +5,64 @@
     </div>
   </div>
   <div mat-dialog-content class="input-container">
-    <div class="input-row">
-      <label for="driverName">Nombres:</label>
-      <input id="driverName"  type="text" [(ngModel)]="editedDriver.prop_nombre" class="custom-input" />
-    </div>
-    <div class="input-row">
-      <label for="driverLastName">Apellidos:</label>
-      <input id="driverLastName"  type="text" [(ngModel)]="editedDriver.prop_apellidos" class="custom-input" />
-    </div>
-    <div class="input-row">
-      <label for="driverLicense">N° licencia:</label>
-      <input id="driverLicense"  type="text" [(ngModel)]="editedDriver.prop_licencia" class="custom-input" />
-    </div>
-    <div class="input-row" style="margin-bottom:5px;">
-      <label for="driverCategory">Categoría:</label>
-      <mat-select id="driverCategory" [(ngModel)]="editedDriver.prop_categoria" class="custom-input">
-        <mat-option *ngFor="let cat of categoryArray" [value]="cat">
-          {{ cat }}
-        </mat-option>
-      </mat-select>
-    </div>
-    <div class="input-row">
-      <label for="driverRevalidationDate">Fecha Revalt.:</label>
-      <input id="driverRevalidationDate"  type="text" [(ngModel)]="editedDriver.prop_fecha_revalidacion" class="custom-input" />
-    </div>
+    <form [formGroup]="driverForm" (ngSubmit)="onSave()">
+      <div class="input-row">
+        <label for="driverName">Nombres:</label>
+        <input id="driverName" formControlName="prop_nombre" type="text" class="custom-input" />
+        <div *ngIf="driverForm.get('prop_nombre')?.hasError('required')" class="error-message">
+          El nombre es obligatorio.
+        </div>
+        <div *ngIf="driverForm.get('prop_nombre')?.hasError('pattern')" class="error-message">
+          El nombre no debe contener números.
+        </div>
+      </div>
+      <div class="input-row">
+        <label for="driverLastName">Apellidos:</label>
+        <input id="driverLastName" formControlName="prop_apellidos" type="text" class="custom-input" />
+        <div *ngIf="driverForm.get('prop_apellidos')?.hasError('required')" class="error-message">
+          Los apellidos son obligatorios.
+        </div>
+        <div *ngIf="driverForm.get('prop_apellidos')?.hasError('pattern')" class="error-message">
+          El nombre no debe contener números.
+        </div>
+      </div>
+      <div class="input-row">
+        <label for="driverLicense">N° licencia:</label>
+        <input id="driverLicense" formControlName="prop_licencia" type="text" class="custom-input" />
+        <div *ngIf="driverForm.get('prop_licencia')?.hasError('required')" class="error-message">
+          El número de licencia es obligatorio.
+        </div>
+        <div *ngIf="driverForm.get('prop_licencia')?.hasError('pattern')" class="error-message">
+          La licencia se compone de una letra y 8 números.
+        </div>
+      </div>
+      <div class="input-row" style="margin-bottom:5px;">
+        <label for="driverCategory">Categoría:</label>
+        <mat-select id="driverCategory" formControlName="prop_categoria" class="custom-input">
+          <mat-option *ngFor="let cat of categoryArray" [value]="cat">
+            {{ cat }}
+          </mat-option>
+        </mat-select>
+        <div *ngIf="driverForm.get('prop_categoria')?.hasError('required')" class="error-message">
+          Seleccione una categoría.
+        </div>
+      </div>
+      <div class="input-row">
+        <label for="driverRevalidationDate">Fecha Revalt:</label>
+        <input id="driverRevalidationDate" formControlName="prop_fecha_revalidacion" type="text" class="custom-input" />
+        <div *ngIf="driverForm.get('prop_fecha_revalidacion')?.hasError('required')" class="error-message">
+          La fecha de revalidación es obligatoria.
+        </div>
+        <div *ngIf="driverForm.get('prop_fecha_revalidacion')?.hasError('pattern')" class="error-message">
+          Debe tener el formato aaaa-mm-dd, con guiones
+        </div>
+      </div>
+    </form>
   </div>
   <div class="button-container">
     <div class="button-wrapper" fxLayout="row" fxLayoutAlign="space-between center">
       <button mat-button class="custom-button cancel-button" fxFlex (click)="onCancel()">Cancelar</button>
-      <button mat-button class="custom-button save-button" fxFlex color="primary" (click)="onSave()">
+      <button mat-button class="custom-button save-button" fxFlex color="primary" [disabled]="!driverForm.valid" (click)="onSave()">
         {{ isEditMode ? 'Guardar' : 'Añadir' }}
       </button>
     </div>
