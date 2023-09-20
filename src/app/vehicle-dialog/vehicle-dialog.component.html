@@ -83,12 +83,13 @@
       </div>
       <div class="input-row">
         <label for="vehicleSeats">N° asientos:</label>
-        <input id="vehicleSeats" type="text" formControlName="veh_nro_asientos" class="custom-input" />
+        <mat-select id="vehicleSeats" type="text" formControlName="veh_nro_asientos" class="custom-input">
+          <mat-option *ngFor="let option of nroAsientosOptions" [value]="option" [disabled]="shouldDisableNroAsiento(option)">
+            {{ option }}
+          </mat-option>
+        </mat-select>
         <div *ngIf="vehiclesForm.get('veh_nro_asientos')?.hasError('required')" class="error-message">
-          El numero de asientos es obligatorio.
-        </div>
-        <div *ngIf="vehiclesForm.get('veh_nro_asientos')?.hasError('pattern')" class="error-message">
-          Solo se permiten números, máx. 1 digito.
+          Seleccione un valor.
         </div>
       </div>
     </form>

@@ -24,6 +24,9 @@ export class VehicleDialogComponent implements OnInit{
   arrayOwners: string[] = [];
   arrayDestination: string[] = [];
   categoryArray: string[] = ["M1", "N1"];
+  nroAsientosOptions: number[] = [4, 6];
+  selectedM1: string = '';
+
 
   constructor(public dialogRef: MatDialogRef<VehicleDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: Vehicule,
   private vehiculeService: VehiculesService, private ownerService: OwnerService,
@@ -41,6 +44,7 @@ export class VehicleDialogComponent implements OnInit{
     this.getDestination();
     this.createForm();
   }
+
   createForm() {
     this.vehiclesForm = this.formBuilder.group({
       veh_placa: [
@@ -76,7 +80,20 @@ export class VehicleDialogComponent implements OnInit{
         [Validators.required, Validators.pattern(/^[0-9]{1}$/)]
       ],
     });
+  }
+  
+  shouldDisableNroAsiento(option: number): boolean {
+
+    this.selectedM1 = this.vehiclesForm.get('veh_categoria')?.value;
+
+    if (this.selectedM1 === 'M1') {
+      return false;
+    } else if (this.selectedM1 === 'N1') {
+      return option !== 4;
     }
+    
+    return false;
+  }
 
   onSave(): void {
     if (this.vehiclesForm.valid) {
