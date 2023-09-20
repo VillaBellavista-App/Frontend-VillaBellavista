@@ -94,7 +94,7 @@
   color: #282A37;
 }
 .error-message {
-  color: darkred;
+  color: rgb(195, 2, 2);
   font-size: 0.8rem;
   font-weight: 300;
   margin-top: -0.1rem;

@@ -50,12 +50,12 @@ export class GraphicsComponent implements OnInit {
       {
         data: [],
         backgroundColor: [
-          'rgb(36,79,243)',
-          'rgb(101,232,49)',
-          'rgb(234,125,66)',
-          'rgb(234,52,91)',
-          'rgb(43,165,248)',
-          'rgb(248,196,67)',
+          'rgb(36, 79, 243)', //AZUL
+          'rgb(104, 226, 48)', //VERDE
+          'rgb(234, 125, 66)', //NARANJA
+          'rgb(234, 52, 26)', //ROJO
+          'rgb(43, 165, 248)', //CELESTE
+          'rgb(255, 190, 0)', //AMARILLO
         ], // Colores para las secciones del donut
       },
     ],
