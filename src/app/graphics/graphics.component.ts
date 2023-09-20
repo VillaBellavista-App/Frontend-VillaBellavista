@@ -4,7 +4,7 @@ import { DestinationService } from '../services/destination.service';
 import { TicketService } from '../services/ticket.service';
 import { Ticket } from '../models/ticket';
 import { TicketCountItem } from '../models/ticketCount';
-import {forkJoin, tap} from 'rxjs';
+import { forkJoin, tap } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 @Component({
@@ -26,9 +26,14 @@ export class GraphicsComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.getDestination();
-    this.countTickets();
-    this.countTicketPerMonth();
+    forkJoin([this.getDestination(), this.countTickets()]).subscribe(
+      ([destinations, ticketData]) => {
+        // Procesar los datos después de que ambas llamadas hayan completado
+        this.chartData.labels = destinations.map((d) => d.des_nombre);
+        // Aquí puedes procesar los datos de los tickets si es necesario
+        this.countTicketPerMonth();
+      }
+    );
   }
 
   public chartType: ChartType = 'doughnut';
@@ -40,24 +45,17 @@ export class GraphicsComponent implements OnInit {
     },
   };
   public chartData: ChartData = {
-    labels: [
-      'Saposoa',
-      'Consuelo',
-      'Nuevo Lima',
-      'Bellavista',
-      'Barranco',
-      'Juanjui',
-    ],
+    labels: [],
     datasets: [
       {
         data: [],
         backgroundColor: [
-          'red',
-          'blue',
-          'green',
-          'orange',
-          'purple',
-          'yellow',
+          'rgb(36,79,243)',
+          'rgb(101,232,49)',
+          'rgb(234,125,66)',
+          'rgb(234,52,91)',
+          'rgb(43,165,248)',
+          'rgb(248,196,67)',
         ], // Colores para las secciones del donut
       },
     ],
@@ -123,40 +121,6 @@ export class GraphicsComponent implements OnInit {
     },
   };
 
-  countTickets() {
-    this.ticketService.getAll().subscribe((tickets: Ticket[]) => {
-      const ticketCountsByDestino: { [key: string]: number } = {};
-
-      // Contar los tickets por destino
-      tickets.forEach((ticket) => {
-        if (ticketCountsByDestino[ticket.tic_destino]) {
-          ticketCountsByDestino[ticket.tic_destino]++;
-        } else {
-          ticketCountsByDestino[ticket.tic_destino] = 1;
-        }
-      });
-
-      // Filtrar los destinos con conteo mayor que cero
-      const destinosConTickets = Object.keys(ticketCountsByDestino).filter(
-        (destino) => ticketCountsByDestino[destino] > 0
-      );
-
-      // Actualizar el chartData
-      this.chartData.labels = destinosConTickets;
-      this.chartData.datasets[0].data = destinosConTickets.map(
-        (destino) => ticketCountsByDestino[destino]
-      );
-      this.chartData.datasets[0].backgroundColor = [
-        'red',
-        'blue',
-        'green',
-        'orange',
-        'purple',
-        'grey',
-      ];
-    });
-  }
-
   toggleTab(tabIndex: number, e: MouseEvent): void {
     const line = this.line.nativeElement as HTMLElement;
 
@@ -178,12 +142,17 @@ export class GraphicsComponent implements OnInit {
       })
     );
   }
+
   countTickets() {
     return this.ticketService.getAll().pipe(
       map((tickets: Ticket[]) => {
         const destinationCounts: { [key: string]: number } = {};
         console.log('countTickets');
         console.log(tickets);
+
+        // Crear un array de objetos con todos los labels (destinos) posibles
+        const allLabels = ['Saposoa', 'Nuevo Lima', 'Bellavista', 'Barranca', 'Consuelo', 'Juanjui'];
+
         for (const ticket of tickets) {
           const destination = ticket.tic_destino;
           if (destinationCounts[destination]) {
@@ -192,9 +161,6 @@ export class GraphicsComponent implements OnInit {
             destinationCounts[destination] = 1;
           }
         }
-        //Saposoa Nuevo Lima Bellavista Barranca Consuelo Juanjui
-        // Crear un array de objetos con todos los labels (destinos) posibles
-        const allLabels = ['Saposoa', 'Nuevo Lima', 'Bellavista', 'Barranca', 'Consuelo', 'Juanjui'];
 
         const resultArray = [];
         for (const label of allLabels) {
