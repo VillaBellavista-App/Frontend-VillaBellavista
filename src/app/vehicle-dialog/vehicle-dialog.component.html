@@ -56,7 +56,7 @@
         <div *ngIf="vehiclesForm.get('veh_modelo')?.hasError('required')" class="error-message">
           El modelo es obligatorio.
         </div>
-        <div *ngIf="vehiclesForm.get('veh_marca')?.hasError('pattern')" class="error-message">
+        <div *ngIf="vehiclesForm.get('veh_modelo')?.hasError('pattern')" class="error-message">
           Solo se permiten letras.
         </div>
       </div>
@@ -66,7 +66,7 @@
         <div *ngIf="vehiclesForm.get('veh_anio_fabricacion')?.hasError('required')" class="error-message">
           El año de fab. es obligatorio.
         </div>
-        <div *ngIf="vehiclesForm.get('veh_marca')?.hasError('pattern')" class="error-message">
+        <div *ngIf="vehiclesForm.get('veh_anio_fabricacion')?.hasError('pattern')" class="error-message">
           Solo se permiten números de 4 digitos.
         </div>
       </div>
