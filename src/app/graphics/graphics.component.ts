@@ -26,14 +26,9 @@ export class GraphicsComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    forkJoin([this.getDestination(), this.countTickets()]).subscribe(
-      ([destinations, ticketData]) => {
-        // Procesar los datos después de que ambas llamadas hayan completado
-        this.chartData.labels = destinations.map((d) => d.des_nombre);
-        // Aquí puedes procesar los datos de los tickets si es necesario
-        this.countTicketPerMonth();
-      }
-    );
+    this.getDestination();
+    this.countTickets();
+    this.countTicketPerMonth();
   }
 
   public chartType: ChartType = 'doughnut';
@@ -45,7 +40,14 @@ export class GraphicsComponent implements OnInit {
     },
   };
   public chartData: ChartData = {
-    labels: [],
+    labels: [
+      'Saposoa',
+      'Consuelo',
+      'Nuevo Lima',
+      'Bellavista',
+      'Barranco',
+      'Juanjui',
+    ],
     datasets: [
       {
         data: [],
@@ -120,6 +122,40 @@ export class GraphicsComponent implements OnInit {
       },
     },
   };
+
+  countTickets() {
+    this.ticketService.getAll().subscribe((tickets: Ticket[]) => {
+      const ticketCountsByDestino: { [key: string]: number } = {};
+
+      // Contar los tickets por destino
+      tickets.forEach((ticket) => {
+        if (ticketCountsByDestino[ticket.tic_destino]) {
+          ticketCountsByDestino[ticket.tic_destino]++;
+        } else {
+          ticketCountsByDestino[ticket.tic_destino] = 1;
+        }
+      });
+
+      // Filtrar los destinos con conteo mayor que cero
+      const destinosConTickets = Object.keys(ticketCountsByDestino).filter(
+        (destino) => ticketCountsByDestino[destino] > 0
+      );
+
+      // Actualizar el chartData
+      this.chartData.labels = destinosConTickets;
+      this.chartData.datasets[0].data = destinosConTickets.map(
+        (destino) => ticketCountsByDestino[destino]
+      );
+      this.chartData.datasets[0].backgroundColor = [
+        'red',
+        'blue',
+        'green',
+        'orange',
+        'purple',
+        'grey',
+      ];
+    });
+  }
 
   toggleTab(tabIndex: number, e: MouseEvent): void {
     const line = this.line.nativeElement as HTMLElement;
