@@ -4,7 +4,7 @@ import { DestinationService } from '../services/destination.service';
 import { TicketService } from '../services/ticket.service';
 import { Ticket } from '../models/ticket';
 import { TicketCountItem } from '../models/ticketCount';
-import { forkJoin } from 'rxjs';
+import {forkJoin, tap} from 'rxjs';
 import { map } from 'rxjs/operators';
 
 @Component({
@@ -38,6 +38,12 @@ export class GraphicsComponent implements OnInit {
 
   public chartType: ChartType = 'doughnut';
 
+  public chartOptions: any = {
+    responsive: true,
+    legend: {
+      display: true,
+    },
+  };
   public chartData: ChartData = {
     labels: [],
     datasets: [
@@ -49,7 +55,7 @@ export class GraphicsComponent implements OnInit {
           'green',
           'orange',
           'purple',
-          'grey',
+          'yellow',
         ], // Colores para las secciones del donut
       },
     ],
@@ -130,14 +136,18 @@ export class GraphicsComponent implements OnInit {
   }
 
   getDestination() {
-    return this.destinationService.getAll();
+    return this.destinationService.getAll().pipe(
+      tap((destinations) => {
+        console.log(destinations); // Agrega esta línea para verificar los datos
+      })
+    );
   }
-
   countTickets() {
     return this.ticketService.getAll().pipe(
       map((tickets: Ticket[]) => {
         const destinationCounts: { [key: string]: number } = {};
-
+        console.log('countTickets');
+        console.log(tickets);
         for (const ticket of tickets) {
           const destination = ticket.tic_destino;
           if (destinationCounts[destination]) {
@@ -146,19 +156,23 @@ export class GraphicsComponent implements OnInit {
             destinationCounts[destination] = 1;
           }
         }
+        //Saposoa Nuevo Lima Bellavista Barranca Consuelo Juanjui
+        // Crear un array de objetos con todos los labels (destinos) posibles
+        const allLabels = ['Saposoa', 'Nuevo Lima', 'Bellavista', 'Barranca', 'Consuelo', 'Juanjui'];
 
         const resultArray = [];
-        for (const destination in destinationCounts) {
+        for (const label of allLabels) {
+          const count = destinationCounts[label] || 0; // Asignar 0 si no hay datos
           resultArray.push({
-            destination: destination,
-            count: destinationCounts[destination],
+            destination: label,
+            count: count,
           });
         }
 
         // Actualizar los datos del gráfico
         this.chartData.labels = resultArray.map((item) => item.destination);
         this.chartData.datasets[0].data = resultArray.map((item) => item.count);
-
+        console.log(this.chartData.datasets[0].data);
         return resultArray;
       })
     );
@@ -179,7 +193,6 @@ export class GraphicsComponent implements OnInit {
   countTicketPerMonth() {
     this.ticketService.countTicketPerMonth().subscribe((data) => {
       this.ticketCounts = data;
-      console.log(this.ticketCounts);
       this.totalEarnings = this.calculateTotalEarnings(data);
       this.dataLoaded = true;
       this.updateChartData();
