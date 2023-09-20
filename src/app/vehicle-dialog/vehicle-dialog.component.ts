@@ -73,7 +73,7 @@ export class VehicleDialogComponent implements OnInit{
       ],
       veh_nro_asientos: [
         this.editedVehicle.veh_nro_asientos,
-        [Validators.required, Validators.pattern(/^[0-9]{1,3}$/)]
+        [Validators.required, Validators.pattern(/^[0-9]{1}$/)]
       ],
     });
     }

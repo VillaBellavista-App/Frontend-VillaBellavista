@@ -1,17 +1,18 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {ChartData, ChartType } from 'chart.js';
-import {DestinationService} from '../services/destination.service';
-import {TicketService} from '../services/ticket.service';
-import {Ticket} from '../models/ticket';
-import {TicketCountItem} from '../models/ticketCount';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { ChartData, ChartType } from 'chart.js';
+import { DestinationService } from '../services/destination.service';
+import { TicketService } from '../services/ticket.service';
+import { Ticket } from '../models/ticket';
+import { TicketCountItem } from '../models/ticketCount';
+import { forkJoin } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-graphics',
   templateUrl: './graphics.component.html',
-  styleUrls: ['./graphics.component.css']
+  styleUrls: ['./graphics.component.css'],
 })
-
-export class GraphicsComponent implements OnInit{
+export class GraphicsComponent implements OnInit {
   dataLoaded: boolean = false;
   tabContentsVisibility: boolean[] = [true, false];
   @ViewChild('line', { static: true }) line!: ElementRef;
@@ -19,31 +20,58 @@ export class GraphicsComponent implements OnInit{
   totalEarnings: number | undefined;
   ticketCounts: TicketCountItem[] = [];
 
-  constructor(private destinationService: DestinationService, private ticketService: TicketService) {
-    this.getDestination();
-    this.countTickets();
-    this.countTicketPerMonth();
-  }
+  constructor(
+    private destinationService: DestinationService,
+    private ticketService: TicketService
+  ) {}
+
   ngOnInit() {
-    this.getDestination();
-    this.countTickets();
-    this.countTicketPerMonth();
+    forkJoin([this.getDestination(), this.countTickets()]).subscribe(
+      ([destinations, ticketData]) => {
+        // Procesar los datos después de que ambas llamadas hayan completado
+        this.chartData.labels = destinations.map((d) => d.des_nombre);
+        // Aquí puedes procesar los datos de los tickets si es necesario
+        this.countTicketPerMonth();
+      }
+    );
   }
 
   public chartType: ChartType = 'doughnut';
 
   public chartData: ChartData = {
     labels: [],
-    datasets: [{
-      data: [],
-      backgroundColor: ['red', 'blue', 'green', 'orange', 'purple', 'grey'], // Colores para las secciones del donut
-    }]
+    datasets: [
+      {
+        data: [],
+        backgroundColor: [
+          'red',
+          'blue',
+          'green',
+          'orange',
+          'purple',
+          'grey',
+        ], // Colores para las secciones del donut
+      },
+    ],
   };
 
   public chartType2: ChartType = 'line';
 
   public chartData2: ChartData = {
-    labels: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+    labels: [
+      'Ene',
+      'Feb',
+      'Mar',
+      'Abr',
+      'May',
+      'Jun',
+      'Jul',
+      'Ago',
+      'Sep',
+      'Oct',
+      'Nov',
+      'Dic',
+    ],
     datasets: [
       {
         label: 'Ventas',
@@ -53,38 +81,38 @@ export class GraphicsComponent implements OnInit{
         pointBorderColor: '#228CE8',
         pointRadius: 6,
         pointBackgroundColor: 'white',
-        fill: false
-      }
-    ]
+        fill: false,
+      },
+    ],
   };
 
   public chartOptions2: any = {
     responsive: true,
     plugins: {
       legend: {
-        display: false
-      }
+        display: false,
+      },
     },
     scales: {
       x: {
         ticks: {
-          color: '#BABABA',// Cambiar el color de fuente del eje X
+          color: '#BABABA', // Cambiar el color de fuente del eje X
           font: {
-            size: 18,// Cambiar el tamaño de fuente del eje X
+            size: 18, // Cambiar el tamaño de fuente del eje X
             weight: 600,
-          }
-        }
+          },
+        },
       },
       y: {
         ticks: {
           color: '#BABABA',
           font: {
-            size: 18,// Cambiar el tamaño de fuente del eje X
+            size: 18, // Cambiar el tamaño de fuente del eje X
             weight: 600,
-          }
-        }
-      }
-    }
+          },
+        },
+      },
+    },
   };
 
   toggleTab(tabIndex: number, e: MouseEvent): void {
@@ -96,41 +124,44 @@ export class GraphicsComponent implements OnInit{
     }
 
     this.activeTab = tabIndex;
-    this.tabContentsVisibility = this.tabContentsVisibility.map((_, index) => index === tabIndex);
-
+    this.tabContentsVisibility = this.tabContentsVisibility.map(
+      (_, index) => index === tabIndex
+    );
   }
 
-  getDestination(){
-    this.destinationService.getAll().subscribe((destinations) => {
-      console.log(destinations);
-      this.chartData.labels = destinations.map((d) => d.des_nombre);
-    });
+  getDestination() {
+    return this.destinationService.getAll();
   }
 
   countTickets() {
-    this.ticketService.getAll().subscribe((tickets: Ticket[]) => {
-      const destinationCounts: { [key: string]: number } = {};
+    return this.ticketService.getAll().pipe(
+      map((tickets: Ticket[]) => {
+        const destinationCounts: { [key: string]: number } = {};
 
-      for (const ticket of tickets) {
-        const destination = ticket.tic_destino;
-        if (destinationCounts[destination]) {
-          destinationCounts[destination]++;
-        } else {
-          destinationCounts[destination] = 1;
+        for (const ticket of tickets) {
+          const destination = ticket.tic_destino;
+          if (destinationCounts[destination]) {
+            destinationCounts[destination]++;
+          } else {
+            destinationCounts[destination] = 1;
+          }
         }
-      }
 
-      const resultArray = [];
-      for (const destination in destinationCounts) {
-        resultArray.push({ destination: destination, count: destinationCounts[destination] });
-      }
+        const resultArray = [];
+        for (const destination in destinationCounts) {
+          resultArray.push({
+            destination: destination,
+            count: destinationCounts[destination],
+          });
+        }
 
-      // Actualizar los datos del gráfico
-      this.chartData.labels = resultArray.map(item => item.destination);
-      this.chartData.datasets[0].data = resultArray.map(item => item.count);
+        // Actualizar los datos del gráfico
+        this.chartData.labels = resultArray.map((item) => item.destination);
+        this.chartData.datasets[0].data = resultArray.map((item) => item.count);
 
-      //console.log(resultArray); // Aquí puedes hacer lo que necesites con los resultados
-    });
+        return resultArray;
+      })
+    );
   }
 
   updateChartData() {
@@ -145,11 +176,10 @@ export class GraphicsComponent implements OnInit{
     }
   }
 
-
   countTicketPerMonth() {
-    this.ticketService.countTicketPerMonth().subscribe(data => {
+    this.ticketService.countTicketPerMonth().subscribe((data) => {
       this.ticketCounts = data;
-      console.log(this.ticketCounts)
+      console.log(this.ticketCounts);
       this.totalEarnings = this.calculateTotalEarnings(data);
       this.dataLoaded = true;
       this.updateChartData();
@@ -157,7 +187,9 @@ export class GraphicsComponent implements OnInit{
   }
 
   calculateTotalEarnings(ticketCounts: TicketCountItem[]): number {
-    return ticketCounts.reduce((total, item) => total + item.total_earnings, 0);
+    return ticketCounts.reduce(
+      (total, item) => total + item.total_earnings,
+      0
+    );
   }
 }
-
